@@ -18,7 +18,7 @@ public class RegistrationAppServiceImpl implements RegistrationAppService {
     @Override
     public boolean isEmailAndPasswordValid(String email, String password) {
         Optional<AppUser> userByEmail = appUserDao.getAppUserByEmail(email);
-        if (appUserDao.getAppUserByEmail(email)==null) {
+        if (userByEmail.isEmpty()) {
             return false;
         }
         String passFromDB = userByEmail.get().getPassword();
