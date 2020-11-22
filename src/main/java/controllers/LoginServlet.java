@@ -25,16 +25,6 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-//        AppUser user = AppUser.UserBuilder
-//                .getBuilder()
-//                .email("admin")
-//                .password("admin")
-//                .fistName("admin")
-//                .password("admin")
-//                .admin(true)
-//                .build();
-//
-//        service.addUser(user);
         service = new RegistrationAppServiceImpl(new MySqlUserDao());
     }
 
