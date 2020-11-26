@@ -10,6 +10,7 @@ public class ValidationError {
         this.message = message;
     }
 
+
     public String getMessage() {
         return message;
     }

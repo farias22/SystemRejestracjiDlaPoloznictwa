@@ -16,7 +16,7 @@ public class Patient {
     @CreationTimestamp()
     private Date registrationDate;
     private Date hospitalizationDate;
-    private int pragnancyAge;
+    private int pregnancyAge;
     private String firstName;
     private String lastName;
     private boolean foreigner;
@@ -28,6 +28,7 @@ public class Patient {
     private String refferingDoctor;
     private String prescribingDoctor;
     private String comment;
+    private boolean isActive;
 
     public Long getId() {
         return id;
@@ -53,12 +54,12 @@ public class Patient {
         this.hospitalizationDate = hospitalizationDate;
     }
 
-    public int getPragnancyAge() {
-        return pragnancyAge;
+    public int getPregnancyAge() {
+        return pregnancyAge;
     }
 
-    public void setPragnancyAge(int pragnancyAge) {
-        this.pragnancyAge = pragnancyAge;
+    public void setPregnancyAge(int pragnancyAge) {
+        this.pregnancyAge = pragnancyAge;
     }
 
     public String getFirstName() {
@@ -148,4 +149,131 @@ public class Patient {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public static class PatientBuilder {
+
+
+        private Date hospitalizationDate;
+        private int pragnancyAge;
+        private String firstName;
+        private String lastName;
+        private boolean foreigner;
+        private String pesel;
+        private String phoneNumber;
+        private boolean scheludedRegistration;
+        private String diagnosis;
+        private Date lastPeriodDate;
+        private String refferingDoctor;
+        private String prescribingDoctor;
+        private String comment;
+        private boolean isActive;
+
+        public static PatientBuilder getBuilder() {
+            return new PatientBuilder();
+        }
+
+        public PatientBuilder hospitalizationDate() {
+            // SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+            Date date = new Date(System.currentTimeMillis());
+            this.hospitalizationDate = date;
+            return this;
+        }
+
+        public PatientBuilder pragnancyAge(int pragnancyAge) {
+            this.pragnancyAge = pragnancyAge;
+            return this;
+        }
+
+        public PatientBuilder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public PatientBuilder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public PatientBuilder foreigner(boolean foreigner) {
+            this.foreigner = foreigner;
+            return this;
+        }
+
+        public PatientBuilder pesel(String pesel) {
+            this.pesel = pesel;
+            return this;
+        }
+
+        public PatientBuilder phoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public PatientBuilder scheludedRegistration(boolean scheludedRegistration) {
+            this.scheludedRegistration = scheludedRegistration;
+            return this;
+        }
+
+        public PatientBuilder diagnosis(String diagnosis) {
+            this.diagnosis = diagnosis;
+            return this;
+        }
+
+        public PatientBuilder lastPeriodDate() {
+            Date date = new Date(System.currentTimeMillis());
+            this.lastPeriodDate = date;
+            return this;
+        }
+
+        public PatientBuilder refferingDoctor(String refferingDoctor) {
+            this.refferingDoctor = refferingDoctor;
+            return this;
+        }
+
+        public PatientBuilder prescribingDoctor(String prescribingDoctor) {
+            this.prescribingDoctor = prescribingDoctor;
+            return this;
+        }
+
+        public PatientBuilder comment(String comment) {
+            this.comment = comment;
+            return this;
+        }
+        public PatientBuilder isActive() {
+            this.isActive = true;
+            return this;
+        }
+
+
+        public Patient build() {
+            Patient patient = new Patient();
+            patient.setHospitalizationDate(this.hospitalizationDate);
+            patient.setPregnancyAge(this.pragnancyAge);
+            patient.setFirstName(this.firstName);
+            patient.setLastName(this.lastName);
+            patient.setForeigner(this.foreigner);
+            patient.setPesel(patient.isForeigner() ? "-" : this.pesel);
+            patient.setPhoneNumber(this.phoneNumber);
+            patient.setScheludedRegistration(this.scheludedRegistration);
+            patient.setDiagnosis(this.diagnosis);
+            patient.setLastPeriodDate(this.lastPeriodDate);
+            patient.setRefferingDoctor(this.refferingDoctor);
+            patient.setPrescribingDoctor(this.prescribingDoctor);
+            patient.setComment(this.comment);
+            patient.setActive(this.isActive);
+            return patient;
+        };
+
+    }
+
+
 }

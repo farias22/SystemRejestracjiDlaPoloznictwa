@@ -26,7 +26,7 @@
         <hr>
         <c:if test="${errors != null}">
             <c:forEach items="${errors}" var="error">
-                <div class="alert alert-warning">
+                <div class="alert alert-danger">
                     <strong>${error.header}</strong> <br>
                     <p>${error.message}<p>
                 </div>
@@ -38,7 +38,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
-                    <input name="login" class="form-control" placeholder="email" type="text" required>
+                    <input name="email" class="form-control" placeholder="email" autocomplete="off" type="text" required>
                 </div>
             </div>
             <div class="form-group">
@@ -46,7 +46,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
-                    <input name="password" class="form-control" placeholder="hasło" type="password" required>
+                    <input name="password" class="form-control" placeholder="hasło" autocomplete="new-password" type="password" required>
                 </div>
             </div>
             <div class="form-group">

@@ -8,7 +8,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.Optional;
 
-public class MySqlUserDao extends AbstractSqlDao implements AppUserDao {
+public class MySQLUserDao extends AbstractSqlDao implements AppUserDao {
 
 
     @Override

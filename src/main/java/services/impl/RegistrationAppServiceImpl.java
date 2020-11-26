@@ -26,6 +26,15 @@ public class RegistrationAppServiceImpl implements RegistrationAppService {
     }
 
     @Override
+    public boolean isEmailExsist(String email) {
+        Optional<AppUser> userByEmail = appUserDao.getAppUserByEmail(email);
+        if (userByEmail.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public void addUser(AppUser appUser) {
         appUserDao.saveUser(appUser);
     }
