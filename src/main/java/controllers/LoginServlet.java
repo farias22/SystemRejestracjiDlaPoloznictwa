@@ -25,6 +25,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         service = new RegistrationAppServiceImpl(new MySQLUserDao());
+
 //        AppUserDao dao = new MySQLUserDao();
 //        AppUser user = AppUser.UserBuilder.getBuilder()
 //                .fistName("admin")
@@ -62,6 +63,9 @@ public class LoginServlet extends HttpServlet {
 
         String email = req.getParameter(ServletUtils.USER_EMAIL);
         String password = req.getParameter(ServletUtils.USER_PASSWORD);
+        boolean userIsAdmin = service.isUserIsAdmin(email);
+        req.setAttribute(ServletUtils.IS_USER_IS_ADMIN, userIsAdmin);
+
 
         if (email == null && password == null) {
             email = (String) req.getAttribute(ServletUtils.USER_EMAIL);
@@ -91,6 +95,7 @@ public class LoginServlet extends HttpServlet {
 //        }
 //      req.getSession().setAttribute(ServletUtils.USER_EMAIL, email);
         req.setAttribute(ServletUtils.USER_EMAIL, email);
+
         req.getRequestDispatcher("patientList").forward(req, resp);
     }
 

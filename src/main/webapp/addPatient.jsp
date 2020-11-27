@@ -23,11 +23,8 @@
         .blue {
             background-color: #1bec84 !important;
         }
-        textarea
-        {
-            resize:vertical;
-            width: 300px; !important;
-        }
+
+
 
     </style>
 </head>
@@ -45,6 +42,8 @@
                 </div>
             </c:forEach>
         </c:if>
+
+
         <form action="addPatient" method="POST">
             <div class="form-group">
                 <div class="input-group">
@@ -114,6 +113,23 @@
                     <input name="lastPeriodDate" class="form-control" type="date" required>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="col-sm-2 col-form-label">Wiek ciąży w dniu przyjęcia</label>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" value="40">
+                        <% for( int i=30; i<=39; i++) { %>
+                        <option value="<%=i %>"><%=i %> <option/>
+                        <% } %>
+                        <option selected value="40">40</option>
+                        <% for( int i=41; i<=50; i++) { %>
+                        <option value="<%=i %>"><%=i %> <option/>
+                        <% } %>
+                    </select>
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="input-group">
@@ -137,7 +153,6 @@
             </div>
 
 
-
             <div class="form-group">
                 <div class="input-group">
                     <label class="col-sm-2 col-form-label">Komentarz</label>
@@ -151,6 +166,15 @@
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block blue"> Dodaj</button>
+            </div>
+            <div>
+                <button onclick="goBack()" class="btn btn-primary btn-block blue">Anuluj i wróć</button>
+
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
             </div>
     </div>
     </form>

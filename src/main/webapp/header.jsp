@@ -38,14 +38,19 @@
     </div>
     <div class="lh-100">
         <h6 class="mb-0 lh-100 tab">
-            <a class="text-white" href="users">Wyszukaj pacjentkę</a>
+            <a class="text-white" href="addUser">Wyszukaj pacjentkę</a>
         </h6>
     </div>
-    <div class="lh-100">
-        <h6 class="mb-0 lh-100 tab">
-            <a class="text-white" href="users">Dodaj użytkownika</a>
-        </h6>
-    </div>
+
+    <c:if test="${idAdmin}">
+        <div class="lh-100">
+            <h6 class="mb-0 lh-100 tab">
+                <a class="text-white" href="addUser">Dodaj użytkownika</a>
+            </h6>
+        </div>
+    </c:if>
+
+
     <div class="lh-100 ml-auto">
         <h6 class="mb-0 lh-100" style="text-align: right">
             <a class="text-white" href="logout">Jesteś zalogowany jako:<br>${userFullName}</a>

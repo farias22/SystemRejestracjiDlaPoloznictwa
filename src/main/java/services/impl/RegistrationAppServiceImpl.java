@@ -48,4 +48,22 @@ public class RegistrationAppServiceImpl implements RegistrationAppService {
         }
         return loggedUser.get().getFistName()+" "+loggedUser.get().getLastName();
     }
+
+    @Override
+    public boolean isUserIsAdmin(String email) {
+        Optional<AppUser> loggedUser= appUserDao.getAppUserByEmail(email);
+        if (loggedUser.isEmpty()){
+            return false;
+        }
+        return loggedUser.get().isAdmin();
+    }
+
+    @Override
+    public boolean domainAvailable(String email) {
+        Optional<AppUser> loggedUser= appUserDao.getAppUserByEmail(email);
+        if (loggedUser.isEmpty()){
+            return true;
+        }
+        return false;
+    }
 }

@@ -23,6 +23,8 @@
         .box-shadow {
             box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
         }
+
+
     </style>
 </head>
 <body>
@@ -50,6 +52,7 @@
                 <td>Lekarz kierujący</td>
                 <td>Lekarz zapisujący</td>
                 <td>Komentarz</td>
+                <td>Działania</td>
             </tr>
 
             <c:forEach items="${patientList}" var="patientList">
@@ -67,12 +70,13 @@
                         </c:if>
                         <c:if test="${!patientList.scheludedRegistration}">NIE
                         </c:if>
-                    </td>>
+                    </td>
                     <td>${patientList.diagnosis}</td>
                     <td><fmt:formatDate value="${patientList.lastPeriodDate}" pattern="yyyy-MM-dd"/></td>
                     <td>${patientList.refferingDoctor}</td>
                     <td>${patientList.prescribingDoctor}</td>
                     <td>${patientList.comment}</td>
+                    <td><button id="delete&patientList.id" class="btn btn-warning" style="color: white; font-size: 14px">Usuń</button></td>
                 </tr>
 
             </c:forEach>

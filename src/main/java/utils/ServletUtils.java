@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ServletUtils {
 
     public static final String ERRORS_ATTRIBUTE_NAME = "errors";
+    public static final String CREATING_NEW_USER_ERROR = "creatingNewUserError";
     public static final String USER_FULL_NAME = "userFullName";
     public static final String PATIENT_FIRST_NAME = "firstName";
     public static final String PATIENT_LAST_NAME = "lastName";
@@ -17,6 +18,17 @@ public class ServletUtils {
     public static final String PATIENT_REFFERING_DOCTOR = "refferingDoctor";
     public static final String PATIENT_PRESCRIBING_DOCTOR = "prescribingDoctor";
     public static final String PATIENT_COMMENT = "comment";
+    public static final String PATIENT_PREGNENCY_AGE = "pragnancyAge";
+    public static final String IS_USER_IS_ADMIN = "idAdmin";
+
+
+
+    public static final String USER_FIRST_NAME = "userFirstName";
+    public static final String USER_LAST_NAME = "userLastName";
+    public static final String USER_MAIL_REGISTRATION = "userEmail";
+
+    public static final String USER_ADMIN = "userAdmin";
+
 
 
 
@@ -26,6 +38,11 @@ public class ServletUtils {
     public static final String CHECKBOX_CHECKED = "on";
     public static final String LOGIN_ERROR_HEADER = "INVALID LOGIN";
     public static final String EMAIL_ERROR_HEADER = "Nieprawidłowy adres e-mail";
+
+    public static final String EMAIL_IN_USE = "Błąd tworzenia konta";
+    public static final String EMAIL_IN_USE_MESSAGE = "Wybrany adres jest już w użyciu";
+
+
     public static final String EMAIL_ERROR_MESSAGE = "Użytkownik o podanym adresie e-mail nie istnieje";
     public static final String PASSWORD_ERROR_HEADER = "Nieprawidłowe hasło";
     public static final String PASSWORD_ERROR_MESSAGE = "Hasło dla wprowadzonego użytkownika jest nieprawidłowe";

@@ -12,4 +12,8 @@ public interface RegistrationAppService {
 
     String getUserNameFromEmail(String email);
 
+    boolean isUserIsAdmin(String email);
+
+    boolean domainAvailable(String email);
+
 }

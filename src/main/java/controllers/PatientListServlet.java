@@ -77,10 +77,12 @@ public class PatientListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+
         List<Patient> patientList = servicePatients.getPatientList();
         String email = (String) req.getAttribute(ServletUtils.USER_EMAIL);
 
         String loggedUser = serviceUser.getUserNameFromEmail(email);
+
 
 
         req.setAttribute(ServletUtils.PATIENT_LIST, patientList);

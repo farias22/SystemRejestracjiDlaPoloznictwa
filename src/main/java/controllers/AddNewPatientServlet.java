@@ -66,6 +66,7 @@ public class AddNewPatientServlet extends HttpServlet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        int pragnancyAge = Integer.valueOf(req.getParameter(ServletUtils.PATIENT_PREGNENCY_AGE));
         String refferingDoctor = req.getParameter(ServletUtils.PATIENT_REFFERING_DOCTOR);
         String prescribingDoctor = req.getParameter(ServletUtils.PATIENT_PRESCRIBING_DOCTOR);
         String comment = req.getParameter(ServletUtils.PATIENT_COMMENT);
@@ -79,14 +80,14 @@ public class AddNewPatientServlet extends HttpServlet {
                 .scheludedRegistration(scheludedRegistration)
                 .diagnosis(diagnosis)
                 .lastPeriodDate(lastPeriodDate)
+                .pragnancyAge(pragnancyAge)
                 .refferingDoctor(refferingDoctor)
                 .prescribingDoctor(prescribingDoctor)
                 .comment(comment)
                 .isActive()
                 .build();
 
-        AppPatientDao dao = new MySQLPatientDao();
-        dao.savePatient(patient);
+        service.save(patient);
 
         req.getRequestDispatcher("patientList").forward(req, resp);
     }
