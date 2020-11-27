@@ -10,4 +10,6 @@ public interface RegistrationAppService {
 
     void addUser(AppUser appUser);
 
+    String getUserNameFromEmail(String email);
+
 }

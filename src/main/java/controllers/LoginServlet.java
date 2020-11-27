@@ -89,7 +89,8 @@ public class LoginServlet extends HttpServlet {
 //        if (isCheckboxChecked(remember)) {
 //            addCookies(resp, email, password);
 //        }
-        req.getSession().setAttribute(ServletUtils.USER_EMAIL, email);
+//      req.getSession().setAttribute(ServletUtils.USER_EMAIL, email);
+        req.setAttribute(ServletUtils.USER_EMAIL, email);
         req.getRequestDispatcher("patientList").forward(req, resp);
     }
 

@@ -1,9 +1,7 @@
 package controllers;
 
 
-
 import dao.AppPatientDao;
-import dao.AppUserDao;
 import dao.impl.MySQLPatientDao;
 import dao.impl.MySQLUserDao;
 import models.AppUser;
@@ -20,8 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -29,12 +25,14 @@ import java.util.List;
 public class PatientListServlet extends HttpServlet {
 
 
-    private PatientListAppService service;
+    private PatientListAppService servicePatients;
+
+    private RegistrationAppService serviceUser;
 
     @Override
     public void init() throws ServletException {
-        service = new PatientListAppServiceImpl(new MySQLPatientDao());
-        AppPatientDao dao = new MySQLPatientDao();
+        servicePatients = new PatientListAppServiceImpl(new MySQLPatientDao());
+        serviceUser = new RegistrationAppServiceImpl(new MySQLUserDao());//       AppPatientDao dao = new MySQLPatientDao();
 //        Patient patient = Patient.PatientBuilder.getBuilder()
 //                .hospitalizationDate()
 //                .comment("komentarz")
@@ -79,9 +77,14 @@ public class PatientListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<Patient> patientList = service.getPatientList();
-        req.setAttribute(ServletUtils.PATIENT_LIST, patientList);
+        List<Patient> patientList = servicePatients.getPatientList();
+        String email = (String) req.getAttribute(ServletUtils.USER_EMAIL);
 
+        String loggedUser = serviceUser.getUserNameFromEmail(email);
+
+
+        req.setAttribute(ServletUtils.PATIENT_LIST, patientList);
+        req.setAttribute(ServletUtils.USER_FULL_NAME, loggedUser);
         req.getRequestDispatcher("/patientList.jsp").forward(req, resp);
 
     }

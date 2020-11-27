@@ -38,4 +38,14 @@ public class RegistrationAppServiceImpl implements RegistrationAppService {
     public void addUser(AppUser appUser) {
         appUserDao.saveUser(appUser);
     }
+
+
+    @Override
+    public String getUserNameFromEmail(String email) {
+        Optional<AppUser> loggedUser= appUserDao.getAppUserByEmail(email);
+        if (loggedUser.isEmpty()){
+            return "";
+        }
+        return loggedUser.get().getFistName()+" "+loggedUser.get().getLastName();
+    }
 }

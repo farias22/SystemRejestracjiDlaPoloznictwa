@@ -32,11 +32,8 @@
 <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-blue rounded box-shadow">
     <img class="mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpBcB-SR28YhSrhVdgja0dPZFzyvL2x_zOaQ&usqp=CAU" alt="" width="48" height="48">
     <div class="lh-100">
-        <h6 class="mb-0 text-white lh-100">${fn:toUpperCase(login)}</h6>
-    </div>
-    <div class="lh-100">
         <h6 class="mb-0 lh-100 tab">
-            <a class="text-white" href="messages">Dodaj pacjentkę</a>
+            <a class="text-white" href="addPatient">Dodaj pacjentkę</a>
         </h6>
     </div>
     <div class="lh-100">
@@ -47,6 +44,11 @@
     <div class="lh-100">
         <h6 class="mb-0 lh-100 tab">
             <a class="text-white" href="users">Dodaj użytkownika</a>
+        </h6>
+    </div>
+    <div class="lh-100 ml-auto">
+        <h6 class="mb-0 lh-100" style="text-align: right">
+            <a class="text-white" href="logout">Jesteś zalogowany jako:<br>${userFullName}</a>
         </h6>
     </div>
     <div class="lh-100 ml-auto">

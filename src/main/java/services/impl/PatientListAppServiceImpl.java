@@ -21,4 +21,6 @@ public class PatientListAppServiceImpl implements PatientListAppService {
     public List<Patient> getPatientList() {
         return appPatientDao.getPatientList();
     }
+
+
 }
