@@ -33,7 +33,6 @@
 <main style="width: 90%; align-content: center; margin: 0 auto">
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">Lista pacjentek</h6>
-
         <br>
         <table class="table table-striped" style="font-size: 13px; text-align: center; table-layout: fixed">
             <tr style="font-weight: bold; color: brown">
@@ -63,7 +62,12 @@
                     <td>${patientList.lastName}</td>
                     <td>${patientList.pesel}</td>
                     <td>${patientList.phoneNumber}</td>
-                    <td>${patientList.scheludedRegistration}</td>
+                    <td>
+                        <c:if test="${patientList.scheludedRegistration}">TAK
+                        </c:if>
+                        <c:if test="${!patientList.scheludedRegistration}">NIE
+                        </c:if>
+                    </td>>
                     <td>${patientList.diagnosis}</td>
                     <td><fmt:formatDate value="${patientList.lastPeriodDate}" pattern="yyyy-MM-dd"/></td>
                     <td>${patientList.refferingDoctor}</td>

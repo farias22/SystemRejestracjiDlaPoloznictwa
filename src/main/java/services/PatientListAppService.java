@@ -8,4 +8,6 @@ public interface PatientListAppService {
 
     List<Patient> getPatientList();
 
+    void save(Patient patient);
+
 }

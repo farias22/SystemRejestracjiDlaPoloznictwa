@@ -6,7 +6,20 @@ public class ServletUtils {
 
     public static final String ERRORS_ATTRIBUTE_NAME = "errors";
     public static final String USER_FULL_NAME = "userFullName";
-    public static final String USER_SURNAME = "surname";
+    public static final String PATIENT_FIRST_NAME = "firstName";
+    public static final String PATIENT_LAST_NAME = "lastName";
+    public static final String PATIENT_IS_FOREIGNER = "foreigner";
+    public static final String PATIENT_PESEL = "pesel";
+    public static final String PATIENT_PHONE_NUMER = "phoneNumber";
+    public static final String PATIENT_SHELUDED_REGISTRATION = "scheludedRegistration";
+    public static final String PATIENT_DIAGNOSIS = "diagnosis";
+    public static final String PATIENT_LAST_PERIOD_DATE = "lastPeriodDate";
+    public static final String PATIENT_REFFERING_DOCTOR = "refferingDoctor";
+    public static final String PATIENT_PRESCRIBING_DOCTOR = "prescribingDoctor";
+    public static final String PATIENT_COMMENT = "comment";
+
+
+
     public static final String USER_EMAIL = "email";
     public static final String USER_PASSWORD = "password";
     public static final String REMEMBER = "remember";

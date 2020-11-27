@@ -22,5 +22,8 @@ public class PatientListAppServiceImpl implements PatientListAppService {
         return appPatientDao.getPatientList();
     }
 
-
+    @Override
+    public void save(Patient patient) {
+        appPatientDao.savePatient(patient);
+    }
 }

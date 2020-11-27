@@ -228,8 +228,7 @@ public class Patient {
             return this;
         }
 
-        public PatientBuilder lastPeriodDate() {
-            Date date = new Date(System.currentTimeMillis());
+        public PatientBuilder lastPeriodDate(Date date) {
             this.lastPeriodDate = date;
             return this;
         }
