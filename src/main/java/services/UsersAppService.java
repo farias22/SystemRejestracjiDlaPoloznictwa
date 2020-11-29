@@ -2,7 +2,7 @@ package services;
 
 import models.AppUser;
 
-public interface RegistrationAppService {
+public interface UsersAppService {
 
     boolean isEmailAndPasswordValid(String email, String password);
 

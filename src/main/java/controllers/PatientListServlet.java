@@ -4,12 +4,11 @@ package controllers;
 import dao.AppPatientDao;
 import dao.impl.MySQLPatientDao;
 import dao.impl.MySQLUserDao;
-import models.AppUser;
 import models.Patient;
 import services.PatientListAppService;
-import services.RegistrationAppService;
+import services.UsersAppService;
 import services.impl.PatientListAppServiceImpl;
-import services.impl.RegistrationAppServiceImpl;
+import services.impl.UsersAppServiceImpl;
 import utils.ServletUtils;
 
 import javax.servlet.ServletException;
@@ -27,12 +26,16 @@ public class PatientListServlet extends HttpServlet {
 
     private PatientListAppService servicePatients;
 
-    private RegistrationAppService serviceUser;
+    private UsersAppService serviceUser;
 
     @Override
     public void init() throws ServletException {
         servicePatients = new PatientListAppServiceImpl(new MySQLPatientDao());
-        serviceUser = new RegistrationAppServiceImpl(new MySQLUserDao());//       AppPatientDao dao = new MySQLPatientDao();
+        serviceUser = new UsersAppServiceImpl(new MySQLUserDao());
+
+
+//        AppPatientDao dao = new MySQLPatientDao();
+//
 //        Patient patient = Patient.PatientBuilder.getBuilder()
 //                .hospitalizationDate()
 //                .comment("komentarz")
@@ -44,7 +47,7 @@ public class PatientListServlet extends HttpServlet {
 //                .pesel("9892929292")
 //                .firstName("Zbigniew")
 //                .lastName("Stonoga")
-//                .lastPeriodDate()
+//                .lastPeriodDate(null)
 //                .scheludedRegistration(true)
 //                .isActive()
 //                .pragnancyAge(36)
@@ -60,7 +63,7 @@ public class PatientListServlet extends HttpServlet {
 //                .foreigner(true)
 //                .firstName("Lila")
 //                .lastName("Kotowska")
-//                .lastPeriodDate()
+//                .lastPeriodDate(null)
 //                .scheludedRegistration(true)
 //                .isActive()
 //                .pragnancyAge(36)

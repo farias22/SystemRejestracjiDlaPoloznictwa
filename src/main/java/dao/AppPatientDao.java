@@ -14,4 +14,6 @@ public interface AppPatientDao {
 
     List<Patient> getPatientList();
 
+    List<Patient> getSearchingResults(String search);
+
 }

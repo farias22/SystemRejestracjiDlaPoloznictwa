@@ -28,7 +28,7 @@ public class Patient {
     private String refferingDoctor;
     private String prescribingDoctor;
     private String comment;
-    private boolean isActive;
+    private boolean active;
 
     public Long getId() {
         return id;
@@ -152,11 +152,11 @@ public class Patient {
 
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setActive(boolean activ) {
+        this.active = activ;
     }
 
     public static class PatientBuilder {
@@ -175,7 +175,7 @@ public class Patient {
         private String refferingDoctor;
         private String prescribingDoctor;
         private String comment;
-        private boolean isActive;
+        private boolean active;
 
         public static PatientBuilder getBuilder() {
             return new PatientBuilder();
@@ -248,7 +248,7 @@ public class Patient {
             return this;
         }
         public PatientBuilder isActive() {
-            this.isActive = true;
+            this.active = true;
             return this;
         }
 
@@ -268,7 +268,7 @@ public class Patient {
             patient.setRefferingDoctor(this.refferingDoctor);
             patient.setPrescribingDoctor(this.prescribingDoctor);
             patient.setComment(this.comment);
-            patient.setActive(this.isActive);
+            patient.setActive(this.active);
             return patient;
         };
 

@@ -1,11 +1,12 @@
 package controllers;
 
+
 import dao.AppUserDao;
 import dao.impl.MySQLUserDao;
 import error.ValidationError;
 import models.AppUser;
-import services.RegistrationAppService;
-import services.impl.RegistrationAppServiceImpl;
+import services.UsersAppService;
+import services.impl.UsersAppServiceImpl;
 import utils.ServletUtils;
 
 import javax.servlet.ServletException;
@@ -20,11 +21,11 @@ import java.util.ArrayList;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login", ""})
 public class LoginServlet extends HttpServlet {
 
-    private RegistrationAppService service;
+    private UsersAppService service;
 
     @Override
     public void init() throws ServletException {
-        service = new RegistrationAppServiceImpl(new MySQLUserDao());
+        service = new UsersAppServiceImpl(new MySQLUserDao());
 
 //        AppUserDao dao = new MySQLUserDao();
 //        AppUser user = AppUser.UserBuilder.getBuilder()
@@ -88,11 +89,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        String remember = req.getParameter(ServletUtils.REMEMBER);
-//        if (isCheckboxChecked(remember)) {
-//            addCookies(resp, email, password);
-//        }
-//      req.getSession().setAttribute(ServletUtils.USER_EMAIL, email);
+
         req.setAttribute(ServletUtils.USER_EMAIL, email);
         String loggedUser = service.getUserNameFromEmail(email);
         req.getSession().setAttribute(ServletUtils.USER_FULL_NAME, loggedUser);
@@ -101,17 +98,5 @@ public class LoginServlet extends HttpServlet {
         req.getRequestDispatcher("patientList").forward(req, resp);
     }
 
-    private boolean isCheckboxChecked(String remember) {
-        return ServletUtils.CHECKBOX_CHECKED.equals(remember);
-    }
-
-//    private void addCookies(HttpServletResponse resp, String login, String hashedPassword) {
-//        Cookie loginCookie = new Cookie(ServletUtils.USER_EMAIL, login);
-//        loginCookie.setMaxAge(60 * 60);
-//        Cookie passCookie = new Cookie(ServletUtils.USER_PASSWORD.trim(), hashedPassword.trim());
-//        passCookie.setMaxAge(60 * 60);
-//        resp.addCookie(loginCookie);
-//        resp.addCookie(passCookie);
-//    }
 
 }

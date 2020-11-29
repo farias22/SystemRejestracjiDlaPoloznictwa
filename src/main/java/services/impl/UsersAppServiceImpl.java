@@ -2,16 +2,16 @@ package services.impl;
 
 import dao.AppUserDao;
 import models.AppUser;
-import services.RegistrationAppService;
+import services.UsersAppService;
 
 import java.util.Optional;
 
-public class RegistrationAppServiceImpl implements RegistrationAppService {
+public class UsersAppServiceImpl implements UsersAppService {
 
 
     private AppUserDao appUserDao;
 
-    public RegistrationAppServiceImpl(AppUserDao appUserDao) {
+    public UsersAppServiceImpl(AppUserDao appUserDao) {
         this.appUserDao = appUserDao;
     }
 

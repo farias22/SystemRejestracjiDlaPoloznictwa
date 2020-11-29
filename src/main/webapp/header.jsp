@@ -38,7 +38,7 @@
     </div>
     <div class="lh-100">
         <h6 class="mb-0 lh-100 tab">
-            <a class="text-white" href="addUser">Wyszukaj pacjentkę</a>
+            <a class="text-white" href="searchPatient">Wyszukaj pacjentkę</a>
         </h6>
     </div>
 

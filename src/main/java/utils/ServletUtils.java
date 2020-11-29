@@ -29,7 +29,9 @@ public class ServletUtils {
 
     public static final String USER_ADMIN = "userAdmin";
 
-
+    public static final String SEARCH = "search";
+    public static final String SEARCH_LIST = "searchList";
+    public static final String NO_RESULTS_PATEMETER = "noResults";
 
 
     public static final String USER_EMAIL = "email";

@@ -1,15 +1,11 @@
 package controllers;
 
 
-import dao.impl.MySQLPatientDao;
 import dao.impl.MySQLUserDao;
 import error.ValidationError;
 import models.AppUser;
-import models.Patient;
-import services.PatientListAppService;
-import services.RegistrationAppService;
-import services.impl.PatientListAppServiceImpl;
-import services.impl.RegistrationAppServiceImpl;
+import services.UsersAppService;
+import services.impl.UsersAppServiceImpl;
 import utils.ServletUtils;
 
 import javax.servlet.ServletException;
@@ -25,12 +21,12 @@ import java.util.ArrayList;
 public class AddNewUserServlet extends HttpServlet {
 
 
-    private RegistrationAppService service;
+    private UsersAppService service;
 
 
     @Override
     public void init() throws ServletException {
-        service = new RegistrationAppServiceImpl(new MySQLUserDao());
+        service = new UsersAppServiceImpl(new MySQLUserDao());
 
     }
 

@@ -1,11 +1,9 @@
 package controllers;
 
 
-import dao.AppPatientDao;
 import dao.impl.MySQLPatientDao;
 import models.Patient;
 import services.PatientListAppService;
-import services.RegistrationAppService;
 import services.impl.PatientListAppServiceImpl;
 import utils.ServletUtils;
 
