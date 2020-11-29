@@ -36,7 +36,6 @@ public class AddNewPatientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
         req.getRequestDispatcher("/addPatient.jsp").forward(req, resp);
     }
 

@@ -119,7 +119,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
-                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" value="40">
+                    <select name="pragnancyAge" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" value="40">
                         <% for( int i=30; i<=39; i++) { %>
                         <option value="<%=i %>"><%=i %> <option/>
                         <% } %>

@@ -63,8 +63,7 @@ public class LoginServlet extends HttpServlet {
 
         String email = req.getParameter(ServletUtils.USER_EMAIL);
         String password = req.getParameter(ServletUtils.USER_PASSWORD);
-        boolean userIsAdmin = service.isUserIsAdmin(email);
-        req.setAttribute(ServletUtils.IS_USER_IS_ADMIN, userIsAdmin);
+
 
 
         if (email == null && password == null) {
@@ -95,7 +94,10 @@ public class LoginServlet extends HttpServlet {
 //        }
 //      req.getSession().setAttribute(ServletUtils.USER_EMAIL, email);
         req.setAttribute(ServletUtils.USER_EMAIL, email);
-
+        String loggedUser = service.getUserNameFromEmail(email);
+        req.getSession().setAttribute(ServletUtils.USER_FULL_NAME, loggedUser);
+        boolean userIsAdmin = service.isUserIsAdmin(email);
+        req.getSession().setAttribute(ServletUtils.IS_USER_IS_ADMIN, userIsAdmin);
         req.getRequestDispatcher("patientList").forward(req, resp);
     }
 
