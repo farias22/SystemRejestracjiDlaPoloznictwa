@@ -171,6 +171,15 @@
             </a>
         </div>
     </form>
+    <script>
+        const checkbox = document.querySelector("#foreigner");
+        const input = document.querySelector("#pesel");
+        const toogleInput = function (e) {
+            input.disabled = e.target.checked;
+        };
+        toogleInput({target: checkbox});
+        checkbox.addEventListener("change", toogleInput);
+    </script>
 </main>
 </body>
 </html>

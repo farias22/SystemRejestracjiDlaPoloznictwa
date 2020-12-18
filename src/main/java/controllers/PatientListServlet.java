@@ -5,6 +5,7 @@ import dao.AppPatientDao;
 import dao.impl.MySQLPatientDao;
 import dao.impl.MySQLUserDao;
 import models.Patient;
+import models.comparators.PatientComparator;
 import services.PatientListAppService;
 import services.UsersAppService;
 import services.impl.PatientListAppServiceImpl;
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -84,6 +87,8 @@ public class PatientListServlet extends HttpServlet {
 
 
         List<Patient> patientList = servicePatients.getPatientList();
+        Collections.sort(patientList, new PatientComparator());
+
 
 
 
