@@ -91,13 +91,9 @@
                 <button type="submit" class="btn btn-primary btn-block blue"> Dodaj</button>
             </div>
             <div>
-                <button onclick="goBack()" class="btn btn-primary btn-block blue">Anuluj i wróć</button>
-
-                <script>
-                    function goBack() {
-                        window.history.back();
-                    }
-                </script>
+                <a href="back" onclick="javascript:cancelAction()" style="text-decoration: none">
+                    <input class="btn btn-primary btn-block blue" type="button" value="Anuluj i wróć">
+                </a>
             </div>
     </div>
     </form>

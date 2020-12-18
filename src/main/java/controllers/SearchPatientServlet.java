@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@WebServlet(name = "SearchPatientServler", value = "/searchPatient")
+@WebServlet(name = "SearchPatientServlet", value = "/searchPatient")
 public class SearchPatientServlet extends HttpServlet {
 
 

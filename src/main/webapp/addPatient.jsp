@@ -129,14 +129,14 @@
                 </div>
                 <select name="pragnancyAge" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref"
                         value="40">
-                    <% for (int i = 30; i <= 39; i++) { %>
+                    <% for (int i = 30; i <= 37; i++) { %>
                     <option value="<%=i %>"><%=i %>
-                    <option/>
+                    </option>
                     <% } %>
-                    <option selected value="40">40</option>
-                    <% for (int i = 41; i <= 50; i++) { %>
+                    <option selected value="38">38</option>
+                    <% for (int i = 39; i <= 50; i++) { %>
                     <option value="<%=i %>"><%=i %>
-                    <option/>
+                    </option>
                     <% } %>
                 </select>
             </div>
@@ -151,19 +151,6 @@
                 <input name="refferingDoctor" class="form-control" type="text" required>
             </div>
         </div>
-
-
-        <%--<div class="form-group">--%>
-            <%--<div class="input-group">--%>
-                <%--<label class="col-sm-2 col-form-label">Lekarz zapisujący</label>--%>
-                <%--<div class="input-group-prepend">--%>
-                    <%--<span class="input-group-text"> <i class="fa fa-user"></i> </span>--%>
-                <%--</div>--%>
-                <%--<input name="prescribingDoctor" class="form-control" type="text" required>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-
-
         <div class="form-group">
             <div class="input-group">
                 <label class="col-sm-2 col-form-label">Komentarz</label>
@@ -179,23 +166,9 @@
             <button type="submit" class="btn btn-primary btn-block blue"> Dodaj</button>
         </div>
         <div>
-            <button onclick="goBack()" class="btn btn-primary btn-block blue">Anuluj i wróć</button>
-
-            <script>
-                function goBack() {
-                    window.history.back();
-                }
-
-                const checkbox = document.querySelector("#foreigner");
-                const input = document.querySelector("#pesel");
-
-                const toogleInput = function (e) {
-                    input.disabled = e.target.checked;
-                };
-
-                toogleInput({target: checkbox});
-                checkbox.addEventListener("change", toogleInput);
-            </script>
+            <a href="back" onclick="javascript:cancelAction()" style="text-decoration: none">
+                <input class="btn btn-primary btn-block blue" type="button" value="Anuluj i wróć">
+            </a>
         </div>
     </form>
 </main>
