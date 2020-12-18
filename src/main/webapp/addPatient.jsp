@@ -38,7 +38,7 @@
     })
 </script>
 <body>
-<main role="main" class="container">
+<main role="main" style="width: 80%; margin-left: auto; margin-right: auto">
 
     <h4 class="text-center mb-4 mt-1">Wprowadź dane pacjentki</h4>
     <hr>
@@ -55,7 +55,7 @@
     <form action="addPatient" method="POST">
         <div class="form-group">
             <div class="input-group">
-                <label class="col-sm-2 col-form-label">Imie</label>
+                <label class="col-sm-2 col-form-label">Imię</label>
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
@@ -118,14 +118,14 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
-                <input name="lastPeriodDate" class="form-control" type="date" required>
+                <input name="lastPeriodDate" class="form-control" type="date"  required>
             </div>
         </div>
         <div class="form-group">
             <div class="input-group">
                 <label class="col-sm-2 col-form-label">Wiek ciąży w dniu przyjęcia</label>
                 <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    <span class="input-group-text" style="height: 46px"> <i class="fa fa-user"></i> </span>
                 </div>
                 <select name="pragnancyAge" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref"
                         value="40">
@@ -163,11 +163,11 @@
 
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block blue"> Dodaj</button>
+            <button type="submit" class="btn btn-primary btn-block blue" style="width: 100px; margin-right: auto; margin-left: auto"> Dodaj</button>
         </div>
         <div>
             <a href="back" onclick="javascript:cancelAction()" style="text-decoration: none">
-                <input class="btn btn-primary btn-block blue" type="button" value="Anuluj i wróć">
+                <input class="btn btn-primary btn-block blue" style="width: 150px; margin-right: auto; margin-left: auto" type="button" value="Anuluj i wróć">
             </a>
         </div>
     </form>

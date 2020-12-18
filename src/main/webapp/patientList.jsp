@@ -54,12 +54,17 @@
                 <td>Komentarz</td>
                 <td>Działania</td>
             </tr>
-
+            <c:set var="counter" value="1" />
             <c:forEach items="${patientList}" var="patientList">
                 <tr>
-                    <td>${patientList.id}</td>
+                    <td>${counter}</td>
                     <td><fmt:formatDate value="${patientList.registrationDate}" pattern="yyyy-MM-dd"/></td>
-                    <td><fmt:formatDate value="${patientList.hospitalizationDate}" pattern="yyyy-MM-dd"/></td>
+                    <td><fmt:formatDate var="hospDate" value="${patientList.hospitalizationDate}" pattern="yyyy-MM-dd"/>
+                        <c:if test="${hospDate=='1900-01-01'}">*
+                        </c:if>
+                        <c:if test="${hospDate!='1900-01-01'}">${hospDate}
+                        </c:if>
+                    </td>
                     <td>${patientList.pregnancyAge}</td>
                     <td>${patientList.firstName}</td>
                     <td>${patientList.lastName}</td>
@@ -81,8 +86,9 @@
 
                 <%--<a href="deleteTweet?tweetId=${tweet.id}">Delete</a>--%>
 
-
+                <c:set var="counter" value="${counter+1}"/>
             </c:forEach>
+
         </table>
     </div>
 

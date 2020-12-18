@@ -73,7 +73,7 @@ public class AddNewPatientServlet extends HttpServlet {
         if (scheludedRegistration) {
             hospitalizationDate = hospitalizationDateCounterForScheludedRegistration(lastPeriodDate, pragnancyAge);
         } else {
-            hospitalizationDate = hospitalizationDateCounterForNotScheludedRegistration(lastPeriodDate, pragnancyAge);
+            hospitalizationDate = hospitalizationDateCounterForNotScheludedRegistration();
         }
 
 
@@ -117,12 +117,12 @@ public class AddNewPatientServlet extends HttpServlet {
         return result;
     }
 
-    private Date hospitalizationDateCounterForNotScheludedRegistration(Date dataStart, int age) {
+    private Date hospitalizationDateCounterForNotScheludedRegistration() {
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dataStart);
-        calendar.add(Calendar.WEEK_OF_MONTH, age);
-        Date date = calendar.getTime();
+        Calendar c = Calendar.getInstance();
+        c.set(1900,0,1);
+
+        Date date = c.getTime();
 
         return date;
     }

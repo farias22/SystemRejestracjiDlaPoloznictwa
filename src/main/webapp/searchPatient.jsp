@@ -28,36 +28,36 @@
     </style>
 </head>
 <body>
-<main role="main" class="container">
+<main style="width: 90%; align-content: center; margin: 0 auto">
 
-    <div class="my-3 p-3 bg-white rounded box-shadow">
+    <div class="my-3 p-3 bg-white rounded box-shadow" style="width: 75%; margin-right: auto; margin-left: auto">
         <h4 class="text-center mb-4 mt-1">Wyszukiwarka znajduje pacjentki na podstawie Nazwiska lub PESEL-u</h4>
         <hr>
         <form action="searchPatient" method="POST">
             <div class="form-group">
                 <div class="input-group">
-                    <label class="col-sm-2 col-form-label">Wpisz szukaną frazę</label>
+                    <%--<label class="col-sm-2 col-form-label">Wpisz szukaną frazę</label>--%>
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
-                    <input name="search" class="form-control" type="text" required>
+                    <input placeholder="wpisz szukaną frazę" name="search" class="form-control" type="text" style="text-align: center" required>
                 </div>
             </div>
 
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block blue" style="width: 120px;position: relative; left: 50%"> Szukaj</button>
+                <button type="submit" class="btn btn-primary btn-block blue" style="width: 120px;position: relative; left: 45%"> Szukaj</button>
             </div>
 
             <div>
                 <a href="back" onclick="javascript:cancelAction()" style="text-decoration: none">
-                    <input class="btn btn-primary btn-block blue" type="button" style="width: 200px;position: relative; left:46.5%" value="Anuluj i wróć">
+                    <input class="btn btn-primary btn-block blue" type="button" style="width: 200px;position: relative; left:41%" value="Anuluj i wróć">
                 </a>
             </div>
     </div>
     </form>
     <c:if test="${searchList != null}">
-    <table class="table table-striped" style="font-size: 13px; text-align: center; table-layout: fixed">
+    <table class="table table-striped" style="font-size: 13px; text-align: center">
         <tr style="font-weight: bold; color: brown">
             <td>lp</td>
             <td>Data wpisania do systemu</td>
@@ -76,11 +76,17 @@
             <td>Archiwalna</td>
             <td>Działania</td>
         </tr>
+        <c:set var="counter" value="1" />
         <c:forEach items="${searchList}" var="patientList">
         <tr>
-            <td>${patientList.id}</td>
+            <td>${counter}</td>
             <td><fmt:formatDate value="${patientList.registrationDate}" pattern="yyyy-MM-dd"/></td>
-            <td><fmt:formatDate value="${patientList.hospitalizationDate}" pattern="yyyy-MM-dd"/></td>
+            <td><fmt:formatDate var="hospDate" value="${patientList.hospitalizationDate}" pattern="yyyy-MM-dd"/>
+                <c:if test="${hospDate=='1900-01-01'}">*
+                </c:if>
+                <c:if test="${hospDate!='1900-01-01'}">${hospDate}
+                </c:if>
+            </td>
             <td>${patientList.pregnancyAge}</td>
             <td>${patientList.firstName}</td>
             <td>${patientList.lastName}</td>
@@ -98,14 +104,14 @@
             <td>${patientList.prescribingDoctor}</td>
             <td>${patientList.comment}</td>
             <td>
-                <c:if test="${patientList.active}">TAK
+                <c:if test="${patientList.active}">NIE
                 </c:if>
-                <c:if test="${!patientList.active}">NIE
+                <c:if test="${!patientList.active}">TAK
                 </c:if>
             </td>
             <td><button id="delete&patientList.id" class="btn btn-warning" style="color: white; font-size: 14px">Edytuj</button></td>
         </tr>
-
+            <c:set var="counter" value="${counter+1}"/>
     </c:forEach>
     </table>
     </c:if>
@@ -113,5 +119,7 @@
         <div><h6 class="text-center mb-4 mt-1" style="color: gray; text-align: center">Brak wyników wyszukiwania</h6></div>
     </c:if>
 </main>
+<div>
+</div>
 </body>
 </html>
