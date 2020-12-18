@@ -36,6 +36,11 @@ public class PatientListAppServiceImpl implements PatientListAppService {
     }
 
     @Override
+    public void deletePatient(Long id) {
+        appPatientDao.deletePatient(id);
+    }
+
+    @Override
     public boolean isHospitalizationDateAvailable(Date data) {
         return appPatientDao.isHospitalizationDateAvailable(data);
     }

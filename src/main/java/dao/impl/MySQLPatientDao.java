@@ -20,8 +20,8 @@ public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
     }
 
     @Override
-    public void deletePatient(Patient patient) {
-        hibernateUtil.delete(Patient.class, patient.getId());
+    public void deletePatient(Long idPatient) {
+        hibernateUtil.delete(Patient.class, idPatient);
 
     }
 

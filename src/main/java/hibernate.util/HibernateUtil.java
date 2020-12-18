@@ -1,5 +1,7 @@
 package hibernate.util;
 
+import models.Patient;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -36,11 +38,17 @@ public class HibernateUtil {
         manager.getTransaction().begin();
         Object o = manager.find(clazz, id);
         if (null != o) {
+            Patient updatedPatient = (Patient) o;
+            updatedPatient.setActive(false);
             manager.remove(o);
+            manager.persist(updatedPatient);
         }
         manager.flush();
         manager.getTransaction().commit();
     }
+
+
+
 
 
     public EntityManager getManager() {

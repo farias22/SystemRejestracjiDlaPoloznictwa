@@ -76,8 +76,11 @@
                     <td>${patientList.refferingDoctor}</td>
                     <td>${patientList.prescribingDoctor}</td>
                     <td>${patientList.comment}</td>
-                    <td><button id="delete&patientList.id" class="btn btn-warning" style="color: white; font-size: 14px">Usuń</button></td>
+                    <td><a href="deletePatient?patientId=${patientList.id}"><input class="btn btn-warning" style="color: white; font-size: 14px" type="button" value="Usuń"></a></td>
                 </tr>
+
+                <%--<a href="deleteTweet?tweetId=${tweet.id}">Delete</a>--%>
+
 
             </c:forEach>
         </table>

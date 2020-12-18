@@ -48,14 +48,11 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block blue" style="width: 120px;position: relative; left: 50%"> Szukaj</button>
             </div>
-            <div>
-                <button onclick="goBack()" class="btn btn-primary btn-block blue" style="width: 200px;position: relative; left:46.5%">Anuluj i wróć</button>
 
-                <script>
-                    function goBack() {
-                        window.history.back();
-                    }
-                </script>
+            <div>
+                <a href="back" onclick="javascript:cancelAction()" style="text-decoration: none">
+                    <input class="btn btn-primary btn-block blue" type="button" style="width: 200px;position: relative; left:46.5%" value="Anuluj i wróć">
+                </a>
             </div>
     </div>
     </form>
@@ -106,7 +103,7 @@
                 <c:if test="${!patientList.active}">NIE
                 </c:if>
             </td>
-            <td><button id="delete&patientList.id" class="btn btn-warning" style="color: white; font-size: 14px">Usuń</button></td>
+            <td><button id="delete&patientList.id" class="btn btn-warning" style="color: white; font-size: 14px">Edytuj</button></td>
         </tr>
 
     </c:forEach>

@@ -14,6 +14,8 @@ public interface PatientListAppService {
 
     void save(Patient patient);
 
+    void deletePatient(Long id);
+
     boolean isHospitalizationDateAvailable(Date data);
 
 }

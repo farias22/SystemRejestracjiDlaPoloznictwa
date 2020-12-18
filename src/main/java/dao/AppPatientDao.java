@@ -12,7 +12,7 @@ public interface AppPatientDao {
 
     void savePatient(Patient patient);
 
-    void deletePatient(Patient patient);
+    void deletePatient(Long id);
 
     List<Patient> getPatientList();
 
