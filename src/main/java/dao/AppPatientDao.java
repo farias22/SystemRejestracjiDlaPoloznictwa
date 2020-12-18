@@ -3,6 +3,8 @@ package dao;
 import models.AppUser;
 import models.Patient;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 public interface AppPatientDao {
@@ -15,5 +17,7 @@ public interface AppPatientDao {
     List<Patient> getPatientList();
 
     List<Patient> getSearchingResults(String search);
+
+    boolean isHospitalizationDateAvailable(Date date);
 
 }

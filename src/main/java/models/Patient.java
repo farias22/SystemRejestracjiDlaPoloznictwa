@@ -181,9 +181,7 @@ public class Patient {
             return new PatientBuilder();
         }
 
-        public PatientBuilder hospitalizationDate() {
-            // SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
-            Date date = new Date(System.currentTimeMillis());
+        public PatientBuilder hospitalizationDate(Date date) {
             this.hospitalizationDate = date;
             return this;
         }

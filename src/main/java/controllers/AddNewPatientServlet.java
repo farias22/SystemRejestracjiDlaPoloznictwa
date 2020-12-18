@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -65,8 +66,16 @@ public class AddNewPatientServlet extends HttpServlet {
         }
         int pragnancyAge = Integer.valueOf(req.getParameter(ServletUtils.PATIENT_PREGNENCY_AGE));
         String refferingDoctor = req.getParameter(ServletUtils.PATIENT_REFFERING_DOCTOR);
-        String prescribingDoctor = req.getParameter(ServletUtils.PATIENT_PRESCRIBING_DOCTOR);
+        String prescribingDoctor = (String) req.getSession().getAttribute(ServletUtils.USER_FULL_NAME);
         String comment = req.getParameter(ServletUtils.PATIENT_COMMENT);
+
+        Date hospitalizationDate = null;
+        if (scheludedRegistration) {
+            hospitalizationDate = hospitalizationDateCounterForScheludedRegistration(lastPeriodDate, pragnancyAge);
+        } else {
+            hospitalizationDate = hospitalizationDateCounterForNotScheludedRegistration(lastPeriodDate, pragnancyAge);
+        }
+
 
         Patient patient = Patient.PatientBuilder.getBuilder()
                 .firstName(imie)
@@ -78,6 +87,7 @@ public class AddNewPatientServlet extends HttpServlet {
                 .diagnosis(diagnosis)
                 .lastPeriodDate(lastPeriodDate)
                 .pragnancyAge(pragnancyAge)
+                .hospitalizationDate(hospitalizationDate)
                 .refferingDoctor(refferingDoctor)
                 .prescribingDoctor(prescribingDoctor)
                 .comment(comment)
@@ -87,5 +97,33 @@ public class AddNewPatientServlet extends HttpServlet {
         service.save(patient);
 
         req.getRequestDispatcher("patientList").forward(req, resp);
+    }
+
+    private Date hospitalizationDateCounterForScheludedRegistration(Date dataStart, int age) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dataStart);
+        calendar.add(Calendar.WEEK_OF_MONTH, age);
+        Date result = calendar.getTime();
+        boolean isHospitalizationDateAvailable = service.isHospitalizationDateAvailable(result);
+        while (!isHospitalizationDateAvailable) {
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.setTime(result);
+            calendar2.add(Calendar.DAY_OF_MONTH, 1);
+            Date date = calendar2.getTime();
+            result = date;
+            isHospitalizationDateAvailable = service.isHospitalizationDateAvailable(result);
+
+        }
+        return result;
+    }
+
+    private Date hospitalizationDateCounterForNotScheludedRegistration(Date dataStart, int age) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dataStart);
+        calendar.add(Calendar.WEEK_OF_MONTH, age);
+        Date date = calendar.getTime();
+
+        return date;
     }
 }

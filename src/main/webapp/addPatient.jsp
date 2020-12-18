@@ -153,15 +153,15 @@
         </div>
 
 
-        <div class="form-group">
-            <div class="input-group">
-                <label class="col-sm-2 col-form-label">Lekarz zapisujący</label>
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                </div>
-                <input name="prescribingDoctor" class="form-control" type="text" required>
-            </div>
-        </div>
+        <%--<div class="form-group">--%>
+            <%--<div class="input-group">--%>
+                <%--<label class="col-sm-2 col-form-label">Lekarz zapisujący</label>--%>
+                <%--<div class="input-group-prepend">--%>
+                    <%--<span class="input-group-text"> <i class="fa fa-user"></i> </span>--%>
+                <%--</div>--%>
+                <%--<input name="prescribingDoctor" class="form-control" type="text" required>--%>
+            <%--</div>--%>
+        <%--</div>--%>
 
 
         <div class="form-group">

@@ -2,6 +2,8 @@ package services;
 
 import models.Patient;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 public interface PatientListAppService {
@@ -11,5 +13,7 @@ public interface PatientListAppService {
     List<Patient> getSearchingResults(String search);
 
     void save(Patient patient);
+
+    boolean isHospitalizationDateAvailable(Date data);
 
 }
