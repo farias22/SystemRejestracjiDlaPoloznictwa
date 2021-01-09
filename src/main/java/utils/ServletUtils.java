@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ServletUtils {
 
+    public static final String APP_USER = "appUser";
     public static final String ERRORS_ATTRIBUTE_NAME = "errors";
     public static final String CREATING_NEW_USER_ERROR = "creatingNewUserError";
     public static final String USER_FULL_NAME = "userFullName";

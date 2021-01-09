@@ -61,10 +61,8 @@ public class LoginServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
 
 
-
         String email = req.getParameter(ServletUtils.USER_EMAIL);
         String password = req.getParameter(ServletUtils.USER_PASSWORD);
-
 
 
         if (email == null && password == null) {
@@ -75,8 +73,8 @@ public class LoginServlet extends HttpServlet {
         if (credsInvalid) {
             ArrayList<ValidationError> errors = new ArrayList<>();
             boolean isEmailExsist = !service.isEmailExsist(email);
-            if (isEmailExsist){
-                ValidationError validationEmailError= new ValidationError(ServletUtils.EMAIL_ERROR_HEADER, ServletUtils.EMAIL_ERROR_MESSAGE);
+            if (isEmailExsist) {
+                ValidationError validationEmailError = new ValidationError(ServletUtils.EMAIL_ERROR_HEADER, ServletUtils.EMAIL_ERROR_MESSAGE);
                 errors.add(validationEmailError);
             }
             if (!isEmailExsist) {
@@ -89,10 +87,13 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
+        AppUser appUser = service.getAppUserByEmail(email);
+        req.getSession().setAttribute(ServletUtils.APP_USER, appUser);
 
-        req.setAttribute(ServletUtils.USER_EMAIL, email);
+
         String loggedUser = service.getUserNameFromEmail(email);
         req.getSession().setAttribute(ServletUtils.USER_FULL_NAME, loggedUser);
+
         boolean userIsAdmin = service.isUserIsAdmin(email);
         req.getSession().setAttribute(ServletUtils.IS_USER_IS_ADMIN, userIsAdmin);
         req.getRequestDispatcher("patientList").forward(req, resp);

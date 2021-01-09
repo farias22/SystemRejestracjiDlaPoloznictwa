@@ -66,4 +66,13 @@ public class UsersAppServiceImpl implements UsersAppService {
         }
         return false;
     }
+
+    @Override
+    public AppUser getAppUserByEmail(String email) {
+        Optional<AppUser> loggedUser= appUserDao.getAppUserByEmail(email);
+        if (loggedUser.isEmpty()){
+            return new AppUser();
+        }
+        return loggedUser.get();
+    }
 }

@@ -16,4 +16,6 @@ public interface UsersAppService {
 
     boolean domainAvailable(String email);
 
+    AppUser getAppUserByEmail(String email);
+
 }
