@@ -109,7 +109,7 @@
                 <c:if test="${!patientList.active}">TAK
                 </c:if>
             </td>
-            <td><button id="delete&patientList.id" class="btn btn-warning" style="color: white; font-size: 14px">Edytuj</button></td>
+            <td><a href="editPatient?patientId=${patientList.id}"><input class="btn btn-warning" style="color: white; font-size: 14px" type="button" value="Edytuj"></a></td>
         </tr>
             <c:set var="counter" value="${counter+1}"/>
     </c:forEach>

@@ -1,0 +1,132 @@
+package controllers;
+
+
+import dao.impl.MySQLPatientDao;
+import models.Patient;
+import services.PatientListAppService;
+import services.impl.PatientListAppServiceImpl;
+import utils.ServletUtils;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+@WebServlet(name = "EditPatientServlet", value = "/editPatient")
+public class EditPatientServlet extends HttpServlet {
+
+
+    private PatientListAppService service;
+
+
+    @Override
+    public void init() throws ServletException {
+        service = new PatientListAppServiceImpl(new MySQLPatientDao());
+
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Patient editedPatient = service.getPatientById(Long.valueOf(req.getParameter(ServletUtils.PATIENT_ID)));
+        req.setAttribute(ServletUtils.EDITED_PATIENT, editedPatient);
+        req.getRequestDispatcher("/editPatient.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+
+        service.getPatientById(Long.valueOf(req.getParameter(ServletUtils.PATIENT_ID)));
+        String imie = req.getParameter(ServletUtils.PATIENT_FIRST_NAME);
+        String nazwisko = req.getParameter(ServletUtils.PATIENT_LAST_NAME);
+        boolean foreigner = false;
+        if (req.getParameter(ServletUtils.PATIENT_IS_FOREIGNER) != null
+                && req.getParameter(ServletUtils.PATIENT_IS_FOREIGNER).equals("on")) {
+            foreigner = true;
+        }
+        String pesel = req.getParameter(ServletUtils.PATIENT_PESEL);
+        String phoneNumber = req.getParameter(ServletUtils.PATIENT_PHONE_NUMER);
+        boolean scheludedRegistration = false;
+        if (req.getParameter(ServletUtils.PATIENT_SHELUDED_REGISTRATION) != null
+                && req.getParameter(ServletUtils.PATIENT_SHELUDED_REGISTRATION).equals("on")) {
+            scheludedRegistration = true;
+        }
+
+        String diagnosis = req.getParameter(ServletUtils.PATIENT_DIAGNOSIS);
+        String lastPeriodStr = req.getParameter(ServletUtils.PATIENT_LAST_PERIOD_DATE);
+        Date lastPeriodDate = null;
+        try {
+            lastPeriodDate = new SimpleDateFormat("yyyy-MM-dd").parse(lastPeriodStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int pragnancyAge = Integer.valueOf(req.getParameter(ServletUtils.PATIENT_PREGNENCY_AGE));
+        String refferingDoctor = req.getParameter(ServletUtils.PATIENT_REFFERING_DOCTOR);
+        String prescribingDoctor = (String) req.getSession().getAttribute(ServletUtils.USER_FULL_NAME);
+        String comment = req.getParameter(ServletUtils.PATIENT_COMMENT);
+
+        Date hospitalizationDate = null;
+        if (scheludedRegistration) {
+            hospitalizationDate = hospitalizationDateCounterForScheludedRegistration(lastPeriodDate, pragnancyAge);
+        } else {
+            hospitalizationDate = hospitalizationDateCounterForNotScheludedRegistration();
+        }
+
+
+        Patient patient = Patient.PatientBuilder.getBuilder()
+                .firstName(imie)
+                .lastName(nazwisko)
+                .foreigner(foreigner)
+                .pesel(pesel)
+                .phoneNumber(phoneNumber)
+                .scheludedRegistration(scheludedRegistration)
+                .diagnosis(diagnosis)
+                .lastPeriodDate(lastPeriodDate)
+                .pragnancyAge(pragnancyAge)
+                .hospitalizationDate(hospitalizationDate)
+                .refferingDoctor(refferingDoctor)
+                .prescribingDoctor(prescribingDoctor)
+                .comment(comment)
+                .isActive()
+                .build();
+
+        service.save(patient);
+
+        req.getRequestDispatcher("patientList").forward(req, resp);
+    }
+
+    private Date hospitalizationDateCounterForScheludedRegistration(Date dataStart, int age) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dataStart);
+        calendar.add(Calendar.WEEK_OF_MONTH, age);
+        Date result = calendar.getTime();
+        boolean isHospitalizationDateAvailable = service.isHospitalizationDateAvailable(result);
+        while (!isHospitalizationDateAvailable) {
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.setTime(result);
+            calendar2.add(Calendar.DAY_OF_MONTH, 1);
+            Date date = calendar2.getTime();
+            result = date;
+            isHospitalizationDateAvailable = service.isHospitalizationDateAvailable(result);
+
+        }
+        return result;
+    }
+
+    private Date hospitalizationDateCounterForNotScheludedRegistration() {
+
+        Calendar c = Calendar.getInstance();
+        c.set(1900,0,1);
+
+        Date date = c.getTime();
+
+        return date;
+    }
+
+}

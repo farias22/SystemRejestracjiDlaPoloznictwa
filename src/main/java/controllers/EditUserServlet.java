@@ -44,9 +44,6 @@ public class EditUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-
-
-
         req.getRequestDispatcher("patientList").forward(req, resp);
     }
 

@@ -31,6 +31,11 @@ public class PatientListAppServiceImpl implements PatientListAppService {
     }
 
     @Override
+    public Patient getPatientById(Long id) {
+        return appPatientDao.getPatientById(id);
+    }
+
+    @Override
     public void save(Patient patient) {
         appPatientDao.savePatient(patient);
     }

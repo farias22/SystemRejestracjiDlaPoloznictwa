@@ -18,6 +18,8 @@ public interface AppPatientDao {
 
     List<Patient> getSearchingResults(String search);
 
+    Patient getPatientById(Long id);
+
     boolean isHospitalizationDateAvailable(Date date);
 
 }

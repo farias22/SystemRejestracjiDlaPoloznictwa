@@ -35,6 +35,14 @@ public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
     }
 
     @Override
+    public Patient getPatientById(Long id) {
+        Patient patient = entityManager.createQuery("select p from Patient p where p.id = :id", Patient.class)
+                .setParameter("id", id).getSingleResult();
+
+        return patient;
+    }
+
+    @Override
     public List<Patient> getSearchingResults(String search) {
         List<Patient> patientList = entityManager.createQuery("select p from Patient p where p.lastName like :search or p.pesel like :search", Patient.class)
                 .setParameter("search", "%" + search + "%")

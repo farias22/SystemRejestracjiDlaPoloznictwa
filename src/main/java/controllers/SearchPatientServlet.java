@@ -47,7 +47,7 @@ public class SearchPatientServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
+        req.setCharacterEncoding("UTF-8");
         String value = req.getParameter(ServletUtils.SEARCH);
 
         List<Patient> resultList = patientService.getSearchingResults(value);

@@ -12,6 +12,8 @@ public interface PatientListAppService {
 
     List<Patient> getSearchingResults(String search);
 
+    Patient getPatientById(Long id);
+
     void save(Patient patient);
 
     void deletePatient(Long id);
