@@ -14,6 +14,8 @@ public interface AppUserDao {
 
     Optional<AppUser> getAppUserByEmail(String email);
 
+    Optional<AppUser> getAppUserById(Long id);
+
     List<AppUser> getSearchingResults(String search);
 
 }

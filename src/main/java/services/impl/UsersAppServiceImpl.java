@@ -78,7 +78,21 @@ public class UsersAppServiceImpl implements UsersAppService {
     }
 
     @Override
+    public AppUser getAppUserById(Long id) {
+        Optional<AppUser> loggedUser= appUserDao.getAppUserById(id);
+        if (loggedUser.isEmpty()){
+            return new AppUser();
+        }
+        return loggedUser.get();
+    }
+
+    @Override
     public List<AppUser> getSearchingResults(String search) {
         return appUserDao.getSearchingResults(search);
+    }
+
+    @Override
+    public void deleteUser(AppUser user) {
+        appUserDao.deleteUser(user);
     }
 }

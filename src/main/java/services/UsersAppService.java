@@ -21,6 +21,10 @@ public interface UsersAppService {
 
     AppUser getAppUserByEmail(String email);
 
+    AppUser getAppUserById(Long id);
+
     List<AppUser> getSearchingResults(String search);
+
+    void deleteUser(AppUser user);
 
 }

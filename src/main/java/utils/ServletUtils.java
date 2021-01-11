@@ -12,6 +12,7 @@ public class ServletUtils {
     public static final String PATIENT_LAST_NAME = "lastName";
     public static final String PATIENT_IS_FOREIGNER = "foreigner";
     public static final String PATIENT_ID = "patientId";
+    public static final String USER_ID = "userId";
     public static final String EDITED_PATIENT = "editedPatient";
     public static final String PATIENT_PESEL = "pesel";
     public static final String PATIENT_PHONE_NUMER = "phoneNumber";

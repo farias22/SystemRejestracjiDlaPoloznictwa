@@ -84,7 +84,7 @@
             <td style="width: 300px">
                 <a href="editPatient?patientId=${usersList.id}"><input class="btn btn-warning" style="color: white; font-size: 14px; margin-right: 10px" type="button" value="Edytuj"></a>
                 <a href="editPatient?patientId=${usersList.id}"><input class="btn btn-info" style="color: white; font-size: 14px;margin-right: 10px" type="button" value="Resetuj hasło"></a>
-                <a href="editPatient?patientId=${usersList.id}"><input class="btn btn-danger" style="color: white; font-size: 14px" type="button" value="Usuń"></a>
+                <a href="deleteUser?userId=${usersList.id}"><input class="btn btn-danger" style="color: white; font-size: 14px" type="button" value="Usuń"></a>
             </td>
         </tr>
             <c:set var="counter" value="${counter+1}"/>

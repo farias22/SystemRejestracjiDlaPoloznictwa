@@ -35,7 +35,7 @@ public class HibernateUtil {
         manager.getTransaction().commit();
     }
 
-    public void delete(Class clazz, Long id) {
+    public void deletePatient(Class clazz, Long id) {
         manager.getTransaction().begin();
         Object o = manager.find(clazz, id);
         if (null != o) {
@@ -43,6 +43,16 @@ public class HibernateUtil {
             updatedPatient.setActive(false);
             manager.remove(o);
             manager.persist(updatedPatient);
+        }
+        manager.flush();
+        manager.getTransaction().commit();
+    }
+
+    public void deleteUser(Class clazz, Long id) {
+        manager.getTransaction().begin();
+        Object o = manager.find(clazz, id);
+        if (null != o) {
+            manager.remove(o);
         }
         manager.flush();
         manager.getTransaction().commit();

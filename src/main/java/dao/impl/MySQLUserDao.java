@@ -3,7 +3,6 @@ package dao.impl;
 import dao.AbstractSqlDao;
 import dao.AppUserDao;
 import models.AppUser;
-import models.Patient;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -21,13 +20,24 @@ public class MySQLUserDao extends AbstractSqlDao implements AppUserDao {
 
     @Override
     public void deleteUser(AppUser user) {
-        hibernateUtil.delete(AppUser.class, user.getId());
+        hibernateUtil.deleteUser(AppUser.class, user.getId());
     }
 
     @Override
     public Optional<AppUser> getAppUserByEmail(String email) {
         TypedQuery<AppUser> query = entityManager.createQuery("select u from AppUser u where u.email =:email", AppUser.class);
         query.setParameter("email", email);
+        try {
+            return Optional.ofNullable(query.getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<AppUser> getAppUserById(Long id) {
+        TypedQuery<AppUser> query = entityManager.createQuery("select u from AppUser u where u.id =:id", AppUser.class);
+        query.setParameter("id", id);
         try {
             return Optional.ofNullable(query.getSingleResult());
         } catch (NoResultException e) {

@@ -2,15 +2,10 @@ package dao.impl;
 
 import dao.AbstractSqlDao;
 import dao.AppPatientDao;
-import models.AppUser;
 import models.Patient;
 
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
 
@@ -21,7 +16,7 @@ public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
 
     @Override
     public void deletePatient(Long idPatient) {
-        hibernateUtil.delete(Patient.class, idPatient);
+        hibernateUtil.deletePatient(Patient.class, idPatient);
 
     }
 
