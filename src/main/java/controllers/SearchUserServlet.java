@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static services.impl.PatientListAppServiceImpl.getCurrentSearchedAppUsersList;
+
 
 @WebServlet(name = "SearchUserServlet", value = "/searchUser")
 public class SearchUserServlet extends HttpServlet {
@@ -48,15 +50,8 @@ public class SearchUserServlet extends HttpServlet {
 
         req.setCharacterEncoding("UTF-8");
         String value = req.getParameter(ServletUtils.SEARCH_USER);
-
-        List<AppUser> resultList = usersService.getSearchingResults(value);
-
-        if (resultList.size()==0){
-            req.setAttribute(ServletUtils.NO_RESULTS_PATEMETER, "no results");
-        }
-
-
-        req.setAttribute(ServletUtils.SEARCHED_USERS_LIST,resultList);
+        req.getSession().setAttribute(ServletUtils.SEARCH_USER,value);
+        getCurrentSearchedAppUsersList(req,usersService);
 
 
         req.getRequestDispatcher("/searchUser.jsp").forward(req, resp);

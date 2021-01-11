@@ -2,9 +2,13 @@ package services.impl;
 
 import dao.AppPatientDao;
 import dao.AppUserDao;
+import models.AppUser;
 import models.Patient;
 import services.PatientListAppService;
+import services.UsersAppService;
+import utils.ServletUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.crypto.Data;
 import java.util.Calendar;
 import java.util.Date;
@@ -77,11 +81,23 @@ public class PatientListAppServiceImpl implements PatientListAppService {
     public Date hospitalizationDateCounterForNotScheludedRegistration() {
 
         Calendar c = Calendar.getInstance();
-        c.set(1900,0,1);
+        c.set(1900, 0, 1);
 
         Date date = c.getTime();
 
         return date;
+    }
+
+
+    public static void getCurrentSearchedAppUsersList(HttpServletRequest req, UsersAppService service) {
+        String value = (String) req.getSession().getAttribute(ServletUtils.SEARCH_USER);
+        List<AppUser> resultList = service.getSearchingResults(value);
+        if (resultList.size()==0){
+            req.setAttribute(ServletUtils.NO_RESULTS_PATEMETER, "no results");
+        }
+
+
+        req.getSession().setAttribute(ServletUtils.SEARCHED_USERS_LIST,resultList);
     }
 
 }

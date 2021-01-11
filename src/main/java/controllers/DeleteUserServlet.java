@@ -15,7 +15,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static services.impl.PatientListAppServiceImpl.getCurrentSearchedAppUsersList;
 
 
 @WebServlet(name = "DeleteUserServlet", value = "/deleteUser")
@@ -35,8 +40,10 @@ public class DeleteUserServlet extends HttpServlet {
         String parameter = req.getParameter(ServletUtils.USER_ID);
         AppUser appUser = service.getAppUserById(Long.valueOf(parameter));
         service.deleteUser(appUser);
+        getCurrentSearchedAppUsersList(req,service);
 
-        req.getRequestDispatcher("/searchUser.jsp").forward(req, resp);
+
+        req.getRequestDispatcher("searchUser").forward(req, resp);
     }
 
 }
