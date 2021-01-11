@@ -100,4 +100,14 @@ public class UsersAppServiceImpl implements UsersAppService {
     public void resetUserPassword(AppUser user) {
         appUserDao.resetUserPassword(user);
     }
+
+    @Override
+    public void setAdmin(AppUser user) {
+        appUserDao.setAdmin(user);
+    }
+
+    @Override
+    public void setNoAdmin(AppUser user) {
+        appUserDao.setNoAdmin(user);
+    }
 }

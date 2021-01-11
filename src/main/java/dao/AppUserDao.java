@@ -20,4 +20,8 @@ public interface AppUserDao {
 
     void resetUserPassword(AppUser user);
 
+    void setAdmin(AppUser user);
+
+    void setNoAdmin(AppUser user);
+
 }

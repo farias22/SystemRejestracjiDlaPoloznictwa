@@ -81,8 +81,13 @@
                 <c:if test="${!usersList.admin}">NIE
                 </c:if>
             </td>
-            <td style="width: 300px">
-                <a href="editPatient?userId=${usersList.id}"><input class="btn btn-warning" style="color: white; font-size: 14px; margin-right: 10px" type="button" value="Edytuj"></a>
+            <td style="width: 460px">
+                <c:if test="${usersList.admin}">
+                    <a href="setNoAdmin?userId=${usersList.id}"><input class="btn btn-warning" style="color: white; font-size: 14px; margin-right: 10px" type="button" value="Odbierz uprawnienia administratora"></a>
+                </c:if>
+                <c:if test="${!usersList.admin}">
+                    <a href="setAdmin?userId=${usersList.id}"><input class="btn btn-success" style="color: white; font-size: 14px; margin-right: 10px" type="button" value="Nadaj uprawnienia administratora"></a>
+                </c:if>
                 <a href="resetPassword?userId=${usersList.id}"><input class="btn btn-info" style="color: white; font-size: 14px;margin-right: 10px" type="button" value="Resetuj hasło"></a>
                 <a href="deleteUser?userId=${usersList.id}"><input class="btn btn-danger" style="color: white; font-size: 14px" type="button" value="Usuń"></a>
             </td>

@@ -29,6 +29,16 @@ public class MySQLUserDao extends AbstractSqlDao implements AppUserDao {
     }
 
     @Override
+    public void setAdmin(AppUser user) {
+        hibernateUtil.setAdmin(AppUser.class, user);
+    }
+
+    @Override
+    public void setNoAdmin(AppUser user) {
+        hibernateUtil.setNoAdmin(AppUser.class, user);
+    }
+
+    @Override
     public Optional<AppUser> getAppUserByEmail(String email) {
         TypedQuery<AppUser> query = entityManager.createQuery("select u from AppUser u where u.email =:email", AppUser.class);
         query.setParameter("email", email);

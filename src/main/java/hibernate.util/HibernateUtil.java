@@ -84,6 +84,31 @@ public class HibernateUtil {
         manager.getTransaction().commit();
     }
 
+    public void setAdmin(Class clazz, AppUser user) {
+        manager.getTransaction().begin();
+        Object o = manager.find(clazz, user.getId());
+        if (null!=o){
+            manager.remove(o);
+            user.setAdmin(true);
+            manager.persist(user);
+        }
+        manager.flush();
+        manager.getTransaction().commit();
+    }
+
+    public void setNoAdmin(Class clazz, AppUser user) {
+        manager.getTransaction().begin();
+        Object o = manager.find(clazz, user.getId());
+        if (null!=o){
+            manager.remove(o);
+            user.setAdmin(false);
+            manager.persist(user);
+        }
+        manager.flush();
+        manager.getTransaction().commit();
+    }
+
+
 
     public EntityManager getManager() {
         return manager;

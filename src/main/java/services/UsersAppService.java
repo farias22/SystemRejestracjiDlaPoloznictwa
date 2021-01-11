@@ -29,4 +29,8 @@ public interface UsersAppService {
 
     void resetUserPassword(AppUser user);
 
+    void setAdmin(AppUser user);
+
+    void setNoAdmin(AppUser user);
+
 }
