@@ -95,4 +95,9 @@ public class UsersAppServiceImpl implements UsersAppService {
     public void deleteUser(AppUser user) {
         appUserDao.deleteUser(user);
     }
+
+    @Override
+    public void resetUserPassword(AppUser user) {
+        appUserDao.resetUserPassword(user);
+    }
 }

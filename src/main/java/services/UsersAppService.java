@@ -27,4 +27,6 @@ public interface UsersAppService {
 
     void deleteUser(AppUser user);
 
+    void resetUserPassword(AppUser user);
+
 }

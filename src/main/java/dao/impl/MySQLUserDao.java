@@ -24,6 +24,11 @@ public class MySQLUserDao extends AbstractSqlDao implements AppUserDao {
     }
 
     @Override
+    public void resetUserPassword(AppUser user) {
+        hibernateUtil.resetUserPassword(AppUser.class, user);
+    }
+
+    @Override
     public Optional<AppUser> getAppUserByEmail(String email) {
         TypedQuery<AppUser> query = entityManager.createQuery("select u from AppUser u where u.email =:email", AppUser.class);
         query.setParameter("email", email);
@@ -53,4 +58,6 @@ public class MySQLUserDao extends AbstractSqlDao implements AppUserDao {
                 .getResultList();
         return usersList;
     }
+
+
 }

@@ -1,5 +1,6 @@
 package hibernate.util;
 
+import models.AppUser;
 import models.Patient;
 
 import javax.persistence.EntityManager;
@@ -66,6 +67,18 @@ public class HibernateUtil {
             manager.remove(o);
             a2.setRegistrationDate(a1.getRegistrationDate());
             manager.persist(a2);
+        }
+        manager.flush();
+        manager.getTransaction().commit();
+    }
+
+    public void resetUserPassword(Class clazz, AppUser user) {
+        manager.getTransaction().begin();
+        Object o = manager.find(clazz, user.getId());
+        if (null!=o){
+            manager.remove(o);
+            user.setPassword(user.getEmail());
+            manager.persist(user);
         }
         manager.flush();
         manager.getTransaction().commit();

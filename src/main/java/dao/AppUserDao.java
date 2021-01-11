@@ -18,4 +18,6 @@ public interface AppUserDao {
 
     List<AppUser> getSearchingResults(String search);
 
+    void resetUserPassword(AppUser user);
+
 }
