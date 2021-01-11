@@ -19,7 +19,6 @@ public class AppUser {
     private String email;
     private String password;
     private boolean admin;
-    @CreationTimestamp()
     private Date registeredSince;
 
 
@@ -131,6 +130,7 @@ public class AppUser {
 
         public AppUser build() {
             AppUser user = new AppUser();
+            user.setRegisteredSince(new Date(System.currentTimeMillis()));
             user.setFistName(this.fistName);
             user.setLastName(this.lastName);
             user.setEmail(this.email);

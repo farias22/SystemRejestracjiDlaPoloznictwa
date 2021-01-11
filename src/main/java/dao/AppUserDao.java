@@ -24,4 +24,6 @@ public interface AppUserDao {
 
     void setNoAdmin(AppUser user);
 
+    void updateUser(AppUser appUserOld, AppUser appUserNew);
+
 }

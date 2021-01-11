@@ -40,6 +40,10 @@ public class UsersAppServiceImpl implements UsersAppService {
         appUserDao.saveUser(appUser);
     }
 
+    @Override
+    public void editUser(AppUser appUserOld, AppUser appUserNew) {
+        appUserDao.updateUser(appUserOld, appUserNew);
+    }
 
     @Override
     public String getUserNameFromEmail(String email) {

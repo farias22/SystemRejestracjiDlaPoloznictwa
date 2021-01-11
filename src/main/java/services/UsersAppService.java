@@ -13,6 +13,8 @@ public interface UsersAppService {
 
     void addUser(AppUser appUser);
 
+    void editUser(AppUser appUserOld, AppUser appUserNew);
+
     String getUserNameFromEmail(String email);
 
     boolean isUserIsAdmin(String email);

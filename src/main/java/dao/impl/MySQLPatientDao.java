@@ -22,7 +22,7 @@ public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
 
     @Override
     public void updatePatient(Patient oldData, Patient newData) {
-        hibernateUtil.update(Patient.class, oldData, newData);
+        hibernateUtil.updatePatient(Patient.class, oldData, newData);
     }
 
     @Override

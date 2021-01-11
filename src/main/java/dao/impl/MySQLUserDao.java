@@ -39,6 +39,11 @@ public class MySQLUserDao extends AbstractSqlDao implements AppUserDao {
     }
 
     @Override
+    public void updateUser(AppUser appUserOld, AppUser appUserNew) {
+        hibernateUtil.updateUser(AppUser.class, appUserOld, appUserNew);
+    }
+
+    @Override
     public Optional<AppUser> getAppUserByEmail(String email) {
         TypedQuery<AppUser> query = entityManager.createQuery("select u from AppUser u where u.email =:email", AppUser.class);
         query.setParameter("email", email);
