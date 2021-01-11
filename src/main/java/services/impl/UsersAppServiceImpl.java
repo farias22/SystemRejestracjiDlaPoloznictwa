@@ -4,6 +4,7 @@ import dao.AppUserDao;
 import models.AppUser;
 import services.UsersAppService;
 
+import java.util.List;
 import java.util.Optional;
 
 public class UsersAppServiceImpl implements UsersAppService {
@@ -74,5 +75,10 @@ public class UsersAppServiceImpl implements UsersAppService {
             return new AppUser();
         }
         return loggedUser.get();
+    }
+
+    @Override
+    public List<AppUser> getSearchingResults(String search) {
+        return appUserDao.getSearchingResults(search);
     }
 }

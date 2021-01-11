@@ -1,7 +1,9 @@
 package dao;
 
 import models.AppUser;
+import models.Patient;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface AppUserDao {
@@ -12,6 +14,6 @@ public interface AppUserDao {
 
     Optional<AppUser> getAppUserByEmail(String email);
 
-
+    List<AppUser> getSearchingResults(String search);
 
 }

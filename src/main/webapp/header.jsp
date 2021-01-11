@@ -48,6 +48,12 @@
                 <a class="text-white" href="addUser">Dodaj użytkownika</a>
             </h6>
         </div>
+        <div class="lh-100">
+            <h6 class="mb-0 lh-100 tab">
+                <a class="text-white" href="searchUser">Wyszukaj użytkownika</a>
+            </h6>
+        </div>
+
     </c:if>
 
 

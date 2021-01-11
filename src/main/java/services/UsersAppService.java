@@ -1,6 +1,9 @@
 package services;
 
 import models.AppUser;
+import models.Patient;
+
+import java.util.List;
 
 public interface UsersAppService {
 
@@ -17,5 +20,7 @@ public interface UsersAppService {
     boolean domainAvailable(String email);
 
     AppUser getAppUserByEmail(String email);
+
+    List<AppUser> getSearchingResults(String search);
 
 }

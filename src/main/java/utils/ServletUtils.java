@@ -41,6 +41,9 @@ public class ServletUtils {
     public static final String PASSWORD_ERROR_HEADER = "Nieprawidłowe hasło";
     public static final String PASSWORD_ERROR_MESSAGE = "Hasło dla wprowadzonego użytkownika jest nieprawidłowe";
     public static final String PATIENT_LIST = "patientList";
+    public static final String SEARCH_USER = "searchUser";
+    public static final String SEARCHED_USERS_LIST = "searchedUsersList";
+
 
 
 }
