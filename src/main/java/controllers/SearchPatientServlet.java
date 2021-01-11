@@ -59,6 +59,7 @@ public class SearchPatientServlet extends HttpServlet {
 
         req.setAttribute(ServletUtils.SEARCH_LIST,resultList);
 
+
         req.getRequestDispatcher("/searchPatient.jsp").forward(req, resp);
 
     }

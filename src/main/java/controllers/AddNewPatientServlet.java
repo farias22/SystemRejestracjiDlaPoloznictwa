@@ -71,9 +71,9 @@ public class AddNewPatientServlet extends HttpServlet {
 
         Date hospitalizationDate = null;
         if (scheludedRegistration) {
-            hospitalizationDate = hospitalizationDateCounterForScheludedRegistration(lastPeriodDate, pragnancyAge);
+            hospitalizationDate = service.hospitalizationDateCounterForScheludedRegistration(lastPeriodDate, pragnancyAge);
         } else {
-            hospitalizationDate = hospitalizationDateCounterForNotScheludedRegistration();
+            hospitalizationDate = service.hospitalizationDateCounterForNotScheludedRegistration();
         }
 
 
@@ -91,7 +91,7 @@ public class AddNewPatientServlet extends HttpServlet {
                 .refferingDoctor(refferingDoctor)
                 .prescribingDoctor(prescribingDoctor)
                 .comment(comment)
-                .isActive()
+                .isActive(true)
                 .build();
 
         service.save(patient);
@@ -99,31 +99,4 @@ public class AddNewPatientServlet extends HttpServlet {
         req.getRequestDispatcher("patientList").forward(req, resp);
     }
 
-    private Date hospitalizationDateCounterForScheludedRegistration(Date dataStart, int age) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dataStart);
-        calendar.add(Calendar.WEEK_OF_MONTH, age);
-        Date result = calendar.getTime();
-        boolean isHospitalizationDateAvailable = service.isHospitalizationDateAvailable(result);
-        while (!isHospitalizationDateAvailable) {
-            Calendar calendar2 = Calendar.getInstance();
-            calendar2.setTime(result);
-            calendar2.add(Calendar.DAY_OF_MONTH, 1);
-            Date date = calendar2.getTime();
-            result = date;
-            isHospitalizationDateAvailable = service.isHospitalizationDateAvailable(result);
-
-        }
-        return result;
-    }
-
-    private Date hospitalizationDateCounterForNotScheludedRegistration() {
-
-        Calendar c = Calendar.getInstance();
-        c.set(1900,0,1);
-
-        Date date = c.getTime();
-
-        return date;
-    }
 }

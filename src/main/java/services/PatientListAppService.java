@@ -18,6 +18,12 @@ public interface PatientListAppService {
 
     void deletePatient(Long id);
 
+    void updatePatitnt(Patient oldData, Patient newData);
+
     boolean isHospitalizationDateAvailable(Date data);
+
+    Date hospitalizationDateCounterForScheludedRegistration(Date dataStart, int age);
+
+    Date hospitalizationDateCounterForNotScheludedRegistration();
 
 }

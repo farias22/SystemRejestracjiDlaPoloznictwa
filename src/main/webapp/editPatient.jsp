@@ -52,7 +52,7 @@
     </c:if>
 
 
-    <form action="addPatient" method="POST">
+    <form action="editPatient" method="POST">
         <div class="form-group">
             <div class="input-group">
                 <label class="col-sm-2 col-form-label">Archiwalny</label>
@@ -133,8 +133,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" style="height: 46px"> <i class="fa fa-user"></i> </span>
                 </div>
-                <select name="pragnancyAge" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref"
-                        value="40">
+                <select name="pragnancyAge" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
                     <% for (int i = 30; i <= 37; i++) { %>
                     <option value="<%=i %>"><%=i %>
                     </option>

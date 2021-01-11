@@ -17,7 +17,9 @@ public class ServletUtils {
     public static final String PATIENT_PHONE_NUMER = "phoneNumber";
     public static final String PATIENT_SHELUDED_REGISTRATION = "scheludedRegistration";
     public static final String PATIENT_DIAGNOSIS = "diagnosis";
+    public static final String ACTIVE = "archival";
     public static final String PATIENT_LAST_PERIOD_DATE = "lastPeriodDate";
+    public static final String PATIENT_LAST_PERIOD_DATEE = "lastPeriodDatee";
     public static final String PATIENT_REFFERING_DOCTOR = "refferingDoctor";
     public static final String PATIENT_PRESCRIBING_DOCTOR = "prescribingDoctor";
     public static final String PATIENT_COMMENT = "comment";
@@ -39,5 +41,6 @@ public class ServletUtils {
     public static final String PASSWORD_ERROR_HEADER = "Nieprawidłowe hasło";
     public static final String PASSWORD_ERROR_MESSAGE = "Hasło dla wprowadzonego użytkownika jest nieprawidłowe";
     public static final String PATIENT_LIST = "patientList";
+
 
 }

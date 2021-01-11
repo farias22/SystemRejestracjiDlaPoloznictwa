@@ -23,7 +23,8 @@ public class EditPatientServlet extends HttpServlet {
 
 
     private PatientListAppService service;
-
+    private String patientID = "";
+    private Patient editedPatient = null;
 
     @Override
     public void init() throws ServletException {
@@ -33,8 +34,12 @@ public class EditPatientServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Patient editedPatient = service.getPatientById(Long.valueOf(req.getParameter(ServletUtils.PATIENT_ID)));
+        patientID = req.getParameter(ServletUtils.PATIENT_ID);
+        editedPatient = service.getPatientById(Long.valueOf(req.getParameter(ServletUtils.PATIENT_ID)));
+        String lastPeriodDate = editedPatient.getLastPeriodDate().toString().substring(0,10);
         req.setAttribute(ServletUtils.EDITED_PATIENT, editedPatient);
+        req.setAttribute(ServletUtils.PATIENT_LAST_PERIOD_DATEE, lastPeriodDate);
+
         req.getRequestDispatcher("/editPatient.jsp").forward(req, resp);
     }
 
@@ -42,13 +47,18 @@ public class EditPatientServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
-        service.getPatientById(Long.valueOf(req.getParameter(ServletUtils.PATIENT_ID)));
+
         String imie = req.getParameter(ServletUtils.PATIENT_FIRST_NAME);
         String nazwisko = req.getParameter(ServletUtils.PATIENT_LAST_NAME);
         boolean foreigner = false;
         if (req.getParameter(ServletUtils.PATIENT_IS_FOREIGNER) != null
                 && req.getParameter(ServletUtils.PATIENT_IS_FOREIGNER).equals("on")) {
             foreigner = true;
+        }
+        boolean active = true;
+        if (req.getParameter(ServletUtils.ACTIVE) != null
+                && req.getParameter(ServletUtils.ACTIVE).equals("on")) {
+            active = false;
         }
         String pesel = req.getParameter(ServletUtils.PATIENT_PESEL);
         String phoneNumber = req.getParameter(ServletUtils.PATIENT_PHONE_NUMER);
@@ -73,9 +83,9 @@ public class EditPatientServlet extends HttpServlet {
 
         Date hospitalizationDate = null;
         if (scheludedRegistration) {
-            hospitalizationDate = hospitalizationDateCounterForScheludedRegistration(lastPeriodDate, pragnancyAge);
+            hospitalizationDate = service.hospitalizationDateCounterForScheludedRegistration(lastPeriodDate, pragnancyAge);
         } else {
-            hospitalizationDate = hospitalizationDateCounterForNotScheludedRegistration();
+            hospitalizationDate = service.hospitalizationDateCounterForNotScheludedRegistration();
         }
 
 
@@ -93,40 +103,13 @@ public class EditPatientServlet extends HttpServlet {
                 .refferingDoctor(refferingDoctor)
                 .prescribingDoctor(prescribingDoctor)
                 .comment(comment)
-                .isActive()
+                .isActive(active)
                 .build();
 
-        service.save(patient);
+        service.updatePatitnt(editedPatient,patient);
 
         req.getRequestDispatcher("patientList").forward(req, resp);
     }
 
-    private Date hospitalizationDateCounterForScheludedRegistration(Date dataStart, int age) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dataStart);
-        calendar.add(Calendar.WEEK_OF_MONTH, age);
-        Date result = calendar.getTime();
-        boolean isHospitalizationDateAvailable = service.isHospitalizationDateAvailable(result);
-        while (!isHospitalizationDateAvailable) {
-            Calendar calendar2 = Calendar.getInstance();
-            calendar2.setTime(result);
-            calendar2.add(Calendar.DAY_OF_MONTH, 1);
-            Date date = calendar2.getTime();
-            result = date;
-            isHospitalizationDateAvailable = service.isHospitalizationDateAvailable(result);
-
-        }
-        return result;
-    }
-
-    private Date hospitalizationDateCounterForNotScheludedRegistration() {
-
-        Calendar c = Calendar.getInstance();
-        c.set(1900,0,1);
-
-        Date date = c.getTime();
-
-        return date;
-    }
 
 }

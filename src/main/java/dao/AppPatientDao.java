@@ -14,6 +14,8 @@ public interface AppPatientDao {
 
     void deletePatient(Long id);
 
+    void updatePatient(Patient oldData, Patient newData);
+
     List<Patient> getPatientList();
 
     List<Patient> getSearchingResults(String search);

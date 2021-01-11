@@ -5,6 +5,7 @@ import models.Patient;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Date;
 
 public class HibernateUtil {
 
@@ -48,7 +49,17 @@ public class HibernateUtil {
     }
 
 
-
+    public void update(Class clazz, Patient a1, Patient a2) {
+        manager.getTransaction().begin();
+        Object o = manager.find(clazz, a1.getId());
+        if (null!=o){
+            manager.remove(o);
+            a2.setRegistrationDate(a1.getRegistrationDate());
+            manager.persist(a2);
+        }
+        manager.flush();
+        manager.getTransaction().commit();
+    }
 
 
     public EntityManager getManager() {

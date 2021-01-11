@@ -13,7 +13,6 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @CreationTimestamp()
     private Date registrationDate;
     private Date hospitalizationDate;
     private int pregnancyAge;
@@ -161,7 +160,6 @@ public class Patient {
 
     public static class PatientBuilder {
 
-
         private Date hospitalizationDate;
         private int pragnancyAge;
         private String firstName;
@@ -180,6 +178,9 @@ public class Patient {
         public static PatientBuilder getBuilder() {
             return new PatientBuilder();
         }
+
+
+
 
         public PatientBuilder hospitalizationDate(Date date) {
             this.hospitalizationDate = date;
@@ -245,14 +246,15 @@ public class Patient {
             this.comment = comment;
             return this;
         }
-        public PatientBuilder isActive() {
-            this.active = true;
+        public PatientBuilder isActive(boolean active) {
+            this.active = active;
             return this;
         }
 
 
         public Patient build() {
             Patient patient = new Patient();
+            patient.setRegistrationDate(new Date(System.currentTimeMillis()));
             patient.setHospitalizationDate(this.hospitalizationDate);
             patient.setPregnancyAge(this.pragnancyAge);
             patient.setFirstName(this.firstName);

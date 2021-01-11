@@ -26,6 +26,11 @@ public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
     }
 
     @Override
+    public void updatePatient(Patient oldData, Patient newData) {
+        hibernateUtil.update(Patient.class, oldData, newData);
+    }
+
+    @Override
     public List<Patient> getPatientList() {
         List<Patient> patientList = entityManager.createQuery("select p from Patient p where p.active = :active", Patient.class)
                 .setParameter("active", true)
