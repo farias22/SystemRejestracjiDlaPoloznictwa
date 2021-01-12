@@ -1,8 +1,6 @@
 package dao;
 
 import models.AppUser;
-import models.Patient;
-
 import java.util.List;
 import java.util.Optional;
 

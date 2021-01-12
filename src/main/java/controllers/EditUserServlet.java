@@ -28,8 +28,7 @@ import java.util.Date;
 public class EditUserServlet extends HttpServlet {
 
 
-    private String userId = "";
-    private AppUser editedUser = null;
+
     private UsersAppService service;
 
 

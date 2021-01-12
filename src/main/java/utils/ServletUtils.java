@@ -1,6 +1,5 @@
 package utils;
 
-import javax.servlet.http.HttpServletRequest;
 
 public class ServletUtils {
 
@@ -15,7 +14,6 @@ public class ServletUtils {
     public static final String PATIENT_ID = "patientId";
     public static final String USER_ID = "userId";
     public static final String EDITED_PATIENT = "editedPatient";
-    public static final String EDITED_USER = "editedUser";
     public static final String PATIENT_PESEL = "pesel";
     public static final String PATIENT_PHONE_NUMER = "phoneNumber";
     public static final String PATIENT_SHELUDED_REGISTRATION = "scheludedRegistration";
@@ -24,7 +22,6 @@ public class ServletUtils {
     public static final String PATIENT_LAST_PERIOD_DATE = "lastPeriodDate";
     public static final String PATIENT_LAST_PERIOD_DATEE = "lastPeriodDatee";
     public static final String PATIENT_REFFERING_DOCTOR = "refferingDoctor";
-    public static final String PATIENT_PRESCRIBING_DOCTOR = "prescribingDoctor";
     public static final String PATIENT_COMMENT = "comment";
     public static final String PATIENT_PREGNENCY_AGE = "pragnancyAge";
     public static final String IS_USER_IS_ADMIN = "idAdmin";
@@ -40,10 +37,8 @@ public class ServletUtils {
     public static final String EMAIL_ERROR_HEADER = "Nieprawidłowy adres e-mail";
     public static final String EMAIL_IN_USE = "Błąd edycji konta";
     public static final String EMAIL_IN_USE_MESSAGE = "Wybrany adres jest już w użyciu";
-
     public static final String RESET_PASSWORD_ERROR = "Błąd zmiany hasła";
     public static final String RESET_PASSWORD_ERROR_MESSAGE = "Podane hasła nie są takie same";
-
     public static final String EMAIL_ERROR_MESSAGE = "Użytkownik o podanym adresie e-mail nie istnieje";
     public static final String PASSWORD_ERROR_HEADER = "Nieprawidłowe hasło";
     public static final String PASSWORD_ERROR_MESSAGE = "Hasło dla wprowadzonego użytkownika jest nieprawidłowe";

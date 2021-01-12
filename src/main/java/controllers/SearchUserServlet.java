@@ -27,13 +27,11 @@ public class SearchUserServlet extends HttpServlet {
 
 
     private UsersAppService usersService;
-    private PatientListAppService patientService;
 
 
     @Override
     public void init() throws ServletException {
         usersService = new UsersAppServiceImpl(new MySQLUserDao());
-        patientService = new PatientListAppServiceImpl(new MySQLPatientDao());
 
     }
 

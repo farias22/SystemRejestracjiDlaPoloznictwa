@@ -1,7 +1,6 @@
 package controllers;
 
 import dao.impl.MySQLPatientDao;
-import dao.impl.MySQLUserDao;
 import services.PatientListAppService;
 import services.impl.PatientListAppServiceImpl;
 import utils.ServletUtils;

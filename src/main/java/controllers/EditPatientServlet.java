@@ -22,7 +22,6 @@ public class EditPatientServlet extends HttpServlet {
 
 
     private PatientListAppService service;
-    private String patientID = "";
     private Patient editedPatient = null;
 
     @Override
@@ -33,7 +32,6 @@ public class EditPatientServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        patientID = req.getParameter(ServletUtils.PATIENT_ID);
         editedPatient = service.getPatientById(Long.valueOf(req.getParameter(ServletUtils.PATIENT_ID)));
         String lastPeriodDate = editedPatient.getLastPeriodDate().toString().substring(0,10);
         req.setAttribute(ServletUtils.EDITED_PATIENT, editedPatient);
@@ -61,10 +59,10 @@ public class EditPatientServlet extends HttpServlet {
         }
         String pesel = req.getParameter(ServletUtils.PATIENT_PESEL);
         String phoneNumber = req.getParameter(ServletUtils.PATIENT_PHONE_NUMER);
-        boolean scheludedRegistration = false;
+        boolean scheduledRegistration = false;
         if (req.getParameter(ServletUtils.PATIENT_SHELUDED_REGISTRATION) != null
                 && req.getParameter(ServletUtils.PATIENT_SHELUDED_REGISTRATION).equals("on")) {
-            scheludedRegistration = true;
+            scheduledRegistration = true;
         }
 
         String diagnosis = req.getParameter(ServletUtils.PATIENT_DIAGNOSIS);
@@ -75,14 +73,14 @@ public class EditPatientServlet extends HttpServlet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        int pragnancyAge = Integer.valueOf(req.getParameter(ServletUtils.PATIENT_PREGNENCY_AGE));
-        String refferingDoctor = req.getParameter(ServletUtils.PATIENT_REFFERING_DOCTOR);
+        int pregnancyAge = Integer.valueOf(req.getParameter(ServletUtils.PATIENT_PREGNENCY_AGE));
+        String referringDoctor = req.getParameter(ServletUtils.PATIENT_REFFERING_DOCTOR);
         String prescribingDoctor = (String) req.getSession().getAttribute(ServletUtils.USER_FULL_NAME);
         String comment = req.getParameter(ServletUtils.PATIENT_COMMENT);
 
-        Date hospitalizationDate = null;
-        if (scheludedRegistration) {
-            hospitalizationDate = service.hospitalizationDateCounterForScheduledRegistration(lastPeriodDate, pragnancyAge);
+        Date hospitalizationDate;
+        if (scheduledRegistration) {
+            hospitalizationDate = service.hospitalizationDateCounterForScheduledRegistration(lastPeriodDate, pregnancyAge);
         } else {
             hospitalizationDate = service.hospitalizationDateCounterForNotScheduledRegistration();
         }
@@ -94,12 +92,12 @@ public class EditPatientServlet extends HttpServlet {
                 .foreigner(foreigner)
                 .pesel(pesel)
                 .phoneNumber(phoneNumber)
-                .scheludedRegistration(scheludedRegistration)
+                .scheludedRegistration(scheduledRegistration)
                 .diagnosis(diagnosis)
                 .lastPeriodDate(lastPeriodDate)
-                .pragnancyAge(pragnancyAge)
+                .pragnancyAge(pregnancyAge)
                 .hospitalizationDate(hospitalizationDate)
-                .refferingDoctor(refferingDoctor)
+                .refferingDoctor(referringDoctor)
                 .prescribingDoctor(prescribingDoctor)
                 .comment(comment)
                 .isActive(active)

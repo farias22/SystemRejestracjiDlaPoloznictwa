@@ -1,6 +1,5 @@
 package models;
 
-import org.hibernate.annotations.CreationTimestamp;
 
 
 import javax.persistence.*;

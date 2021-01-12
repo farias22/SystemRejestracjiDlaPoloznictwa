@@ -1,7 +1,6 @@
 package controllers;
 
 
-import dao.AppUserDao;
 import dao.impl.MySQLUserDao;
 import error.ValidationError;
 import models.AppUser;

@@ -1,9 +1,7 @@
 package dao;
 
-import models.AppUser;
-import models.Patient;
 
-import javax.xml.crypto.Data;
+import models.Patient;
 import java.util.Date;
 import java.util.List;
 
