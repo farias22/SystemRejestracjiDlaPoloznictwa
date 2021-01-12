@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 @WebServlet(name = "EditPatientServlet", value = "/editPatient")
@@ -106,7 +105,7 @@ public class EditPatientServlet extends HttpServlet {
                 .isActive(active)
                 .build();
 
-        service.updatePatitnt(editedPatient,patient);
+        service.updatePatient(editedPatient,patient);
 
         req.getRequestDispatcher("patientList").forward(req, resp);
     }

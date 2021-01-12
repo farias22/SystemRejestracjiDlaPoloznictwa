@@ -1,7 +1,6 @@
 package services.impl;
 
 import dao.AppPatientDao;
-import dao.AppUserDao;
 import models.AppUser;
 import models.Patient;
 import services.PatientListAppService;
@@ -9,19 +8,14 @@ import services.UsersAppService;
 import utils.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.crypto.Data;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class PatientListAppServiceImpl implements PatientListAppService {
 
-    AppPatientDao appPatientDao;
+    private AppPatientDao appPatientDao;
 
-
-    public PatientListAppServiceImpl(AppPatientDao appPatientDao) {
-        this.appPatientDao = appPatientDao;
-    }
 
 
     @Override
@@ -51,7 +45,7 @@ public class PatientListAppServiceImpl implements PatientListAppService {
     }
 
     @Override
-    public void updatePatitnt(Patient oldData, Patient newData) {
+    public void updatePatient(Patient oldData, Patient newData) {
         appPatientDao.updatePatient(oldData, newData);
     }
 
@@ -60,7 +54,7 @@ public class PatientListAppServiceImpl implements PatientListAppService {
         return appPatientDao.isHospitalizationDateAvailable(data);
     }
 
-    public Date hospitalizationDateCounterForScheludedRegistration(Date dataStart, int age) {
+    public Date hospitalizationDateCounterForScheduledRegistration(Date dataStart, int age) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dataStart);
         calendar.add(Calendar.WEEK_OF_MONTH, age);
@@ -70,22 +64,20 @@ public class PatientListAppServiceImpl implements PatientListAppService {
             Calendar calendar2 = Calendar.getInstance();
             calendar2.setTime(result);
             calendar2.add(Calendar.DAY_OF_MONTH, 1);
-            Date date = calendar2.getTime();
-            result = date;
+            result = calendar2.getTime();
+
             isHospitalizationDateAvailable = appPatientDao.isHospitalizationDateAvailable(result);
 
         }
         return result;
     }
 
-    public Date hospitalizationDateCounterForNotScheludedRegistration() {
+    public Date hospitalizationDateCounterForNotScheduledRegistration() {
 
         Calendar c = Calendar.getInstance();
-        c.set(1900, 0, 1);
+        c.set(1900, Calendar.JANUARY, 1);
 
-        Date date = c.getTime();
-
-        return date;
+        return c.getTime();
     }
 
 
