@@ -82,9 +82,9 @@ public class EditPatientServlet extends HttpServlet {
 
         Date hospitalizationDate = null;
         if (scheludedRegistration) {
-            hospitalizationDate = service.hospitalizationDateCounterForScheludedRegistration(lastPeriodDate, pragnancyAge);
+            hospitalizationDate = service.hospitalizationDateCounterForScheduledRegistration(lastPeriodDate, pragnancyAge);
         } else {
-            hospitalizationDate = service.hospitalizationDateCounterForNotScheludedRegistration();
+            hospitalizationDate = service.hospitalizationDateCounterForNotScheduledRegistration();
         }
 
 
