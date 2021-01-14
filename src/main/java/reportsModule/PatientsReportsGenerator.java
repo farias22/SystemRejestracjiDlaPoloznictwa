@@ -1,9 +1,8 @@
-package reports;
+package reportsModule;
 
 import jxl.write.WriteException;
-import models.Patient;
 import models.PatientExtended;
-import reports.reportsList.GenerateSelectedPatientList;
+import reportsModule.reportsList.GenerateSelectedPatientList;
 
 import java.io.IOException;
 import java.util.List;

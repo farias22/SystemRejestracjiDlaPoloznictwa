@@ -1,8 +1,7 @@
-package reports.reportsList;
+package reportsModule.reportsList;
 
 import jxl.CellView;
 import jxl.Workbook;
-import jxl.WorkbookSettings;
 import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
@@ -16,10 +15,7 @@ import models.comparators.PatientComparator;
 
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;

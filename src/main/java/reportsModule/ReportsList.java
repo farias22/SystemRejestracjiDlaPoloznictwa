@@ -1,4 +1,4 @@
-package reports;
+package reportsModule;
 
 public enum ReportsList {
 
