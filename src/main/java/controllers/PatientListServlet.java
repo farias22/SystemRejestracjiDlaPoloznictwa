@@ -54,8 +54,9 @@ public class PatientListServlet extends HttpServlet {
             list = PatientExtended.transferList(patientList);
         }
         else {
-
-            list = (List<PatientExtended>)req.getSession().getAttribute(ServletUtils.PATIENT_LIST);
+            List<PatientExtended> list1 = (List<PatientExtended>)req.getSession().getAttribute(ServletUtils.PATIENT_LIST);
+            List<Patient> list2 = servicePatients.getPatientList();
+            list = PatientExtended.mergeList(list1, list2);
         }
         Collections.sort(list, new PatientComparator());
 

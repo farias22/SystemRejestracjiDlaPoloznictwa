@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import static models.PatientExtended.transferPatient;
+import static models.PatientExtended.updatePatientListValue;
 
 
 @WebServlet(name = "AddNewPatientServlet", value = "/addPatient")
@@ -98,11 +99,10 @@ public class AddNewPatientServlet extends HttpServlet {
                 .build();
 
         service.save(patient);
-        PatientExtended patientExtended = transferPatient(patient);
 
 
-        List<PatientExtended> list = (List<PatientExtended>)req.getSession().getAttribute(ServletUtils.PATIENT_LIST);
-        list.add(patientExtended);
+        List<PatientExtended> list = updatePatientListValue(req, service);
+
         req.getSession().setAttribute(ServletUtils.PATIENT_LIST, list);
         req.getRequestDispatcher("patientList").forward(req, resp);
     }

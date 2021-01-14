@@ -1,6 +1,7 @@
 package controllers;
 
 import dao.impl.MySQLPatientDao;
+import models.Patient;
 import models.PatientExtended;
 import services.PatientListAppService;
 import services.impl.PatientListAppServiceImpl;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+
+import static models.PatientExtended.updatePatientListValue;
 
 
 @WebServlet(name = "DeletePatientServlet", value = "/deletePatient")
@@ -34,12 +37,8 @@ public class DeletePatientServlet extends HttpServlet {
 
         patientService.deletePatient(parameter);
 
-        List<PatientExtended> list = (List<PatientExtended>)req.getSession().getAttribute(ServletUtils.PATIENT_LIST);
-        for (PatientExtended patientExtended : list) {
-            if (patientExtended.getId().equals(parameter));
-            list.remove(patientExtended);
-            break;
-        }
+
+        List<PatientExtended> list = updatePatientListValue(req, patientService);
 
         req.getSession().setAttribute(ServletUtils.PATIENT_LIST, list);
         req.getRequestDispatcher("patientList").forward(req, resp);
