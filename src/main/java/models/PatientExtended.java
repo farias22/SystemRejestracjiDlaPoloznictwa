@@ -41,7 +41,7 @@ public class PatientExtended extends Patient {
         return resultList;
     }
 
-    public static PatientExtended transferPatient(Patient patient){
+    private static PatientExtended transferPatient(Patient patient){
         PatientExtended pe = new PatientExtended();
 
 
@@ -66,7 +66,7 @@ public class PatientExtended extends Patient {
         return pe;
     }
 
-    public static List<PatientExtended> mergeList(List<PatientExtended> list1, List<Patient> list2){
+    private static List<PatientExtended> mergeList(List<PatientExtended> list1, List<Patient> list2){
         List<PatientExtended> resultList = new ArrayList<>();
 
         for (Patient patient : list2) {
@@ -74,6 +74,7 @@ public class PatientExtended extends Patient {
             for (PatientExtended patientExtended : list1) {
                 if (patientExtended.getId().equals(p.getId())){
                     p.setBasket(patientExtended.isBasket());
+                    break;
                 }
             }
             resultList.add(p);
@@ -84,7 +85,7 @@ public class PatientExtended extends Patient {
     public static List<PatientExtended>  updatePatientListValue(HttpServletRequest req, PatientListAppService patientService){
         List<PatientExtended> list1 = (List<PatientExtended>)req.getSession().getAttribute(ServletUtils.PATIENT_LIST);
         List<Patient> list2 = patientService.getPatientList();
-        List<PatientExtended> list = PatientExtended.mergeList(list1, list2);
+        List<PatientExtended> list = mergeList(list1, list2);
 
         return list;
 

@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+import static models.PatientExtended.updatePatientListValue;
+
 
 @WebServlet(name = "PatientListServlet", value = "/patientList")
 public class PatientListServlet extends HttpServlet {
@@ -54,9 +56,8 @@ public class PatientListServlet extends HttpServlet {
             list = PatientExtended.transferList(patientList);
         }
         else {
-            List<PatientExtended> list1 = (List<PatientExtended>)req.getSession().getAttribute(ServletUtils.PATIENT_LIST);
-            List<Patient> list2 = servicePatients.getPatientList();
-            list = PatientExtended.mergeList(list1, list2);
+
+            list = updatePatientListValue(req,servicePatients);
         }
         Collections.sort(list, new PatientComparator());
 
