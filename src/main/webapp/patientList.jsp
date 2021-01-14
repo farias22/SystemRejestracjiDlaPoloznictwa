@@ -28,9 +28,10 @@
     </style>
 </head>
 <body>
-<div role="main" class="container" style="width: 120%">
+<div role="main"  style="width: 80%; align-content: center; margin: 0 auto">
 
     <%@include file="header.jsp" %>
+
 </div>
 <main style="width: 90%; align-content: center; margin: 0 auto">
     <div class="my-3 p-3 bg-white rounded box-shadow">
@@ -68,10 +69,10 @@
                 <tr>
                     <td>
                         <c:if test="${patientList.basket}">
-                            <a href="removeFromBasket?userId=${patientList.id}"><input class="btn btn-danger" style="color: white; font-size: 14px; margin-right: 10px" type="button" value="-"></a>
+                            <a href="removeFromBasket?userId=${patientList.id}"><input class="btn btn-danger" style="color: white; font-size: 15px;font-weight: 900; margin-right: 5px" type="button" value="-"></a>
                         </c:if>
                         <c:if test="${!patientList.basket}">
-                            <a href="addToBasket?userId=${patientList.id}"><input class="btn btn-success" style="color: white; font-size: 14px; margin-right: 10px" type="button" value="+"></a>
+                            <a href="addToBasket?userId=${patientList.id}"><input class="btn btn-success" style="color: white; font-size: 15px;font-weight: 900; margin-right: 5px" type="button" value="+"></a>
                         </c:if>
                     </td>
                     <td>${counter}</td>
