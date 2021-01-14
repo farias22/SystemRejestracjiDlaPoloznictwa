@@ -11,6 +11,7 @@ import jxl.write.WriteException;
 import models.Patient;
 
 import jxl.write.*;
+import models.comparators.PatientComparator;
 
 import java.awt.*;
 import java.io.File;
@@ -18,9 +19,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Locale;
 
 public class GenerateSelectedPatientList {
 
@@ -79,13 +80,24 @@ public class GenerateSelectedPatientList {
             s.addCell(label1);
             kolumna++;
         }
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+
+        Collections.sort(patientList, new PatientComparator());
 
         for (Patient patient : patientList) {
             Label label1 = new Label(0, wiersz, String.valueOf(wiersz), cfNoWrap);
             s.addCell(label1);
-            Label label2 = new Label(1, wiersz, patient.getRegistrationDate().toString(), cfNoWrap);
+
+            Date registrationDate = patient.getRegistrationDate();
+            String registrationDate2 = simpleDateFormat.format(registrationDate);
+            Label label2 = new Label(1, wiersz, registrationDate2, cfNoWrap);
             s.addCell(label2);
-            Label label3 = new Label(2, wiersz, patient.getHospitalizationDate().toString(), cfNoWrap);
+
+            Date hospitalizationDateDate = patient.getHospitalizationDate();
+            String hospitalizationDateDate2 = simpleDateFormat.format(hospitalizationDateDate);
+            Label label3 = new Label(2, wiersz, hospitalizationDateDate2.equals("1900-01-01") ? "*":hospitalizationDateDate2, cfNoWrap);
             s.addCell(label3);
 
             Label label4 = new Label(3, wiersz, String.valueOf(patient.getPregnancyAge()), cfNoWrap);
@@ -106,22 +118,24 @@ public class GenerateSelectedPatientList {
             Label label9 = new Label(8, wiersz, patient.getDiagnosis(), cfNoWrap);
             s.addCell(label9);
 
-            Label label10 = new Label(9, wiersz, patient.getLastPeriodDate().toString(), cfNoWrap);
+            Date lastPeriodDate = patient.getLastPeriodDate();
+            String lastPeriodDate2 = simpleDateFormat.format(lastPeriodDate);
+            Label label10 = new Label(9, wiersz, lastPeriodDate2, cfNoWrap);
             s.addCell(label10);
 
-            Label label11 = new Label(9, wiersz, patient.getRefferingDoctor(), cfNoWrap);
+            Label label11 = new Label(10, wiersz, patient.getRefferingDoctor(), cfNoWrap);
             s.addCell(label11);
 
-            Label label12 = new Label(9, wiersz, patient.getPrescribingDoctor(), cfNoWrap);
+            Label label12 = new Label(11, wiersz, patient.getPrescribingDoctor(), cfNoWrap);
             s.addCell(label12);
 
-            Label label13 = new Label(9, wiersz, patient.getComment(), cfNoWrap);
+            Label label13 = new Label(12, wiersz, patient.getComment(), cfNoWrap);
             s.addCell(label13);
             wiersz++;
         }
 
 
-        for (int x = 0; x < 10; x++) {
+        for (int x = 0; x < 13; x++) {
             CellView cellV = s.getColumnView(x);
             cellV.setAutosize(true);
             s.setColumnView(x, cellV);
