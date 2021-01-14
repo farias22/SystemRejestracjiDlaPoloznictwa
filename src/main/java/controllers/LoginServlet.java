@@ -95,6 +95,7 @@ public class LoginServlet extends HttpServlet {
 
         boolean userIsAdmin = service.isUserIsAdmin(email);
         req.getSession().setAttribute(ServletUtils.IS_USER_IS_ADMIN, userIsAdmin);
+        req.getSession().setAttribute(ServletUtils.PATIENT_LIST, null);
         req.getRequestDispatcher("patientList").forward(req, resp);
     }
 

@@ -1,14 +1,15 @@
 package models.comparators;
 
 import models.Patient;
+import models.PatientExtended;
 
 import java.util.Comparator;
 
-public class PatientComparator implements Comparator<Patient> {
+public class PatientComparator implements Comparator<PatientExtended> {
 
 
     @Override
-    public int compare(Patient patient1, Patient patient2) {
+    public int compare(PatientExtended patient1, PatientExtended patient2) {
         int value =0;
 
         if (patient1.getHospitalizationDate().compareTo(patient2.getHospitalizationDate())!=0) {

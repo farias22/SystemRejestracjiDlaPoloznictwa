@@ -11,6 +11,7 @@ import jxl.write.WriteException;
 import models.Patient;
 
 import jxl.write.*;
+import models.PatientExtended;
 import models.comparators.PatientComparator;
 
 import java.awt.*;
@@ -26,7 +27,7 @@ import java.util.List;
 public class GenerateSelectedPatientList {
 
 
-    public void generate(List<Patient> patientList) throws WriteException, IOException {
+    public void generate(List<PatientExtended> patientList) throws WriteException, IOException {
 
 
         String path = "/home/pawel/Dokumenty/test/test.xls";
@@ -43,7 +44,7 @@ public class GenerateSelectedPatientList {
 
     }
 
-    private WritableSheet wstawDane(List<Patient> patientList, WritableWorkbook writableWorkbook) throws WriteException {
+    private WritableSheet wstawDane(List<PatientExtended> patientList, WritableWorkbook writableWorkbook) throws WriteException {
         WritableSheet s = writableWorkbook.createSheet("Lista pacjentek", 0);
 
 

@@ -38,7 +38,7 @@
         </br>
 
         <a href="exportList">
-            <input class="btn btn-success"
+            <input class="btn btn-info"
                    style="color: white; font-size: 14px"
                    type="button" value="Eksportuj do xls">
         </a>
@@ -46,7 +46,7 @@
         <br>
         <table class="table table-striped" style="font-size: 13px; text-align: center; table-layout: fixed">
             <tr style="font-weight: bold; color: brown">
-                <td style="width: 10px"></td>
+                <td style="width: 20px">Koszyk</td>
                 <td>lp</td>
                 <td>Data wpisania do systemu</td>
                 <td>Data hospitalizacji</td>
@@ -66,11 +66,13 @@
             <c:set var="counter" value="1"/>
             <c:forEach items="${patientList}" var="patientList">
                 <tr>
-                    <td><c:if test="${patientList.active}">
-                        <input type="checkbox"
-                               name="check_${patientList.id}"
-                               value="${patientList.id}"
-                        /> </c:if>
+                    <td>
+                        <c:if test="${patientList.basket}">
+                            <a href="removeFromBasket?userId=${patientList.id}"><input class="btn btn-danger" style="color: white; font-size: 14px; margin-right: 10px" type="button" value="-"></a>
+                        </c:if>
+                        <c:if test="${!patientList.basket}">
+                            <a href="addToBasket?userId=${patientList.id}"><input class="btn btn-success" style="color: white; font-size: 14px; margin-right: 10px" type="button" value="+"></a>
+                        </c:if>
                     </td>
                     <td>${counter}</td>
                     <td><fmt:formatDate value="${patientList.registrationDate}" pattern="yyyy-MM-dd"/></td>

@@ -2,6 +2,7 @@ package services;
 
 import jxl.write.WriteException;
 import models.Patient;
+import models.PatientExtended;
 
 import javax.xml.crypto.Data;
 import java.io.IOException;
@@ -28,6 +29,6 @@ public interface PatientListAppService {
 
     Date hospitalizationDateCounterForNotScheduledRegistration();
 
-    void exportListToXLS(List<Patient> patientList) throws IOException, WriteException;
+    void exportListToXLS(List<PatientExtended> patientList) throws IOException, WriteException;
 
 }

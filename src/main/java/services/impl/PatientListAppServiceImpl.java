@@ -4,6 +4,7 @@ import dao.AppPatientDao;
 import jxl.write.WriteException;
 import models.AppUser;
 import models.Patient;
+import models.PatientExtended;
 import reports.PatientsReportsGenerator;
 import reports.ReportsList;
 import services.PatientListAppService;
@@ -110,7 +111,7 @@ public class PatientListAppServiceImpl implements PatientListAppService {
 
 
     @Override
-    public void exportListToXLS(List<Patient> patientList) throws IOException, WriteException {
+    public void exportListToXLS(List<PatientExtended> patientList) throws IOException, WriteException {
     reports.generate(ReportsList.GENERATE_SELECTED_PATIENT_LIST, patientList);
 
     }

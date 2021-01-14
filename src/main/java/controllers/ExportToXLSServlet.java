@@ -3,6 +3,7 @@ package controllers;
 import dao.impl.MySQLPatientDao;
 import jxl.write.WriteException;
 import models.Patient;
+import models.PatientExtended;
 import reports.PatientsReportsGenerator;
 import reports.ReportsList;
 import services.PatientListAppService;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ExportToXLSServlet", value = "/exportList")
@@ -36,12 +38,17 @@ public class ExportToXLSServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        List<Patient> patientList = patientService.getPatientList();
+        List<PatientExtended> list = (List<PatientExtended>)req.getSession().getAttribute(ServletUtils.PATIENT_LIST);
+        List<PatientExtended> listToExcell = new ArrayList<>();
+        for (PatientExtended patientExtended : list) {
+            if (patientExtended.isBasket()){
+                listToExcell.add(patientExtended);
+            }
+        }
 
         try {
-            patientService.exportListToXLS(patientList);
+            patientService.exportListToXLS(listToExcell);
 
-//            Runtime.getRuntime().exec("/home/pawel/Dokumenty/test/test.xls");
         } catch (WriteException e) {
             e.printStackTrace();
         }
