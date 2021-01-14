@@ -1,6 +1,7 @@
 package services.impl;
 
 import dao.AppPatientDao;
+import jxl.write.WriteException;
 import models.AppUser;
 import models.Patient;
 import reports.PatientsReportsGenerator;
@@ -10,6 +11,7 @@ import services.UsersAppService;
 import utils.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,15 @@ public class PatientListAppServiceImpl implements PatientListAppService {
 
     public PatientListAppServiceImpl(AppPatientDao appPatientDao) {
         this.appPatientDao = appPatientDao;
+    }
+
+    public PatientListAppServiceImpl(AppPatientDao appPatientDao, PatientsReportsGenerator reportsGenerator) {
+        this.appPatientDao = appPatientDao;
+        this.reports=reportsGenerator;
+    }
+
+    public PatientListAppServiceImpl(PatientsReportsGenerator reportsGenerator){
+        this.reports=reportsGenerator;
     }
 
     @Override
@@ -99,7 +110,8 @@ public class PatientListAppServiceImpl implements PatientListAppService {
 
 
     @Override
-    public void exportListToXLS(List<Patient> patientList) {
+    public void exportListToXLS(List<Patient> patientList) throws IOException, WriteException {
     reports.generate(ReportsList.GENERATE_SELECTED_PATIENT_LIST, patientList);
+
     }
 }
