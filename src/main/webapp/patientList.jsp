@@ -35,9 +35,18 @@
 <main style="width: 90%; align-content: center; margin: 0 auto">
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">Lista pacjentek</h6>
+        </br>
+
+        <a href="exportList">
+            <input class="btn btn-success"
+                   style="color: white; font-size: 14px"
+                   type="button" value="Eksportuj do xls">
+        </a>
+        </br>
         <br>
         <table class="table table-striped" style="font-size: 13px; text-align: center; table-layout: fixed">
             <tr style="font-weight: bold; color: brown">
+                <td style="width: 10px"></td>
                 <td>lp</td>
                 <td>Data wpisania do systemu</td>
                 <td>Data hospitalizacji</td>
@@ -54,9 +63,15 @@
                 <td>Komentarz</td>
                 <td>Działania</td>
             </tr>
-            <c:set var="counter" value="1" />
+            <c:set var="counter" value="1"/>
             <c:forEach items="${patientList}" var="patientList">
                 <tr>
+                    <td><c:if test="${patientList.active}">
+                        <input type="checkbox"
+                               name="check_${patientList.id}"
+                               value="${patientList.id}"
+                        /> </c:if>
+                    </td>
                     <td>${counter}</td>
                     <td><fmt:formatDate value="${patientList.registrationDate}" pattern="yyyy-MM-dd"/></td>
                     <td><fmt:formatDate var="hospDate" value="${patientList.hospitalizationDate}" pattern="yyyy-MM-dd"/>
@@ -81,7 +96,9 @@
                     <td>${patientList.refferingDoctor}</td>
                     <td>${patientList.prescribingDoctor}</td>
                     <td>${patientList.comment}</td>
-                    <td><a href="deletePatient?patientId=${patientList.id}"><input class="btn btn-warning" style="color: white; font-size: 14px" type="button" value="Usuń"></a></td>
+                    <td><a href="deletePatient?patientId=${patientList.id}"><input class="btn btn-warning"
+                                                                                   style="color: white; font-size: 14px"
+                                                                                   type="button" value="Usuń"></a></td>
                 </tr>
 
 

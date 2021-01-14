@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @WebServlet(name = "PatientListServlet", value = "/patientList")
@@ -46,6 +47,7 @@ public class PatientListServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 
 
         List<Patient> patientList = servicePatients.getPatientList();

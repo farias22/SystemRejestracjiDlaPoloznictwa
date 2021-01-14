@@ -50,7 +50,7 @@ public class ServletUtils {
     public static final String PASSWORD2 = "password2";
 
 
-    public static final String PASSWORD3 = "password3";
+    public static final String CHECKBOX = "checkbox";
 
 
 }

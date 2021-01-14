@@ -1,9 +1,10 @@
 package services.impl;
 
 import dao.AppPatientDao;
-import dao.AppUserDao;
 import models.AppUser;
 import models.Patient;
+import reports.PatientsReportsGenerator;
+import reports.ReportsList;
 import services.PatientListAppService;
 import services.UsersAppService;
 import utils.ServletUtils;
@@ -16,6 +17,7 @@ import java.util.List;
 public class PatientListAppServiceImpl implements PatientListAppService {
 
     private AppPatientDao appPatientDao;
+    private PatientsReportsGenerator reports;
 
     public PatientListAppServiceImpl(AppPatientDao appPatientDao) {
         this.appPatientDao = appPatientDao;
@@ -95,4 +97,9 @@ public class PatientListAppServiceImpl implements PatientListAppService {
         req.getSession().setAttribute(ServletUtils.SEARCHED_USERS_LIST,resultList);
     }
 
+
+    @Override
+    public void exportListToXLS(List<Patient> patientList) {
+    reports.generate(ReportsList.GENERATE_SELECTED_PATIENT_LIST, patientList);
+    }
 }

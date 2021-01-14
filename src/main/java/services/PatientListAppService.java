@@ -26,4 +26,6 @@ public interface PatientListAppService {
 
     Date hospitalizationDateCounterForNotScheduledRegistration();
 
+    void exportListToXLS(List<Patient> patientList);
+
 }
