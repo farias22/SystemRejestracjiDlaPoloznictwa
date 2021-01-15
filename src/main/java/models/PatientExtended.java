@@ -69,6 +69,8 @@ public class PatientExtended extends Patient {
     private static List<PatientExtended> mergeList(List<PatientExtended> list1, List<Patient> list2){
         List<PatientExtended> resultList = new ArrayList<>();
 
+
+
         for (Patient patient : list2) {
             PatientExtended p = transferPatient(patient);
             for (PatientExtended patientExtended : list1) {
