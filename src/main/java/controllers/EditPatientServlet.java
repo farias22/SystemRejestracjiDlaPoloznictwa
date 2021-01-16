@@ -33,9 +33,11 @@ public class EditPatientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         editedPatient = service.getPatientById(Long.valueOf(req.getParameter(ServletUtils.PATIENT_ID)));
-        String lastPeriodDate = editedPatient.getLastPeriodDate().toString().substring(0,10);
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String lastPeriodDate = simpleDateFormat.format(editedPatient.getLastPeriodDate());
         req.setAttribute(ServletUtils.EDITED_PATIENT, editedPatient);
-        req.setAttribute(ServletUtils.PATIENT_LAST_PERIOD_DATEE, lastPeriodDate);
+        req.getSession().setAttribute(ServletUtils.PATIENT_LAST_PERIOD_DATEE, lastPeriodDate);
 
         req.getRequestDispatcher("/editPatient.jsp").forward(req, resp);
     }
@@ -104,6 +106,7 @@ public class EditPatientServlet extends HttpServlet {
                 .build();
 
         service.updatePatient(editedPatient,patient);
+
 
         req.getRequestDispatcher("patientList").forward(req, resp);
     }
