@@ -37,7 +37,9 @@ public class EditPatientServlet extends HttpServlet {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String lastPeriodDate = simpleDateFormat.format(editedPatient.getLastPeriodDate());
         req.setAttribute(ServletUtils.EDITED_PATIENT, editedPatient);
+
         req.getSession().setAttribute(ServletUtils.PATIENT_LAST_PERIOD_DATEE, lastPeriodDate);
+
 
         req.getRequestDispatcher("/editPatient.jsp").forward(req, resp);
     }

@@ -124,7 +124,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
-                <input value="${lastPeriodDatee}" name="lastPeriodDate" class="form-control" type="date"  required>
+                <input value="${lastPeriodDatePresentValue}" name="lastPeriodDate" class="form-control" type="date"  required>
             </div>
         </div>
         <div class="form-group">
