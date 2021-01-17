@@ -43,7 +43,14 @@
                    style="color: white; font-size: 14px"
                    type="button" value="Eksportuj do xls">
         </a>
-        </br>
+            <c:if test="${emptyXLSListError != null}">
+                <c:forEach items="${emptyXLSListError}" var="error">
+                    <div class="alert alert-danger">
+                        <strong>${error.header}</strong> <br>
+                        <p>${error.message}<p>
+                    </div>
+                </c:forEach>
+            </c:if>
         <br>
         <table class="table table-striped" style="font-size: 13px; text-align: center; table-layout: fixed">
             <tr style="font-weight: bold; color: brown">

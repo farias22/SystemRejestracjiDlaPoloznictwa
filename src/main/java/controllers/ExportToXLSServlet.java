@@ -1,6 +1,7 @@
 package controllers;
 
 import dao.impl.MySQLPatientDao;
+import error.ValidationError;
 import jxl.write.WriteException;
 import models.PatientExtended;
 import reportsModule.PatientsReportsGenerator;
@@ -34,14 +35,22 @@ public class ExportToXLSServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        List<PatientExtended> list = (List<PatientExtended>)req.getSession().getAttribute(ServletUtils.PATIENT_LIST);
+        List<PatientExtended> list = (List<PatientExtended>) req.getSession().getAttribute(ServletUtils.PATIENT_LIST);
         List<PatientExtended> listToExcell = new ArrayList<>();
         for (PatientExtended patientExtended : list) {
-            if (patientExtended.isBasket()){
+            if (patientExtended.isBasket()) {
                 listToExcell.add(patientExtended);
             }
         }
 
+        if (listToExcell.size() == 0) {
+            ArrayList<ValidationError> errors = new ArrayList<>();
+            ValidationError emptyList = new ValidationError(ServletUtils.EMPTY_XLS_LIST_HEADER, ServletUtils.EMPTY_XLS_LIST_MESSAGE);
+            errors.add(emptyList);
+            req.setAttribute(ServletUtils.EMPTY_XLS_LIST_ERROR, errors);
+            req.getRequestDispatcher("/patientList.jsp").forward(req, resp);
+            return;
+        }
         try {
             patientService.exportListToXLS(listToExcell);
 

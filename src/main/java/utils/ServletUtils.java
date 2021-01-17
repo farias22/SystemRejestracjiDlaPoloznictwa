@@ -50,7 +50,10 @@ public class ServletUtils {
     public static final String PASSWORD2 = "password2";
 
 
-    public static final String CHECKBOX = "checkbox";
+
+    public static final String EMPTY_XLS_LIST_ERROR = "emptyXLSListError";
+    public static final String EMPTY_XLS_LIST_HEADER = "Błąd generowania xls";
+    public static final String EMPTY_XLS_LIST_MESSAGE = "Nie wybrano żadnej pacjantki z listy";
 
 
 }
