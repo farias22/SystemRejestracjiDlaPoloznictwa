@@ -134,15 +134,12 @@
                     <span class="input-group-text" style="height: 46px"> <i class="fa fa-user"></i> </span>
                 </div>
                 <select name="pragnancyAge" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                    <% for (int i = 30; i <= 37; i++) { %>
-                    <option value="<%=i %>"><%=i %>
-                    </option>
-                    <% } %>
-                    <option selected value="38">38</option>
-                    <% for (int i = 39; i <= 50; i++) { %>
-                    <option value="<%=i %>"><%=i %>
-                    </option>
-                    <% } %>
+                    <option selected value="${pregnancyPresentValue}"> ${pregnancyPresentValue}</option>
+                    <c:if test="${pregnancyAgeList != null}">
+                        <c:forEach items="${pregnancyAgeList}" var="value">
+                           <option value="${value}">${value} </option>
+                        </c:forEach>
+                    </c:if>
                 </select>
             </div>
         </div>

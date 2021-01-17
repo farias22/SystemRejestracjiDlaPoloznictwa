@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet(name = "EditPatientServlet", value = "/editPatient")
 public class EditPatientServlet extends HttpServlet {
@@ -37,9 +39,16 @@ public class EditPatientServlet extends HttpServlet {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String lastPeriodDate = simpleDateFormat.format(editedPatient.getLastPeriodDate());
         req.setAttribute(ServletUtils.EDITED_PATIENT, editedPatient);
-
+        Integer pregAge = editedPatient.getPregnancyAge();
+        List<Integer> list = new ArrayList<>();
+        for (int i = 30; i <=50; i++) {
+            if (i != pregAge) {
+                list.add(i);
+            }
+        }
         req.getSession().setAttribute(ServletUtils.LAST_PERIOD_DATE_PRESENT_VALUE, lastPeriodDate);
-
+        req.getSession().setAttribute(ServletUtils.PREGNANCY_AGE_PRESENT_VALUE, pregAge);
+        req.getSession().setAttribute(ServletUtils.PREGNANCY_AGE_LIST, list);
 
         req.getRequestDispatcher("/editPatient.jsp").forward(req, resp);
     }
@@ -107,7 +116,7 @@ public class EditPatientServlet extends HttpServlet {
                 .isActive(active)
                 .build();
 
-        service.updatePatient(editedPatient,patient);
+        service.updatePatient(editedPatient, patient);
 
 
         req.getRequestDispatcher("patientList").forward(req, resp);
