@@ -1,21 +1,19 @@
 package reportsModule.reportsList;
 
-import jxl.CellView;
-import jxl.Workbook;
-import jxl.write.Label;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableFont;
-import jxl.write.WritableSheet;
-import jxl.write.WriteException;
+
 import models.Patient;
 
-import jxl.write.*;
+
 import models.PatientExtended;
 import models.comparators.PatientComparator;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.awt.*;
-import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
@@ -23,122 +21,113 @@ import java.util.List;
 public class GenerateSelectedPatientList {
 
 
-    public void generate(List<PatientExtended> patientList) throws WriteException, IOException {
+    public void generate(List<PatientExtended> patientList) throws IOException {
 
 
-        String path = "/home/pawel/Dokumenty/test/test.xls";
+        Workbook workbook = new XSSFWorkbook();
+        Sheet s = generateFileData(patientList, workbook);
 
 
-        File exlFile = new File(path);
-        WritableWorkbook writableWorkbook = Workbook.createWorkbook(exlFile);
+        FileOutputStream fileOut = new FileOutputStream("Lista pacjentek.xlsx");
+        workbook.write(fileOut);
+        fileOut.close();
 
-        WritableSheet writableSheet = wstawDane(patientList, writableWorkbook);
-        writableWorkbook.write();
-        writableWorkbook.close();
-        Desktop.getDesktop().open(new File(path));
-//        Files.deleteIfExists(Paths.get(path));
+        workbook.close();
+
+
 
     }
 
-    private WritableSheet wstawDane(List<PatientExtended> patientList, WritableWorkbook writableWorkbook) throws WriteException {
-        WritableSheet s = writableWorkbook.createSheet("Lista pacjentek", 0);
+
+    public Sheet generateFileData(List<PatientExtended> patientList, Workbook workbook) {
+
+        Sheet s = workbook.createSheet("Lista pacjentek");
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+        headerFont.setFontHeightInPoints((short) 10);
+        headerFont.setColor(IndexedColors.OLIVE_GREEN.getIndex());
+
+        CellStyle headerCellStyle = workbook.createCellStyle();
+        headerCellStyle.setFont(headerFont);
 
 
-        WritableFont wf = new WritableFont(WritableFont.ARIAL, 10, WritableFont.NO_BOLD);
-        WritableCellFormat cf = new WritableCellFormat(wf);
-        WritableFont wfBold = new WritableFont(WritableFont.ARIAL, 11, WritableFont.BOLD);
-        WritableCellFormat cfBold = new WritableCellFormat(wfBold);
-        WritableCellFormat cfNoWrap = new WritableCellFormat(wf);
-        cf.setWrap(true);
-        cfNoWrap.setWrap(false);
+        Row headerRow = s.createRow(0);
 
 
-        List<String> naglowki = new ArrayList<>();
-        naglowki.add("Lp");
-        naglowki.add("Data wpisania do systemu");
-        naglowki.add("Data hospitalizacji");
-        naglowki.add("Wiek ciąży w dniu przyjęcia wg OM");
-        naglowki.add("Imię");
-        naglowki.add("Nazwisko");
-        naglowki.add("PESEL");
-        naglowki.add("Czy planowane przyjęcie");
-        naglowki.add("Rozpoznanie");
-        naglowki.add("Data ostatniej miesiączki");
-        naglowki.add("Lekarz kierujący");
-        naglowki.add("Lekarz zapisujący");
-        naglowki.add("Komentarz");
+        List<String> columns = new ArrayList<>();
+        columns.add("Lp");
+        columns.add("Data wpisania do systemu");
+        columns.add("Data hospitalizacji");
+        columns.add("Wiek ciąży w dniu przyjęcia wg OM");
+        columns.add("Imię");
+        columns.add("Nazwisko");
+        columns.add("PESEL");
+        columns.add("Czy planowane przyjęcie");
+        columns.add("Rozpoznanie");
+        columns.add("Data ostatniej miesiączki");
+        columns.add("Lekarz kierujący");
+        columns.add("Lekarz zapisujący");
+        columns.add("Komentarz");
 
 
-        int wiersz = 1;
-        int kolumna = 0;
-
-        for (String s1 : naglowki) {
-            Label label1 = new Label(kolumna, 0, s1, cfBold);
-            s.addCell(label1);
-            kolumna++;
+        for (int i = 0; i < columns.size(); i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(columns.get(i));
+            cell.setCellStyle(headerCellStyle);
         }
+
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
 
         Collections.sort(patientList, new PatientComparator());
 
+        int rowNum = 1;
+
+
         for (Patient patient : patientList) {
-            Label label1 = new Label(0, wiersz, String.valueOf(wiersz), cfNoWrap);
-            s.addCell(label1);
+            Row row = s.createRow(rowNum++);
+            row.createCell(0).setCellValue(String.valueOf(rowNum));
 
             Date registrationDate = patient.getRegistrationDate();
             String registrationDate2 = simpleDateFormat.format(registrationDate);
-            Label label2 = new Label(1, wiersz, registrationDate2, cfNoWrap);
-            s.addCell(label2);
+            row.createCell(1).setCellValue(registrationDate2);
 
             Date hospitalizationDateDate = patient.getHospitalizationDate();
             String hospitalizationDateDate2 = simpleDateFormat.format(hospitalizationDateDate);
-            Label label3 = new Label(2, wiersz, hospitalizationDateDate2.equals("1900-01-01") ? "*":hospitalizationDateDate2, cfNoWrap);
-            s.addCell(label3);
+            row.createCell(2).setCellValue(hospitalizationDateDate2.equals("1900-01-01") ? "*" : hospitalizationDateDate2);
 
-            Label label4 = new Label(3, wiersz, String.valueOf(patient.getPregnancyAge()), cfNoWrap);
-            s.addCell(label4);
+            row.createCell(3).setCellValue(String.valueOf(patient.getPregnancyAge()));
 
-            Label label5 = new Label(4, wiersz, patient.getFirstName(), cfNoWrap);
-            s.addCell(label5);
+            row.createCell(4).setCellValue(patient.getFirstName());
 
-            Label label6 = new Label(5, wiersz, patient.getLastName(), cfNoWrap);
-            s.addCell(label6);
+            row.createCell(5).setCellValue(patient.getLastName());
 
-            Label label7 = new Label(6, wiersz, patient.getPesel(), cfNoWrap);
-            s.addCell(label7);
+            row.createCell(6).setCellValue(patient.getPesel());
 
-            Label label8 = new Label(7, wiersz, patient.isScheludedRegistration() ? "TAK" : "NIE", cfNoWrap);
-            s.addCell(label8);
+            row.createCell(7).setCellValue(patient.isScheludedRegistration() ? "TAK" : "NIE");
 
-            Label label9 = new Label(8, wiersz, patient.getDiagnosis(), cfNoWrap);
-            s.addCell(label9);
+            row.createCell(8).setCellValue(patient.getDiagnosis());
 
             Date lastPeriodDate = patient.getLastPeriodDate();
             String lastPeriodDate2 = simpleDateFormat.format(lastPeriodDate);
-            Label label10 = new Label(9, wiersz, lastPeriodDate2, cfNoWrap);
-            s.addCell(label10);
+            row.createCell(9).setCellValue(lastPeriodDate2);
 
-            Label label11 = new Label(10, wiersz, patient.getRefferingDoctor(), cfNoWrap);
-            s.addCell(label11);
+            row.createCell(10).setCellValue(patient.getRefferingDoctor());
 
-            Label label12 = new Label(11, wiersz, patient.getPrescribingDoctor(), cfNoWrap);
-            s.addCell(label12);
+            row.createCell(11).setCellValue(patient.getPrescribingDoctor());
 
-            Label label13 = new Label(12, wiersz, patient.getComment(), cfNoWrap);
-            s.addCell(label13);
-            wiersz++;
+            row.createCell(11).setCellValue(patient.getComment());
+
         }
 
 
-        for (int x = 0; x < 13; x++) {
-            CellView cellV = s.getColumnView(x);
-            cellV.setAutosize(true);
-            s.setColumnView(x, cellV);
+        for (int i = 0; i < columns.size(); i++) {
+            s.autoSizeColumn(i);
         }
         return s;
     }
+
 }
 
 
