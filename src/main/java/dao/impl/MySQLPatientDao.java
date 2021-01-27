@@ -9,6 +9,9 @@ import java.util.List;
 
 public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
 
+    private final int MAXIUMUM_NUMBER_OF_PATIENT_PER_DAY = 2;
+
+
     @Override
     public void savePatient(Patient patient) {
         hibernateUtil.save(patient);
@@ -58,7 +61,7 @@ public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
                 .setParameter("scheluded", true)
                 .setParameter("data", date)
                 .getResultList();
-        if (patientList.size() >= 2) {
+        if (patientList.size() >= MAXIUMUM_NUMBER_OF_PATIENT_PER_DAY) {
             result = false;
         }
 
