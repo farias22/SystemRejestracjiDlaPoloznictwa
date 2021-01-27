@@ -68,11 +68,12 @@ public class GenerateSelectedPatientList {
         Collections.sort(patientList, new PatientComparator());
 
         int rowNum = 1;
-
+        int rowNum2 = 1;
 
         for (Patient patient : patientList) {
             Row row = s.createRow(rowNum++);
-            row.createCell(0).setCellValue(String.valueOf(rowNum));
+
+            row.createCell(0).setCellValue(String.valueOf(rowNum2));
 
             Date registrationDate = patient.getRegistrationDate();
             String registrationDate2 = simpleDateFormat.format(registrationDate);
@@ -102,8 +103,9 @@ public class GenerateSelectedPatientList {
 
             row.createCell(11).setCellValue(patient.getPrescribingDoctor());
 
-            row.createCell(11).setCellValue(patient.getComment());
+            row.createCell(12).setCellValue(patient.getComment());
 
+            rowNum2++;
         }
 
 

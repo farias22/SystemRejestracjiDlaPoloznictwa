@@ -55,7 +55,7 @@ public class ExportToXLSServlet extends HttpServlet {
         Workbook workbook;
         try {
             workbook = patientService.exportListToXLS(listToExcell);
-            resp.setHeader("Content-Disposition", "inline; filename*=UTF-8''Lista pacjentek.xlsx");
+            resp.setHeader("Content-Disposition", "inline; filename*=UTF-8''ListaPacjentek.xlsx");
             resp.setHeader("Content-Type", "application/octet-stream");
             workbook.write(resp.getOutputStream());
             workbook.close();
