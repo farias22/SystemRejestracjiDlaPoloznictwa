@@ -15,7 +15,7 @@
         }
 
         .bg-blue {
-            background-color: #26ec89;
+            background-color: teal;
         }
 
         .box-shadow {
@@ -30,7 +30,7 @@
 <body>
 
 <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-blue rounded box-shadow">
-    <img class="mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpBcB-SR28YhSrhVdgja0dPZFzyvL2x_zOaQ&usqp=CAU" alt="" width="48" height="48">
+    <img class="mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpBcB-SR28YhSrhVdgja0dPZFzyvL2x_zOaQ&usqp=CAU" alt="" width="80" height="80">
     <div class="lh-100">
         <h6 class="mb-0 lh-100 tab">
             <a class="text-white" href="addPatient">Dodaj pacjentkę</a>
@@ -58,14 +58,23 @@
 
 
     <div class="lh-100 ml-auto">
-        <h6 class="mb-0 lh-100" style="text-align: right">
-            <a class="text-white">Jesteś zalogowany jako:<br></a>
-            <a class="text-white" href="editUser">${appUser.fistName} ${appUser.lastName}</a>
-        </h6>
     </div>
     <div class="lh-100 ml-auto">
-        <h6 class="mb-0 lh-100">
-            <a class="text-white" href="logout">Wyloguj</a>
+        <h6 class="mb-0 lh-100" style="text-align: right">
+            <%--<a class="text-white">Zalogowany jako:<br></a>--%>
+            <br/>
+            <a href="editUser">
+                <input class="btn btn-success"
+                       style="color: white; font-size: 14px"
+                       type="button" value="${appUser.fistName} ${appUser.lastName}">
+            </a>
+            <br/>
+            <br/>
+            <a href="logout">
+                <input class="btn btn-danger"
+                       style="color: white; font-size: 14px"
+                       type="button" value="Wyloguj">
+            </a>
         </h6>
     </div>
 </div>

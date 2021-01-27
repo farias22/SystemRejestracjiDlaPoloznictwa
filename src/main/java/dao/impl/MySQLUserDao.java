@@ -68,8 +68,9 @@ public class MySQLUserDao extends AbstractSqlDao implements AppUserDao {
     @Override
     public List<AppUser> getSearchingResults(String search) {
 
-        List<AppUser> usersList = entityManager.createQuery("select u from AppUser u where u.lastName like :search or u.email like :search", AppUser.class)
+        List<AppUser> usersList = entityManager.createQuery("select u from AppUser u where (u.lastName like :search or u.email like :search) and u.email not in :admin", AppUser.class)
                 .setParameter("search", "%" + search + "%")
+                .setParameter("admin","admin")
                 .getResultList();
         return usersList;
     }

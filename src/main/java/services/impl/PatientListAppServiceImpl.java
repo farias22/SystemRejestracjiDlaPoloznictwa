@@ -1,14 +1,18 @@
 package services.impl;
 
 import dao.AppPatientDao;
-import dao.AppUserDao;
+import jxl.write.WriteException;
 import models.AppUser;
 import models.Patient;
+import models.PatientExtended;
+import reportsModule.PatientsReportsGenerator;
+import reportsModule.ReportsList;
 import services.PatientListAppService;
 import services.UsersAppService;
 import utils.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -16,9 +20,19 @@ import java.util.List;
 public class PatientListAppServiceImpl implements PatientListAppService {
 
     private AppPatientDao appPatientDao;
+    private PatientsReportsGenerator reports;
 
     public PatientListAppServiceImpl(AppPatientDao appPatientDao) {
         this.appPatientDao = appPatientDao;
+    }
+
+    public PatientListAppServiceImpl(AppPatientDao appPatientDao, PatientsReportsGenerator reportsGenerator) {
+        this.appPatientDao = appPatientDao;
+        this.reports=reportsGenerator;
+    }
+
+    public PatientListAppServiceImpl(PatientsReportsGenerator reportsGenerator){
+        this.reports=reportsGenerator;
     }
 
     @Override
@@ -95,4 +109,10 @@ public class PatientListAppServiceImpl implements PatientListAppService {
         req.getSession().setAttribute(ServletUtils.SEARCHED_USERS_LIST,resultList);
     }
 
+
+    @Override
+    public void exportListToXLS(List<PatientExtended> patientList) throws IOException, WriteException {
+    reports.generate(ReportsList.GENERATE_SELECTED_PATIENT_LIST, patientList);
+
+    }
 }

@@ -28,16 +28,33 @@
     </style>
 </head>
 <body>
-<div role="main" class="container" style="width: 120%">
+<div role="main"  style="width: 80%; align-content: center; margin: 0 auto">
 
     <%@include file="header.jsp" %>
+
 </div>
 <main style="width: 90%; align-content: center; margin: 0 auto">
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">Lista pacjentek</h6>
+        </br>
+
+        <a href="exportList">
+            <input class="btn btn-info"
+                   style="color: white; font-size: 14px"
+                   type="button" value="Eksportuj do xls">
+        </a>
+            <c:if test="${emptyXLSListError != null}">
+                <c:forEach items="${emptyXLSListError}" var="error">
+                    <div class="alert alert-danger">
+                        <strong>${error.header}</strong> <br>
+                        <p>${error.message}<p>
+                    </div>
+                </c:forEach>
+            </c:if>
         <br>
         <table class="table table-striped" style="font-size: 13px; text-align: center; table-layout: fixed">
             <tr style="font-weight: bold; color: brown">
+                <td style="width: 20px">Koszyk</td>
                 <td>lp</td>
                 <td>Data wpisania do systemu</td>
                 <td>Data hospitalizacji</td>
@@ -54,9 +71,17 @@
                 <td>Komentarz</td>
                 <td>Działania</td>
             </tr>
-            <c:set var="counter" value="1" />
+            <c:set var="counter" value="1"/>
             <c:forEach items="${patientList}" var="patientList">
                 <tr>
+                    <td>
+                        <c:if test="${patientList.basket}">
+                            <a href="removeFromBasket?userId=${patientList.id}"><input class="btn btn-danger" style="color: white; font-size: 15px;font-weight: 900; margin-right: 5px" type="button" value="-"></a>
+                        </c:if>
+                        <c:if test="${!patientList.basket}">
+                            <a href="addToBasket?userId=${patientList.id}"><input class="btn btn-success" style="color: white; font-size: 15px;font-weight: 900; margin-right: 5px" type="button" value="+"></a>
+                        </c:if>
+                    </td>
                     <td>${counter}</td>
                     <td><fmt:formatDate value="${patientList.registrationDate}" pattern="yyyy-MM-dd"/></td>
                     <td><fmt:formatDate var="hospDate" value="${patientList.hospitalizationDate}" pattern="yyyy-MM-dd"/>
@@ -81,7 +106,9 @@
                     <td>${patientList.refferingDoctor}</td>
                     <td>${patientList.prescribingDoctor}</td>
                     <td>${patientList.comment}</td>
-                    <td><a href="deletePatient?patientId=${patientList.id}"><input class="btn btn-warning" style="color: white; font-size: 14px" type="button" value="Usuń"></a></td>
+                    <td><a href="deletePatient?patientId=${patientList.id}"><input class="btn btn-warning"
+                                                                                   style="color: white; font-size: 14px"
+                                                                                   type="button" value="Usuń"></a></td>
                 </tr>
 
 

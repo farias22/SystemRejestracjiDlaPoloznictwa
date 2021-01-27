@@ -20,7 +20,9 @@ public class ServletUtils {
     public static final String PATIENT_DIAGNOSIS = "diagnosis";
     public static final String ACTIVE = "archival";
     public static final String PATIENT_LAST_PERIOD_DATE = "lastPeriodDate";
-    public static final String PATIENT_LAST_PERIOD_DATEE = "lastPeriodDatee";
+    public static final String LAST_PERIOD_DATE_PRESENT_VALUE = "lastPeriodDatePresentValue";
+    public static final String PREGNANCY_AGE_PRESENT_VALUE = "pregnancyPresentValue";
+    public static final String PREGNANCY_AGE_LIST = "pregnancyAgeList";
     public static final String PATIENT_REFFERING_DOCTOR = "refferingDoctor";
     public static final String PATIENT_COMMENT = "comment";
     public static final String PATIENT_PREGNENCY_AGE = "pragnancyAge";
@@ -49,6 +51,11 @@ public class ServletUtils {
     public static final String PASSWORD1 = "password1";
     public static final String PASSWORD2 = "password2";
 
+
+
+    public static final String EMPTY_XLS_LIST_ERROR = "emptyXLSListError";
+    public static final String EMPTY_XLS_LIST_HEADER = "Błąd generowania xls";
+    public static final String EMPTY_XLS_LIST_MESSAGE = "Nie wybrano żadnej pacjantki z listy";
 
 
 }

@@ -1,10 +1,10 @@
 package controllers;
 
 
-
 import dao.impl.MySQLPatientDao;
 import dao.impl.MySQLUserDao;
 import models.Patient;
+import models.PatientExtended;
 import models.comparators.PatientComparator;
 import services.PatientListAppService;
 import services.UsersAppService;
@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+
+import static models.PatientExtended.updatePatientListValue;
 
 
 @WebServlet(name = "PatientListServlet", value = "/patientList")
@@ -47,14 +49,20 @@ public class PatientListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        List<PatientExtended> list;
 
-        List<Patient> patientList = servicePatients.getPatientList();
-        Collections.sort(patientList, new PatientComparator());
+        if (req.getSession().getAttribute(ServletUtils.PATIENT_LIST)==null) {
+            List<Patient> patientList = servicePatients.getPatientList();
+            list = PatientExtended.transferList(patientList);
+        }
+        else {
+
+            list = updatePatientListValue(req,servicePatients);
+        }
+        Collections.sort(list, new PatientComparator());
 
 
-
-
-        req.setAttribute(ServletUtils.PATIENT_LIST, patientList);
+        req.getSession().setAttribute(ServletUtils.PATIENT_LIST, list);
         req.getRequestDispatcher("/patientList.jsp").forward(req, resp);
 
     }
