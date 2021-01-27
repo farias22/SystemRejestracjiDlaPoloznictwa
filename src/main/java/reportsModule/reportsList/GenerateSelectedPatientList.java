@@ -2,40 +2,25 @@ package reportsModule.reportsList;
 
 
 import models.Patient;
-
-
 import models.PatientExtended;
 import models.comparators.PatientComparator;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.http.HttpClient;
-import java.net.http.HttpHeaders;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class GenerateSelectedPatientList {
 
 
-    public void generate(List<PatientExtended> patientList) throws IOException {
-
-
+    public Workbook generate(List<PatientExtended> patientList) throws IOException {
         Workbook workbook = new XSSFWorkbook();
-        Sheet s = generateFileData(patientList, workbook);
-
-
-        FileOutputStream fileOut = new FileOutputStream("Lista pacjentek.xlsx");
-        workbook.write(fileOut);
-        fileOut.close();
-
-        workbook.close();
-
-
-
+        generateFileData(patientList, workbook);
+        return workbook;
     }
 
 

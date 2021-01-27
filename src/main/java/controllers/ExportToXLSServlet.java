@@ -4,6 +4,7 @@ import dao.impl.MySQLPatientDao;
 import error.ValidationError;
 import jxl.write.WriteException;
 import models.PatientExtended;
+import org.apache.poi.ss.usermodel.Workbook;
 import reportsModule.PatientsReportsGenerator;
 import services.PatientListAppService;
 import services.impl.PatientListAppServiceImpl;
@@ -51,14 +52,17 @@ public class ExportToXLSServlet extends HttpServlet {
             req.getRequestDispatcher("/patientList.jsp").forward(req, resp);
             return;
         }
+        Workbook workbook;
         try {
-            patientService.exportListToXLS(listToExcell);
-
+            workbook = patientService.exportListToXLS(listToExcell);
+            resp.setHeader("Content-Disposition", "inline; filename*=UTF-8''Lista pacjentek.xlsx");
+            resp.setHeader("Content-Type", "application/octet-stream");
+            workbook.write(resp.getOutputStream());
+            workbook.close();
         } catch (WriteException e) {
             e.printStackTrace();
         }
-
-        req.getRequestDispatcher("patientList").forward(req, resp);
+//        req.getRequestDispatcher("patientList").forward(req, resp);
     }
 
 }

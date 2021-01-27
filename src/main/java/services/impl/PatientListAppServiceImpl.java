@@ -5,6 +5,7 @@ import jxl.write.WriteException;
 import models.AppUser;
 import models.Patient;
 import models.PatientExtended;
+import org.apache.poi.ss.usermodel.Workbook;
 import reportsModule.PatientsReportsGenerator;
 import reportsModule.ReportsList;
 import services.PatientListAppService;
@@ -111,8 +112,7 @@ public class PatientListAppServiceImpl implements PatientListAppService {
 
 
     @Override
-    public void exportListToXLS(List<PatientExtended> patientList) throws IOException, WriteException {
-    reports.generate(ReportsList.GENERATE_SELECTED_PATIENT_LIST, patientList);
-
+    public Workbook exportListToXLS(List<PatientExtended> patientList) throws IOException, WriteException {
+        return reports.generate(ReportsList.GENERATE_SELECTED_PATIENT_LIST, patientList);
     }
 }
