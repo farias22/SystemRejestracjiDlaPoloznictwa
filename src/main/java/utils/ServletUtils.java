@@ -22,7 +22,8 @@ public class ServletUtils {
     public static final String PATIENT_LAST_PERIOD_DATE = "lastPeriodDate";
     public static final String LAST_PERIOD_DATE_PRESENT_VALUE = "lastPeriodDatePresentValue";
     public static final String PREGNANCY_AGE_PRESENT_VALUE = "pregnancyPresentValue";
-    public static final String PREGNANCY_AGE_LIST = "pregnancyAgeList";
+    public static final String PREGNANCY_AGE_LIST1 = "pregnancyAgeList1";
+    public static final String PREGNANCY_AGE_LIST2 = "pregnancyAgeList2";
     public static final String PATIENT_REFFERING_DOCTOR = "refferingDoctor";
     public static final String PATIENT_COMMENT = "comment";
     public static final String PATIENT_PREGNENCY_AGE = "pragnancyAge";

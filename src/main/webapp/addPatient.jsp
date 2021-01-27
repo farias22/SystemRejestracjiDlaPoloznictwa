@@ -98,7 +98,7 @@
         </div>
         <div class="form-group">
             <div class="input-group">
-                <label class="col-sm-2 col-form-label">Czy planowane przyjęcie</label>
+                <label class="col-sm-2 col-form-label">Termin przyjęcia wg OM?</label>
                 <input name="scheludedRegistration" type="checkbox">
             </div>
         </div>
@@ -128,12 +128,12 @@
                     <span class="input-group-text" style="height: 46px"> <i class="fa fa-user"></i> </span>
                 </div>
                 <select name="pragnancyAge" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                    <% for (int i = 30; i <= 37; i++) { %>
+                    <% for (int i = 28; i <= 37; i++) { %>
                     <option value="<%=i %>"><%=i %>
                     </option>
                     <% } %>
                     <option selected value="38">38</option>
-                    <% for (int i = 39; i <= 50; i++) { %>
+                    <% for (int i = 39; i <= 42; i++) { %>
                     <option value="<%=i %>"><%=i %>
                     </option>
                     <% } %>

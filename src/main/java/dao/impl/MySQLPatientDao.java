@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
 
-    private final int MAXIUMUM_NUMBER_OF_PATIENT_PER_DAY = 2;
+    private final int MAXIUMUM_NUMBER_OF_PATIENT_PER_DAY = 3;
 
 
     @Override

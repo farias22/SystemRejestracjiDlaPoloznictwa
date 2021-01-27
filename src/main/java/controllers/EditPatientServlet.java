@@ -40,15 +40,18 @@ public class EditPatientServlet extends HttpServlet {
         String lastPeriodDate = simpleDateFormat.format(editedPatient.getLastPeriodDate());
         req.setAttribute(ServletUtils.EDITED_PATIENT, editedPatient);
         Integer pregAge = editedPatient.getPregnancyAge();
-        List<Integer> list = new ArrayList<>();
-        for (int i = 30; i <=50; i++) {
-            if (i != pregAge) {
-                list.add(i);
-            }
+        List<Integer> list1 = new ArrayList<>();
+        for (int i = 28; i <pregAge; i++) {
+                list1.add(i);
+        }
+        List<Integer> list2 = new ArrayList<>();
+        for (int i = pregAge+1; i <43; i++) {
+                list2.add(i);
         }
         req.getSession().setAttribute(ServletUtils.LAST_PERIOD_DATE_PRESENT_VALUE, lastPeriodDate);
         req.getSession().setAttribute(ServletUtils.PREGNANCY_AGE_PRESENT_VALUE, pregAge);
-        req.getSession().setAttribute(ServletUtils.PREGNANCY_AGE_LIST, list);
+        req.getSession().setAttribute(ServletUtils.PREGNANCY_AGE_LIST1, list1);
+        req.getSession().setAttribute(ServletUtils.PREGNANCY_AGE_LIST2, list2);
 
         req.getRequestDispatcher("/editPatient.jsp").forward(req, resp);
     }

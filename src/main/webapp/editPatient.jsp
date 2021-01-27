@@ -104,7 +104,7 @@
         </div>
         <div class="form-group">
             <div class="input-group">
-                <label class="col-sm-2 col-form-label">Czy planowane przyjęcie</label>
+                <label class="col-sm-2 col-form-label">Termin przyjęcia wg OM?</label>
                 <input name="scheludedRegistration" type="checkbox" <c:if test="${editedPatient.scheludedRegistration ==true}"> checked </c:if>>
             </div>
         </div>
@@ -134,10 +134,18 @@
                     <span class="input-group-text" style="height: 46px"> <i class="fa fa-user"></i> </span>
                 </div>
                 <select name="pragnancyAge" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                    <option selected value="${pregnancyPresentValue}"> ${pregnancyPresentValue}</option>
-                    <c:if test="${pregnancyAgeList != null}">
-                        <c:forEach items="${pregnancyAgeList}" var="value">
+
+                    <c:if test="${pregnancyAgeList1 != null}">
+                        <c:forEach items="${pregnancyAgeList1}" var="value">
                            <option value="${value}">${value} </option>
+                        </c:forEach>
+                    </c:if>
+
+                    <option selected value="${pregnancyPresentValue}"> ${pregnancyPresentValue}</option>
+
+                    <c:if test="${pregnancyAgeList2 != null}">
+                        <c:forEach items="${pregnancyAgeList2}" var="value">
+                            <option value="${value}">${value} </option>
                         </c:forEach>
                     </c:if>
                 </select>
