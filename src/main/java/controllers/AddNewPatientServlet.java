@@ -19,7 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static models.PatientExtended.transferPatient;
 import static models.PatientExtended.updatePatientListValue;
 
 
