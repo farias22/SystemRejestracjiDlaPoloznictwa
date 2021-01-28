@@ -21,6 +21,9 @@ public class ServletUtils {
     public static final String ACTIVE = "archival";
     public static final String PATIENT_LAST_PERIOD_DATE = "lastPeriodDate";
     public static final String LAST_PERIOD_DATE_PRESENT_VALUE = "lastPeriodDatePresentValue";
+
+    public static final String HOSPITALIZATION_DATE = "hospitalizationDate";
+
     public static final String PREGNANCY_AGE_PRESENT_VALUE = "pregnancyPresentValue";
     public static final String PREGNANCY_AGE_LIST1 = "pregnancyAgeList1";
     public static final String PREGNANCY_AGE_LIST2 = "pregnancyAgeList2";
@@ -51,12 +54,12 @@ public class ServletUtils {
     public static final String RESET_PASSWORD = "resetPassword";
     public static final String PASSWORD1 = "password1";
     public static final String PASSWORD2 = "password2";
-
-
-
     public static final String EMPTY_XLS_LIST_ERROR = "emptyXLSListError";
     public static final String EMPTY_XLS_LIST_HEADER = "Błąd generowania xls";
     public static final String EMPTY_XLS_LIST_MESSAGE = "Nie wybrano żadnej pacjantki z listy";
-
+    public static final String AVAILABLE_DATE_LIST = "availableDateList";
+    public static final String AVAILABLE_DATE_LIST1 = "availableDateList1";
+    public static final String AVAILABLE_DATE_LIST2 = "availableDateList2";
+    public static final String CHOOSEN_HOSPITALIZATION_DATE = "choosenHospitalizationDate";
 
 }

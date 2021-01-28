@@ -38,6 +38,10 @@ public class AddNewPatientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        List<String> availableDateList = service.getAvailableDateList(0L);
+        req.setAttribute(ServletUtils.AVAILABLE_DATE_LIST, availableDateList);
+
+
         req.getRequestDispatcher("/addPatient.jsp").forward(req, resp);
     }
 
@@ -74,9 +78,10 @@ public class AddNewPatientServlet extends HttpServlet {
 
         Date hospitalizationDate = null;
         if (scheludedRegistration) {
-            hospitalizationDate = service.hospitalizationDateCounterForScheduledRegistration(lastPeriodDate, pragnancyAge);
+            hospitalizationDate = service.hospitalizationDateCounterForScheduledRegistration(lastPeriodDate, pragnancyAge, 0L);
         } else {
-            hospitalizationDate = service.hospitalizationDateCounterForNotScheduledRegistration();
+
+            hospitalizationDate = service.hospitalizationDateSetterForNotScheduledRegistration(req);
         }
 
 

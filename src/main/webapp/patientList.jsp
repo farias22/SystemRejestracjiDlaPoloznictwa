@@ -63,7 +63,7 @@
                 <td>Nazwisko</td>
                 <td>PESEL</td>
                 <td>Numer telefonu</td>
-                <td>Czy planowane przyjęcie</td>
+                <td>Termin przyjęcia wg. OM?</td>
                 <td>Rozpoznanie</td>
                 <td>Data ostatniej miesiączki</td>
                 <td>Lekarz kierujący</td>
@@ -84,12 +84,7 @@
                     </td>
                     <td>${counter}</td>
                     <td><fmt:formatDate value="${patientList.registrationDate}" pattern="yyyy-MM-dd"/></td>
-                    <td><fmt:formatDate var="hospDate" value="${patientList.hospitalizationDate}" pattern="yyyy-MM-dd"/>
-                        <c:if test="${hospDate=='1900-01-01'}">*
-                        </c:if>
-                        <c:if test="${hospDate!='1900-01-01'}">${hospDate}
-                        </c:if>
-                    </td>
+                    <td><fmt:formatDate value="${patientList.hospitalizationDate}" pattern="yyyy-MM-dd"/></td>
                     <td>${patientList.pregnancyAge}</td>
                     <td>${patientList.firstName}</td>
                     <td>${patientList.lastName}</td>

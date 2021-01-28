@@ -18,9 +18,9 @@
 </head>
 <body>
 <main role="main" class="container">
-    <div>
-        <img src="https://gumed.edu.pl/image/image/69815/large/uck_logo_t%C5%82o.png" alt="" width="400" height="170">
-    </div>
+    <%--<div>--%>
+        <%--<img src="https://gumed.edu.pl/image/image/69815/large/uck_logo_t%C5%82o.png" alt="" width="400" height="170">--%>
+    <%--</div>--%>
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h4 class="text-center mb-4 mt-1">System Rejestracji Położnictwa</h4>
         <hr>

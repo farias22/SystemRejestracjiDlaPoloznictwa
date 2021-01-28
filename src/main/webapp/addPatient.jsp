@@ -36,7 +36,16 @@
             $('#pesel').attr('disabled', false)
         }
     })
+
+    $('#scheludedRegistration').change(function(){
+        if($(this).is(':checked')) {
+            $('#choosenHospitalizationDate').attr('disabled', true)
+        } else {
+            $('#choosenHospitalizationDate').attr('disabled', false)
+        }
+    })
 </script>
+
 <body>
 <main role="main" style="width: 80%; margin-left: auto; margin-right: auto">
 
@@ -99,9 +108,29 @@
         <div class="form-group">
             <div class="input-group">
                 <label class="col-sm-2 col-form-label">Termin przyjęcia wg OM?</label>
-                <input name="scheludedRegistration" type="checkbox">
+                <input name="scheludedRegistration" id="scheludedRegistration" type="checkbox" checked>
             </div>
         </div>
+
+
+        <div class="form-group">
+            <div class="input-group">
+                <label class="col-sm-2 col-form-label">Dostępne terminy przyjęć</label>
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="height: 46px"> <i class="fa fa-user"></i> </span>
+                </div>
+                <select name="choosenHospitalizationDate" id="choosenHospitalizationDate" class="custom-select my-1 mr-sm-2">
+                    <c:if test="${availableDateList != null}">
+                        <c:forEach items="${availableDateList}" var="value">
+                            <option value="${value}">${value} </option>
+                        </c:forEach>
+                    </c:if>
+                </select>
+            </div>
+        </div>
+
+
+
         <div class="form-group">
             <div class="input-group">
                 <label class="col-sm-2 col-form-label">Rozpoznanie</label>
@@ -171,14 +200,23 @@
         </div>
     </form>
     <script>
-        const checkbox = document.querySelector("#foreigner");
-        const input = document.querySelector("#pesel");
-        const toogleInput = function (e) {
-            input.disabled = e.target.checked;
+        const checkbox1 = document.querySelector("#foreigner");
+        const input1 = document.querySelector("#pesel");
+
+        const checkbox2 = document.querySelector("#scheludedRegistration");
+        const input2 = document.querySelector("#choosenHospitalizationDate");
+        const toogleInput1 = function (e1) {
+            input1.disabled = e1.target.checked;
         };
-        toogleInput({target: checkbox});
-        checkbox.addEventListener("change", toogleInput);
+        const toogleInput2 = function (e2) {
+            input2.disabled = e2.target.checked;
+        };
+        toogleInput1({target: checkbox1});
+        checkbox1.addEventListener("change", toogleInput1);
+        toogleInput2({target: checkbox2});
+        checkbox2.addEventListener("change", toogleInput2);
     </script>
+
 </main>
 </body>
 </html>

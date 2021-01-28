@@ -3,6 +3,7 @@ package controllers;
 
 import dao.impl.MySQLPatientDao;
 import models.Patient;
+import models.comparators.HospitalizationDateComparator;
 import services.PatientListAppService;
 import services.impl.PatientListAppServiceImpl;
 import utils.ServletUtils;
@@ -35,23 +36,12 @@ public class EditPatientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         editedPatient = service.getPatientById(Long.valueOf(req.getParameter(ServletUtils.PATIENT_ID)));
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        String lastPeriodDate = simpleDateFormat.format(editedPatient.getLastPeriodDate());
+
+
         req.setAttribute(ServletUtils.EDITED_PATIENT, editedPatient);
-        Integer pregAge = editedPatient.getPregnancyAge();
-        List<Integer> list1 = new ArrayList<>();
-        for (int i = 28; i <pregAge; i++) {
-                list1.add(i);
-        }
-        List<Integer> list2 = new ArrayList<>();
-        for (int i = pregAge+1; i <43; i++) {
-                list2.add(i);
-        }
-        req.getSession().setAttribute(ServletUtils.LAST_PERIOD_DATE_PRESENT_VALUE, lastPeriodDate);
-        req.getSession().setAttribute(ServletUtils.PREGNANCY_AGE_PRESENT_VALUE, pregAge);
-        req.getSession().setAttribute(ServletUtils.PREGNANCY_AGE_LIST1, list1);
-        req.getSession().setAttribute(ServletUtils.PREGNANCY_AGE_LIST2, list2);
+
+        generatePregnancyAgeValues(req);
+        generateAvailableHospitalizationDate(req);
 
         req.getRequestDispatcher("/editPatient.jsp").forward(req, resp);
     }
@@ -96,9 +86,12 @@ public class EditPatientServlet extends HttpServlet {
 
         Date hospitalizationDate;
         if (scheduledRegistration) {
-            hospitalizationDate = service.hospitalizationDateCounterForScheduledRegistration(lastPeriodDate, pregnancyAge);
+
+            hospitalizationDate = service.hospitalizationDateCounterForScheduledRegistration(lastPeriodDate, pregnancyAge, editedPatient.getId());
+
         } else {
-            hospitalizationDate = service.hospitalizationDateCounterForNotScheduledRegistration();
+
+            hospitalizationDate = service.hospitalizationDateSetterForNotScheduledRegistration(req);
         }
 
 
@@ -125,5 +118,50 @@ public class EditPatientServlet extends HttpServlet {
         req.getRequestDispatcher("patientList").forward(req, resp);
     }
 
+    private void generatePregnancyAgeValues(HttpServletRequest req) {
+        String pattern1 = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat(pattern1);
+        String lastPeriodDate = simpleDateFormat1.format(editedPatient.getLastPeriodDate());
+
+        Integer pregAge = editedPatient.getPregnancyAge();
+        List<Integer> list1 = new ArrayList<>();
+        for (int i = 28; i < pregAge; i++) {
+            list1.add(i);
+        }
+        List<Integer> list2 = new ArrayList<>();
+        for (int i = pregAge + 1; i < 43; i++) {
+            list2.add(i);
+        }
+        req.getSession().setAttribute(ServletUtils.LAST_PERIOD_DATE_PRESENT_VALUE, lastPeriodDate);
+        req.getSession().setAttribute(ServletUtils.PREGNANCY_AGE_PRESENT_VALUE, pregAge);
+        req.getSession().setAttribute(ServletUtils.PREGNANCY_AGE_LIST1, list1);
+        req.getSession().setAttribute(ServletUtils.PREGNANCY_AGE_LIST2, list2);
+    }
+
+    private void generateAvailableHospitalizationDate(HttpServletRequest req) {
+
+        List<String> availableDateList = service.getAvailableDateList(editedPatient.getId());
+        String pattern2 = "dd.MM.yyyy";
+        Date hospitalizationDate = editedPatient.getHospitalizationDate();
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat(pattern2);
+        String hospitalizationDate2 = simpleDateFormat2.format(hospitalizationDate);
+        List<String> before = new ArrayList<>();
+        List<String> after = new ArrayList<>();
+        for (String s : availableDateList) {
+            if (HospitalizationDateComparator.before(hospitalizationDate2,s)){
+                before.add(s);
+            }
+            if (HospitalizationDateComparator.after(hospitalizationDate2,s)){
+                after.add(s);
+            }
+        }
+
+
+        req.setAttribute(ServletUtils.HOSPITALIZATION_DATE, hospitalizationDate2);
+
+
+        req.setAttribute(ServletUtils.AVAILABLE_DATE_LIST1, before);
+        req.setAttribute(ServletUtils.AVAILABLE_DATE_LIST2, after);
+    }
 
 }

@@ -67,7 +67,7 @@
             <td>Nazwisko</td>
             <td>PESEL</td>
             <td>Numer telefonu</td>
-            <td>Czy planowane przyjęcie</td>
+            <td>Termin przyjęcia wg. OM?</td>
             <td>Rozpoznanie</td>
             <td>Data ostatniej miesiączki</td>
             <td>Lekarz kierujący</td>

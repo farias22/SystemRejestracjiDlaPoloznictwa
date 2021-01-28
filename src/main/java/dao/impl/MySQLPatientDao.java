@@ -4,12 +4,15 @@ import dao.AbstractSqlDao;
 import dao.AppPatientDao;
 import models.Patient;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
 
-    private final int MAXIUMUM_NUMBER_OF_PATIENT_PER_DAY = 3;
+    private final Long MAXIUMUM_NUMBER_OF_PATIENT_PER_DAY = 3L;
 
 
     @Override
@@ -30,41 +33,74 @@ public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
 
     @Override
     public List<Patient> getPatientList() {
-        List<Patient> patientList = entityManager.createQuery("select p from Patient p where p.active = :active", Patient.class)
+      return entityManager.createQuery("select p from Patient p where p.active = :active", Patient.class)
                 .setParameter("active", true)
                 .getResultList();
 
-        return patientList;
+
     }
 
     @Override
     public Patient getPatientById(Long id) {
-        Patient patient = entityManager.createQuery("select p from Patient p where p.id = :id", Patient.class)
+        return entityManager.createQuery("select p from Patient p where p.id = :id", Patient.class)
                 .setParameter("id", id).getSingleResult();
 
-        return patient;
+
     }
 
     @Override
     public List<Patient> getSearchingResults(String search) {
-        List<Patient> patientList = entityManager.createQuery("select p from Patient p where p.lastName like :search or p.pesel like :search", Patient.class)
+        return entityManager.createQuery("select p from Patient p where p.lastName like :search or p.pesel like :search", Patient.class)
                 .setParameter("search", "%" + search + "%")
                 .getResultList();
 
-        return patientList;
+
     }
 
     @Override
-    public boolean isHospitalizationDateAvailable(Date date) {
-        boolean result = true;
-        List<Patient> patientList = entityManager.createQuery("select p from Patient p where p.scheludedRegistration= :scheluded and p.hospitalizationDate = :data", Patient.class)
-                .setParameter("scheluded", true)
-                .setParameter("data", date)
+    public boolean isHospitalizationDateAvailable(Date date, Long idPatient) {
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        String value = sdf.format(date);
+        List<Object> unavailableDateList = entityManager.createQuery(
+                "select cast(p.hospitalizationDate as date) " +
+                        "from Patient p " +
+                        "where p.active= :act and p.id != :idP " +
+                        "group by cast(p.hospitalizationDate as date) having count(1)>= :counter")
+                .setParameter("act", true)
+                .setParameter("idP", idPatient)
+                .setParameter("counter", MAXIUMUM_NUMBER_OF_PATIENT_PER_DAY)
                 .getResultList();
-        if (patientList.size() >= MAXIUMUM_NUMBER_OF_PATIENT_PER_DAY) {
-            result = false;
+
+        List<String> unavailableDateListStr = new ArrayList<>();
+        for (Object s : unavailableDateList) {
+            unavailableDateListStr.add(s.toString());
         }
 
-        return result;
+        return !unavailableDateListStr.contains(value);
+
+    }
+
+    @Override
+    public List<String> getAvailableDateList(Long idPatient) {
+        List<String> list = new ArrayList<>();
+
+        String pattern = "dd.MM.yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+
+        Date dt = Calendar.getInstance().getTime();
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, 1);
+        dt = c.getTime();
+        while (list.size()<22) {
+            if (isHospitalizationDateAvailable(dt, idPatient)) {
+                list.add(sdf.format(dt));
+            }
+            c.setTime(dt);
+            c.add(Calendar.DATE, 1);
+            dt = c.getTime();
+        }
+        return list;
     }
 }
