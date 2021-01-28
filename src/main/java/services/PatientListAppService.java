@@ -5,6 +5,7 @@ import models.Patient;
 import models.PatientExtended;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.Date;
@@ -24,12 +25,14 @@ public interface PatientListAppService {
 
     void updatePatient(Patient oldData, Patient newData);
 
-    boolean isHospitalizationDateAvailable(Date data);
+    boolean isHospitalizationDateAvailable(Date data, Long idPatient);
 
-    Date hospitalizationDateCounterForScheduledRegistration(Date dataStart, int age);
+    Date hospitalizationDateCounterForScheduledRegistration(Date dataStart, int age, Long idPatient);
 
-    Date hospitalizationDateCounterForNotScheduledRegistration();
+    Date hospitalizationDateSetterForNotScheduledRegistration(HttpServletRequest req);
 
     Workbook exportListToXLS(List<PatientExtended> patientList) throws IOException, WriteException;
+
+    List <String> getAvailableDateList(Long idPatient);
 
 }

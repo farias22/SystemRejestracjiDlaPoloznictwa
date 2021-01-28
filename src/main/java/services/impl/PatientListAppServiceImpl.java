@@ -14,6 +14,8 @@ import utils.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -29,11 +31,11 @@ public class PatientListAppServiceImpl implements PatientListAppService {
 
     public PatientListAppServiceImpl(AppPatientDao appPatientDao, PatientsReportsGenerator reportsGenerator) {
         this.appPatientDao = appPatientDao;
-        this.reports=reportsGenerator;
+        this.reports = reportsGenerator;
     }
 
-    public PatientListAppServiceImpl(PatientsReportsGenerator reportsGenerator){
-        this.reports=reportsGenerator;
+    public PatientListAppServiceImpl(PatientsReportsGenerator reportsGenerator) {
+        this.reports = reportsGenerator;
     }
 
     @Override
@@ -68,51 +70,64 @@ public class PatientListAppServiceImpl implements PatientListAppService {
     }
 
     @Override
-    public boolean isHospitalizationDateAvailable(Date data) {
-        return appPatientDao.isHospitalizationDateAvailable(data);
+    public boolean isHospitalizationDateAvailable(Date data, Long idPatient) {
+        return appPatientDao.isHospitalizationDateAvailable(data, idPatient);
     }
 
-    public Date hospitalizationDateCounterForScheduledRegistration(Date dataStart, int age) {
+    public Date hospitalizationDateCounterForScheduledRegistration(Date dataStart, int age, Long idPatient) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dataStart);
         calendar.add(Calendar.WEEK_OF_MONTH, age);
         Date result = calendar.getTime();
-        boolean isHospitalizationDateAvailable = appPatientDao.isHospitalizationDateAvailable(result);
+        boolean isHospitalizationDateAvailable = appPatientDao.isHospitalizationDateAvailable(result, idPatient);
         while (!isHospitalizationDateAvailable) {
             Calendar calendar2 = Calendar.getInstance();
             calendar2.setTime(result);
             calendar2.add(Calendar.DAY_OF_MONTH, 1);
             result = calendar2.getTime();
 
-            isHospitalizationDateAvailable = appPatientDao.isHospitalizationDateAvailable(result);
+            isHospitalizationDateAvailable = appPatientDao.isHospitalizationDateAvailable(result, idPatient);
 
         }
         return result;
     }
 
-    public Date hospitalizationDateCounterForNotScheduledRegistration() {
+    public Date hospitalizationDateSetterForNotScheduledRegistration(HttpServletRequest req) {
 
-        Calendar c = Calendar.getInstance();
-        c.set(1900, Calendar.JANUARY, 1);
+        String choosenDate = req.getParameter(ServletUtils.CHOOSEN_HOSPITALIZATION_DATE);
 
-        return c.getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+
+        Date date = null;
+        try {
+            date = formatter.parse(choosenDate);
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
 
     public static void getCurrentSearchedAppUsersList(HttpServletRequest req, UsersAppService service) {
         String value = (String) req.getSession().getAttribute(ServletUtils.SEARCH_USER);
         List<AppUser> resultList = service.getSearchingResults(value);
-        if (resultList.size()==0){
+        if (resultList.size() == 0) {
             req.setAttribute(ServletUtils.NO_RESULTS_PATEMETER, "no results");
         }
 
 
-        req.getSession().setAttribute(ServletUtils.SEARCHED_USERS_LIST,resultList);
+        req.getSession().setAttribute(ServletUtils.SEARCHED_USERS_LIST, resultList);
     }
 
 
     @Override
     public Workbook exportListToXLS(List<PatientExtended> patientList) throws IOException, WriteException {
         return reports.generate(ReportsList.GENERATE_SELECTED_PATIENT_LIST, patientList);
+    }
+
+    @Override
+    public List<String> getAvailableDateList(Long idPatient) {
+        return appPatientDao.getAvailableDateList(idPatient);
     }
 }

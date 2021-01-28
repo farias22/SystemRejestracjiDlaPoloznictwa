@@ -29,11 +29,19 @@
     </style>
 </head>
 <script>
-    $('#foreigner').change(function(){
-        if($(this).is(':checked')) {
+    $('#foreigner').change(function () {
+        if ($(this).is(':checked')) {
             $('#pesel').attr('disabled', true)
         } else {
             $('#pesel').attr('disabled', false)
+        }
+    })
+
+    $('#scheludedRegistration').change(function () {
+        if ($(this).is(':checked')) {
+            $('#choosenHospitalizationDate').attr('disabled', true)
+        } else {
+            $('#choosenHospitalizationDate').attr('disabled', false)
         }
     })
 </script>
@@ -56,7 +64,8 @@
         <div class="form-group">
             <div class="input-group">
                 <label class="col-sm-2 col-form-label">Archiwalny</label>
-                <input name="archival" id="archival" type="checkbox" <c:if test="${editedPatient.active !=true}"> checked </c:if>>
+                <input name="archival" id="archival" type="checkbox" <c:if test="${editedPatient.active !=true}">
+                       checked </c:if>>
             </div>
         </div>
         <div class="form-group">
@@ -81,7 +90,8 @@
         <div class="form-group">
             <div class="input-group">
                 <label class="col-sm-2 col-form-label">Obcokrajowiec</label>
-                <input name="foreigner" id="foreigner" type="checkbox" <c:if test="${editedPatient.foreigner ==true}"> checked </c:if>>
+                <input name="foreigner" id="foreigner" type="checkbox" <c:if test="${editedPatient.foreigner ==true}">
+                       checked </c:if>>
             </div>
         </div>
         <div class="form-group">
@@ -90,7 +100,9 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
-                <input <c:if test="${editedPatient.foreigner !=true}"> value=${editedPatient.pesel} </c:if> name="pesel" id="pesel" class="form-control" type="text" required>
+                <input
+                <c:if test="${editedPatient.foreigner !=true}"> value=${editedPatient.pesel} </c:if> name="pesel"
+                                                                id="pesel" class="form-control" type="text" required>
             </div>
         </div>
         <div class="form-group">
@@ -105,9 +117,36 @@
         <div class="form-group">
             <div class="input-group">
                 <label class="col-sm-2 col-form-label">Termin przyjęcia wg OM?</label>
-                <input name="scheludedRegistration" type="checkbox" <c:if test="${editedPatient.scheludedRegistration ==true}"> checked </c:if>>
+                <input id="scheludedRegistration" name="scheludedRegistration" type="checkbox" <c:if
+                        test="${editedPatient.scheludedRegistration ==true}"> checked </c:if>>
             </div>
         </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <label class="col-sm-2 col-form-label">Dostępne terminy przyjęć</label>
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="height: 46px"> <i class="fa fa-user"></i> </span>
+                </div>
+                <select name="choosenHospitalizationDate" id="choosenHospitalizationDate"
+                        class="custom-select my-1 mr-sm-2">
+                    <c:if test="${availableDateList1 != null}">
+                        <c:forEach items="${availableDateList1}" var="value">
+                            <option value="${value}">${value} </option>
+                        </c:forEach>
+                    </c:if>
+
+                        <option selected value="${hospitalizationDate}"> ${hospitalizationDate}</option>
+
+                    <c:if test="${availableDateList2 != null}">
+                        <c:forEach items="${availableDateList2}" var="value">
+                            <option value="${value}">${value} </option>
+                        </c:forEach>
+                    </c:if>
+                </select>
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="input-group">
                 <label class="col-sm-2 col-form-label">Rozpoznanie</label>
@@ -124,7 +163,8 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
-                <input value="${lastPeriodDatePresentValue}" name="lastPeriodDate" class="form-control" type="date"  required>
+                <input value="${lastPeriodDatePresentValue}" name="lastPeriodDate" class="form-control" type="date"
+                       required>
             </div>
         </div>
         <div class="form-group">
@@ -137,7 +177,7 @@
 
                     <c:if test="${pregnancyAgeList1 != null}">
                         <c:forEach items="${pregnancyAgeList1}" var="value">
-                           <option value="${value}">${value} </option>
+                            <option value="${value}">${value} </option>
                         </c:forEach>
                     </c:if>
 
@@ -158,7 +198,8 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
-                <input value=${editedPatient.refferingDoctor} name="refferingDoctor" class="form-control" type="text" required>
+                <input value=${editedPatient.refferingDoctor} name="refferingDoctor" class="form-control" type="text"
+                       required>
             </div>
         </div>
         <div class="form-group">
@@ -173,22 +214,34 @@
 
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block blue" style="width: 150px; margin-right: auto; margin-left: auto"> Zapisz dane</button>
+            <button type="submit" class="btn btn-primary btn-block blue"
+                    style="width: 150px; margin-right: auto; margin-left: auto"> Zapisz dane
+            </button>
         </div>
         <div>
             <a href="back" onclick="javascript:cancelAction()" style="text-decoration: none">
-                <input class="btn btn-primary btn-block blue" style="width: 200px; margin-right: auto; margin-left: auto" type="button" value="Porzuć zmiany i wróć">
+                <input class="btn btn-primary btn-block blue"
+                       style="width: 200px; margin-right: auto; margin-left: auto" type="button"
+                       value="Porzuć zmiany i wróć">
             </a>
         </div>
     </form>
     <script>
-        const checkbox = document.querySelector("#foreigner");
-        const input = document.querySelector("#pesel");
-        const toogleInput = function (e) {
-            input.disabled = e.target.checked;
+        const checkbox1 = document.querySelector("#foreigner");
+        const input1 = document.querySelector("#pesel");
+
+        const checkbox2 = document.querySelector("#scheludedRegistration");
+        const input2 = document.querySelector("#choosenHospitalizationDate");
+        const toogleInput1 = function (e1) {
+            input1.disabled = e1.target.checked;
         };
-        toogleInput({target: checkbox});
-        checkbox.addEventListener("change", toogleInput);
+        const toogleInput2 = function (e2) {
+            input2.disabled = e2.target.checked;
+        };
+        toogleInput1({target: checkbox1});
+        checkbox1.addEventListener("change", toogleInput1);
+        toogleInput2({target: checkbox2});
+        checkbox2.addEventListener("change", toogleInput2);
     </script>
 </main>
 </body>

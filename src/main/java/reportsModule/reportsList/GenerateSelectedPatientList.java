@@ -17,7 +17,7 @@ import java.util.List;
 public class GenerateSelectedPatientList {
 
 
-    public Workbook generate(List<PatientExtended> patientList) throws IOException {
+    public Workbook generate(List<PatientExtended> patientList) {
         Workbook workbook = new XSSFWorkbook();
         generateFileData(patientList, workbook);
         return workbook;
@@ -81,7 +81,7 @@ public class GenerateSelectedPatientList {
 
             Date hospitalizationDateDate = patient.getHospitalizationDate();
             String hospitalizationDateDate2 = simpleDateFormat.format(hospitalizationDateDate);
-            row.createCell(2).setCellValue(hospitalizationDateDate2.equals("1900-01-01") ? "*" : hospitalizationDateDate2);
+            row.createCell(2).setCellValue(hospitalizationDateDate2);
 
             row.createCell(3).setCellValue(String.valueOf(patient.getPregnancyAge()));
 
