@@ -33,7 +33,8 @@
     <%@include file="header.jsp" %>
 
 </div>
-<main style="width: 90%; align-content: center; margin: 0 auto">
+<main role="main" style="width: 90%; align-content: center; margin: 0 auto">
+    <form action="patientList" method="POST">
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">Lista pacjentek</h6>
         </br>
@@ -41,7 +42,7 @@
         <a href="exportList">
             <input class="btn btn-info"
                    style="color: white; font-size: 14px"
-                   type="button" value="Eksportuj do xls">
+                   type="submit" value="Eksportuj do xls" name="generateXls">
         </a>
             <c:if test="${emptyXLSListError != null}">
                 <c:forEach items="${emptyXLSListError}" var="error">
@@ -74,14 +75,7 @@
             <c:set var="counter" value="1"/>
             <c:forEach items="${patientList}" var="patientList">
                 <tr>
-                    <td>
-                        <c:if test="${patientList.basket}">
-                            <a href="removeFromBasket?userId=${patientList.id}"><input class="btn btn-danger" style="color: white; font-size: 15px;font-weight: 900; margin-right: 5px" type="button" value="-"></a>
-                        </c:if>
-                        <c:if test="${!patientList.basket}">
-                            <a href="addToBasket?userId=${patientList.id}"><input class="btn btn-success" style="color: white; font-size: 15px;font-weight: 900; margin-right: 5px" type="button" value="+"></a>
-                        </c:if>
-                    </td>
+                    <td> <input name="check_${patientList.id}" value="${patientList.id}" type="checkbox"> </td>
                     <td>${counter}</td>
                     <td><fmt:formatDate value="${patientList.registrationDate}" pattern="yyyy-MM-dd"/></td>
                     <td><fmt:formatDate value="${patientList.hospitalizationDate}" pattern="yyyy-MM-dd"/></td>
@@ -111,9 +105,10 @@
             </c:forEach>
 
         </table>
+
     </div>
 
-
+    </form>
 </main>
 </body>
 </html>

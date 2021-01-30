@@ -4,7 +4,7 @@ import dao.AppPatientDao;
 import jxl.write.WriteException;
 import models.AppUser;
 import models.Patient;
-import models.PatientExtended;
+import models.comparators.PatientComparator;
 import org.apache.poi.ss.usermodel.Workbook;
 import reportsModule.PatientsReportsGenerator;
 import reportsModule.ReportsList;
@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -122,12 +123,27 @@ public class PatientListAppServiceImpl implements PatientListAppService {
 
 
     @Override
-    public Workbook exportListToXLS(List<PatientExtended> patientList) throws IOException, WriteException {
+    public Workbook exportListToXLS(List<Patient> patientList) throws IOException, WriteException {
+        reports = new PatientsReportsGenerator();
         return reports.generate(ReportsList.GENERATE_SELECTED_PATIENT_LIST, patientList);
     }
 
     @Override
     public List<String> getAvailableDateList(Long idPatient) {
         return appPatientDao.getAvailableDateList(idPatient);
+    }
+
+    @Override
+    public List<Patient> getpatientListByID(List<Long> idList) {
+        return appPatientDao.getpatientListByID(idList);
+    }
+
+    public static void generatePatientList(PatientListAppService patientService, HttpServletRequest req){
+        List<Patient> list =patientService.getPatientList();
+
+        Collections.sort(list, new PatientComparator());
+
+
+        req.getSession().setAttribute(ServletUtils.PATIENT_LIST, list);
     }
 }
