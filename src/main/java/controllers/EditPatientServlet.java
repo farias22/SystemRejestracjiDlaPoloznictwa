@@ -120,9 +120,9 @@ public class EditPatientServlet extends HttpServlet {
 
         if (active) {
 
-            String x = new SimpleDateFormat("yyyy-MM-dd").format(hospitalizationDate);
+            String format = new SimpleDateFormat("yyyy-MM-dd").format(hospitalizationDate);
             JOptionPane
-                    .showMessageDialog(null, "Pacjentka " + imie + " " + nazwisko + " została\nzapisana na datę " + x);
+                    .showMessageDialog(null, "Pacjentka " + imie + " " + nazwisko + " została\nzapisana na datę " + format);
         }
 
         generatePatientList(patientService, req);
