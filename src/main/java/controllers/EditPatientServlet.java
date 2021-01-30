@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -117,6 +118,12 @@ public class EditPatientServlet extends HttpServlet {
 
         patientService.updatePatient(editedPatient, patient);
 
+        if (active) {
+
+            String x = new SimpleDateFormat("yyyy-MM-dd").format(hospitalizationDate);
+            JOptionPane
+                    .showMessageDialog(null, "Pacjentka " + imie + " " + nazwisko + " została\nzapisana na datę " + x);
+        }
 
         generatePatientList(patientService, req);
 
