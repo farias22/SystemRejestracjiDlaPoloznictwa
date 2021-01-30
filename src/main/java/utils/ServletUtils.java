@@ -62,4 +62,7 @@ public class ServletUtils {
     public static final String AVAILABLE_DATE_LIST2 = "availableDateList2";
     public static final String CHOOSEN_HOSPITALIZATION_DATE = "choosenHospitalizationDate";
 
+
+    public static final String LISTAIDKOW = "listaIDKOW";
+
 }

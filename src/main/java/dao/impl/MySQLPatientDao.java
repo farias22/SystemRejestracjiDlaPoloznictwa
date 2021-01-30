@@ -54,7 +54,6 @@ public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
                 .setParameter("search", "%" + search + "%")
                 .getResultList();
 
-
     }
 
     @Override
@@ -79,6 +78,13 @@ public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
 
         return !unavailableDateListStr.contains(value);
 
+    }
+
+    @Override
+    public List<Patient> getpatientListByID(List <Long> idList) {
+        return entityManager.createQuery("select p from Patient p where p.id in :idList", Patient.class)
+                .setParameter("idList", idList)
+                .getResultList();
     }
 
     @Override

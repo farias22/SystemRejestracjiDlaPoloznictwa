@@ -2,12 +2,10 @@ package reportsModule.reportsList;
 
 
 import models.Patient;
-import models.PatientExtended;
 import models.comparators.PatientComparator;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,14 +15,14 @@ import java.util.List;
 public class GenerateSelectedPatientList {
 
 
-    public Workbook generate(List<PatientExtended> patientList) {
+    public Workbook generate(List<Patient> patientList) {
         Workbook workbook = new XSSFWorkbook();
         generateFileData(patientList, workbook);
         return workbook;
     }
 
 
-    public Sheet generateFileData(List<PatientExtended> patientList, Workbook workbook) {
+    public Sheet generateFileData(List<Patient> patientList, Workbook workbook) {
 
         Sheet s = workbook.createSheet("Lista pacjentek");
         Font headerFont = workbook.createFont();

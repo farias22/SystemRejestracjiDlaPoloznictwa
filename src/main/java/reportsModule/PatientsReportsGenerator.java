@@ -1,7 +1,7 @@
 package reportsModule;
 
 import jxl.write.WriteException;
-import models.PatientExtended;
+import models.Patient;
 import org.apache.poi.ss.usermodel.Workbook;
 import reportsModule.reportsList.GenerateSelectedPatientList;
 
@@ -11,7 +11,8 @@ import java.util.List;
 public class PatientsReportsGenerator {
 
 
-    public Workbook generate(ReportsList report, List<PatientExtended> patientList) throws IOException, WriteException {
+
+    public Workbook generate(ReportsList report, List<Patient> patientList) {
 
         switch (report){
             case GENERATE_SELECTED_PATIENT_LIST:

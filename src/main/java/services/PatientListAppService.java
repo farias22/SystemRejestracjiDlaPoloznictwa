@@ -2,11 +2,9 @@ package services;
 
 import jxl.write.WriteException;
 import models.Patient;
-import models.PatientExtended;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -31,8 +29,10 @@ public interface PatientListAppService {
 
     Date hospitalizationDateSetterForNotScheduledRegistration(HttpServletRequest req);
 
-    Workbook exportListToXLS(List<PatientExtended> patientList) throws IOException, WriteException;
+    Workbook exportListToXLS(List<Patient> patientList) throws IOException, WriteException;
 
     List <String> getAvailableDateList(Long idPatient);
+
+    List <Patient> getpatientListByID(List<Long> idList);
 
 }

@@ -24,4 +24,6 @@ public interface AppPatientDao {
 
     List<String> getAvailableDateList(Long idPatient);
 
+    List<Patient> getpatientListByID(List<Long> idList);
+
 }

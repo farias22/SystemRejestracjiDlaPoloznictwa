@@ -3,7 +3,7 @@ package controllers;
 
 import dao.impl.MySQLPatientDao;
 import models.Patient;
-import models.PatientExtended;
+import models.comparators.PatientComparator;
 import services.PatientListAppService;
 import services.impl.PatientListAppServiceImpl;
 import utils.ServletUtils;
@@ -16,10 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.List;
 
-import static models.PatientExtended.updatePatientListValue;
+import static services.impl.PatientListAppServiceImpl.generatePatientList;
 
 
 @WebServlet(name = "AddNewPatientServlet", value = "/addPatient")
@@ -104,11 +105,9 @@ public class AddNewPatientServlet extends HttpServlet {
 
         service.save(patient);
 
+        generatePatientList(service, req);
 
-        List<PatientExtended> list = updatePatientListValue(req, service);
-
-        req.getSession().setAttribute(ServletUtils.PATIENT_LIST, list);
-        req.getRequestDispatcher("patientList").forward(req, resp);
+        req.getRequestDispatcher("/patientList.jsp").forward(req, resp);
     }
 
 }

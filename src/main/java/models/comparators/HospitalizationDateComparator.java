@@ -1,11 +1,7 @@
 package models.comparators;
 
-import models.PatientExtended;
-
-import javax.xml.crypto.Data;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.Date;
 
 public class HospitalizationDateComparator {

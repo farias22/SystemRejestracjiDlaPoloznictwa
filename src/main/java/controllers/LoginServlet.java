@@ -1,10 +1,16 @@
 package controllers;
 
 
+import dao.impl.MySQLPatientDao;
 import dao.impl.MySQLUserDao;
 import error.ValidationError;
 import models.AppUser;
+import models.Patient;
+import models.comparators.PatientComparator;
+import reportsModule.PatientsReportsGenerator;
+import services.PatientListAppService;
 import services.UsersAppService;
+import services.impl.PatientListAppServiceImpl;
 import services.impl.UsersAppServiceImpl;
 import utils.ServletUtils;
 
@@ -16,15 +22,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static services.impl.PatientListAppServiceImpl.generatePatientList;
+
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login", ""})
 public class LoginServlet extends HttpServlet {
 
     private UsersAppService service;
+    private PatientListAppService patientService;
 
     @Override
     public void init() throws ServletException {
         service = new UsersAppServiceImpl(new MySQLUserDao());
+
+        patientService = new PatientListAppServiceImpl(new MySQLPatientDao());
 
 //        AppUserDao dao = new MySQLUserDao();
 //        AppUser user = AppUser.UserBuilder.getBuilder()
@@ -95,8 +106,11 @@ public class LoginServlet extends HttpServlet {
 
         boolean userIsAdmin = service.isUserIsAdmin(email);
         req.getSession().setAttribute(ServletUtils.IS_USER_IS_ADMIN, userIsAdmin);
-        req.getSession().setAttribute(ServletUtils.PATIENT_LIST, null);
-        req.getRequestDispatcher("patientList").forward(req, resp);
+
+        generatePatientList(patientService, req);
+
+
+        req.getRequestDispatcher("/patientList.jsp").forward(req, resp);
     }
 
 
