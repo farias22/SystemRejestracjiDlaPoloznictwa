@@ -10,6 +10,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static data.converter.DataParser.parseDateToStringFormatddMMyyyy;
+import static data.converter.DataParser.parseDateToStringFormatyyyMMdd;
+
 public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
 
     private final Long MAXIUMUM_NUMBER_OF_PATIENT_PER_DAY = 3L;
@@ -58,9 +61,8 @@ public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
 
     @Override
     public boolean isHospitalizationDateAvailable(Date date, Long idPatient) {
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        String value = sdf.format(date);
+
+        String value = parseDateToStringFormatyyyMMdd(date);
         List<Object> unavailableDateList = entityManager.createQuery(
                 "select cast(p.hospitalizationDate as date) " +
                         "from Patient p " +
@@ -91,9 +93,6 @@ public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
     public List<String> getAvailableDateList(Long idPatient) {
         List<String> list = new ArrayList<>();
 
-        String pattern = "dd.MM.yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-
         Date dt = Calendar.getInstance().getTime();
         Calendar c = Calendar.getInstance();
         c.setTime(dt);
@@ -101,7 +100,7 @@ public class MySQLPatientDao extends AbstractSqlDao implements AppPatientDao {
         dt = c.getTime();
         while (list.size()<22) {
             if (isHospitalizationDateAvailable(dt, idPatient)) {
-                list.add(sdf.format(dt));
+                list.add(parseDateToStringFormatddMMyyyy(dt));
             }
             c.setTime(dt);
             c.add(Calendar.DATE, 1);

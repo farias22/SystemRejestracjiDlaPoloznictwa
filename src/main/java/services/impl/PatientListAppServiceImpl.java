@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import static data.converter.DataParser.parseStringToDateFormatddMMyyyy;
+
 public class PatientListAppServiceImpl implements PatientListAppService {
 
     private AppPatientDao appPatientDao;
@@ -95,18 +97,8 @@ public class PatientListAppServiceImpl implements PatientListAppService {
 
     public Date hospitalizationDateSetterForNotScheduledRegistration(HttpServletRequest req) {
 
-        String choosenDate = req.getParameter(ServletUtils.CHOOSEN_HOSPITALIZATION_DATE);
+        return parseStringToDateFormatddMMyyyy(req.getParameter(ServletUtils.CHOOSEN_HOSPITALIZATION_DATE));
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-
-        Date date = null;
-        try {
-            date = formatter.parse(choosenDate);
-        } catch (
-                ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
     }
 
 

@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import static data.converter.DataParser.parseDateToStringFormatyyyMMdd;
+
 public class GenerateSelectedPatientList {
 
 
@@ -59,9 +61,6 @@ public class GenerateSelectedPatientList {
             cell.setCellStyle(headerCellStyle);
         }
 
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
 
         Collections.sort(patientList, new PatientComparator());
 
@@ -73,13 +72,9 @@ public class GenerateSelectedPatientList {
 
             row.createCell(0).setCellValue(String.valueOf(rowNum2));
 
-            Date registrationDate = patient.getRegistrationDate();
-            String registrationDate2 = simpleDateFormat.format(registrationDate);
-            row.createCell(1).setCellValue(registrationDate2);
+            row.createCell(1).setCellValue(parseDateToStringFormatyyyMMdd(patient.getRegistrationDate()));
 
-            Date hospitalizationDateDate = patient.getHospitalizationDate();
-            String hospitalizationDateDate2 = simpleDateFormat.format(hospitalizationDateDate);
-            row.createCell(2).setCellValue(hospitalizationDateDate2);
+            row.createCell(2).setCellValue(parseDateToStringFormatyyyMMdd(patient.getHospitalizationDate()));
 
             row.createCell(3).setCellValue(String.valueOf(patient.getPregnancyAge()));
 
@@ -93,9 +88,7 @@ public class GenerateSelectedPatientList {
 
             row.createCell(8).setCellValue(patient.getDiagnosis());
 
-            Date lastPeriodDate = patient.getLastPeriodDate();
-            String lastPeriodDate2 = simpleDateFormat.format(lastPeriodDate);
-            row.createCell(9).setCellValue(lastPeriodDate2);
+            row.createCell(9).setCellValue(parseDateToStringFormatyyyMMdd(patient.getLastPeriodDate()));
 
             row.createCell(10).setCellValue(patient.getRefferingDoctor());
 

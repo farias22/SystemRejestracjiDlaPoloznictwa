@@ -20,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static data.converter.DataParser.parseDateToStringFormatyyyMMdd;
+import static data.converter.DataParser.parseStringToDateFormatyyyMMdd;
 import static services.impl.PatientListAppServiceImpl.generatePatientList;
 
 
@@ -66,12 +68,8 @@ public class AddNewPatientServlet extends HttpServlet {
 
         String diagnosis = req.getParameter(ServletUtils.PATIENT_DIAGNOSIS);
         String lastPeriodStr = req.getParameter(ServletUtils.PATIENT_LAST_PERIOD_DATE);
-        Date lastPeriodDate = null;
-        try {
-            lastPeriodDate = new SimpleDateFormat("yyyy-MM-dd").parse(lastPeriodStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Date lastPeriodDate = parseStringToDateFormatyyyMMdd(lastPeriodStr);
+
         int pragnancyAge = Integer.valueOf(req.getParameter(ServletUtils.PATIENT_PREGNENCY_AGE));
         String refferingDoctor = req.getParameter(ServletUtils.PATIENT_REFFERING_DOCTOR);
         String prescribingDoctor = (String) req.getSession().getAttribute(ServletUtils.USER_FULL_NAME);
@@ -105,7 +103,7 @@ public class AddNewPatientServlet extends HttpServlet {
 
         patientService.save(patient);
 
-        String format = new SimpleDateFormat("yyyy-MM-dd").format(hospitalizationDate);
+        String format = parseDateToStringFormatyyyMMdd(hospitalizationDate);
         JOptionPane
                 .showMessageDialog(null, "Pacjentka "+imie+" "+nazwisko+" została\nzapisana na datę "+format);
 
