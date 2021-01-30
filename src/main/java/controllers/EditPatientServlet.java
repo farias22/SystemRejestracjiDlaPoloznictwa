@@ -4,7 +4,6 @@ package controllers;
 import dao.impl.MySQLPatientDao;
 import models.Patient;
 import models.comparators.HospitalizationDateComparator;
-import models.comparators.PatientComparator;
 import services.PatientListAppService;
 import services.impl.PatientListAppServiceImpl;
 import utils.ServletUtils;
@@ -18,7 +17,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -29,18 +27,18 @@ import static services.impl.PatientListAppServiceImpl.generatePatientList;
 public class EditPatientServlet extends HttpServlet {
 
 
-    private PatientListAppService service;
+    private PatientListAppService patientService;
     private Patient editedPatient = null;
 
     @Override
     public void init() throws ServletException {
-        service = new PatientListAppServiceImpl(new MySQLPatientDao());
+        patientService = new PatientListAppServiceImpl(new MySQLPatientDao());
 
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        editedPatient = service.getPatientById(Long.valueOf(req.getParameter(ServletUtils.PATIENT_ID)));
+        editedPatient = patientService.getPatientById(Long.valueOf(req.getParameter(ServletUtils.PATIENT_ID)));
 
 
         req.setAttribute(ServletUtils.EDITED_PATIENT, editedPatient);
@@ -92,11 +90,11 @@ public class EditPatientServlet extends HttpServlet {
         Date hospitalizationDate;
         if (scheduledRegistration) {
 
-            hospitalizationDate = service.hospitalizationDateCounterForScheduledRegistration(lastPeriodDate, pregnancyAge, editedPatient.getId());
+            hospitalizationDate = patientService.hospitalizationDateCounterForScheduledRegistration(lastPeriodDate, pregnancyAge, editedPatient.getId());
 
         } else {
 
-            hospitalizationDate = service.hospitalizationDateSetterForNotScheduledRegistration(req);
+            hospitalizationDate = patientService.hospitalizationDateSetterForNotScheduledRegistration(req);
         }
 
 
@@ -117,9 +115,10 @@ public class EditPatientServlet extends HttpServlet {
                 .isActive(active)
                 .build();
 
-        service.updatePatient(editedPatient, patient);
+        patientService.updatePatient(editedPatient, patient);
 
-        generatePatientList(service, req);
+
+        generatePatientList(patientService, req);
 
         req.getRequestDispatcher("patientList").forward(req, resp);
     }
@@ -146,7 +145,7 @@ public class EditPatientServlet extends HttpServlet {
 
     private void generateAvailableHospitalizationDate(HttpServletRequest req) {
 
-        List<String> availableDateList = service.getAvailableDateList(editedPatient.getId());
+        List<String> availableDateList = patientService.getAvailableDateList(editedPatient.getId());
         String pattern2 = "dd.MM.yyyy";
         Date hospitalizationDate = editedPatient.getHospitalizationDate();
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat(pattern2);
@@ -154,10 +153,10 @@ public class EditPatientServlet extends HttpServlet {
         List<String> before = new ArrayList<>();
         List<String> after = new ArrayList<>();
         for (String s : availableDateList) {
-            if (HospitalizationDateComparator.before(hospitalizationDate2,s)){
+            if (HospitalizationDateComparator.before(hospitalizationDate2, s)) {
                 before.add(s);
             }
-            if (HospitalizationDateComparator.after(hospitalizationDate2,s)){
+            if (HospitalizationDateComparator.after(hospitalizationDate2, s)) {
                 after.add(s);
             }
         }

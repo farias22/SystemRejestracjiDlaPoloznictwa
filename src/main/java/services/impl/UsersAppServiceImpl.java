@@ -17,19 +17,19 @@ public class UsersAppServiceImpl implements UsersAppService {
     }
 
     @Override
-    public boolean isEmailAndPasswordValid(String email, String password) {
-        Optional<AppUser> userByEmail = appUserDao.getAppUserByEmail(email);
-        if (userByEmail.isEmpty()) {
+    public boolean isLoginAndPasswordValid(String login, String password) {
+        Optional<AppUser> userByLogin = appUserDao.getAppUserByLogin(login);
+        if (userByLogin.isEmpty()) {
             return false;
         }
-        String passFromDB = userByEmail.get().getPassword();
+        String passFromDB = userByLogin.get().getPassword();
         return passFromDB.equals(password);
     }
 
     @Override
-    public boolean isEmailExsist(String email) {
-        Optional<AppUser> userByEmail = appUserDao.getAppUserByEmail(email);
-        if (userByEmail.isEmpty()) {
+    public boolean isEmailExsist(String login) {
+        Optional<AppUser> userByLogin = appUserDao.getAppUserByLogin(login);
+        if (userByLogin.isEmpty()) {
             return false;
         }
         return true;
@@ -46,8 +46,8 @@ public class UsersAppServiceImpl implements UsersAppService {
     }
 
     @Override
-    public String getUserNameFromEmail(String email) {
-        Optional<AppUser> loggedUser= appUserDao.getAppUserByEmail(email);
+    public String getUserNameFromEmail(String login) {
+        Optional<AppUser> loggedUser= appUserDao.getAppUserByLogin(login);
         if (loggedUser.isEmpty()){
             return "";
         }
@@ -55,8 +55,8 @@ public class UsersAppServiceImpl implements UsersAppService {
     }
 
     @Override
-    public boolean isUserIsAdmin(String email) {
-        Optional<AppUser> loggedUser= appUserDao.getAppUserByEmail(email);
+    public boolean isUserIsAdmin(String login) {
+        Optional<AppUser> loggedUser= appUserDao.getAppUserByLogin(login);
         if (loggedUser.isEmpty()){
             return false;
         }
@@ -64,8 +64,8 @@ public class UsersAppServiceImpl implements UsersAppService {
     }
 
     @Override
-    public boolean domainAvailable(String email) {
-        Optional<AppUser> loggedUser= appUserDao.getAppUserByEmail(email);
+    public boolean domainAvailable(String login) {
+        Optional<AppUser> loggedUser= appUserDao.getAppUserByLogin(login);
         if (loggedUser.isEmpty()){
             return true;
         }
@@ -73,8 +73,8 @@ public class UsersAppServiceImpl implements UsersAppService {
     }
 
     @Override
-    public AppUser getAppUserByEmail(String email) {
-        Optional<AppUser> loggedUser= appUserDao.getAppUserByEmail(email);
+    public AppUser getAppUserByLogin(String login) {
+        Optional<AppUser> loggedUser= appUserDao.getAppUserByLogin(login);
         if (loggedUser.isEmpty()){
             return new AppUser();
         }

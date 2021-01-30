@@ -76,11 +76,11 @@
             </div>
             <div class="form-group">
                 <div class="input-group">
-                    <label class="col-sm-2 col-form-label">e-mail</label>
+                    <label class="col-sm-2 col-form-label">login</label>
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
-                    <input value="${appUser.email}" name="email" class="form-control" type="text" required>
+                    <input value="${appUser.login}" name="login" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">
