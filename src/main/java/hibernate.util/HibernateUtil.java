@@ -86,7 +86,7 @@ public class HibernateUtil {
         Object o = manager.find(clazz, user.getId());
         if (null!=o){
             manager.remove(o);
-            user.setPassword(user.getEmail());
+            user.setPassword(user.getLogin());
             manager.persist(user);
         }
         manager.flush();

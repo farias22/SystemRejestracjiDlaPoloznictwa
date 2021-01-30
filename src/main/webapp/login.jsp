@@ -38,7 +38,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
-                    <input name="email" class="form-control" placeholder="email" autocomplete="off" type="text" required>
+                    <input name="login" class="form-control" placeholder="login" autocomplete="off" type="text" required>
                 </div>
             </div>
             <div class="form-group">

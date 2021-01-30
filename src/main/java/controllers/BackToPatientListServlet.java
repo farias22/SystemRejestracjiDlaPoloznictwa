@@ -16,18 +16,18 @@ import static services.impl.PatientListAppServiceImpl.generatePatientList;
 @WebServlet(name = "BackServlet", value = "/back")
 public class BackToPatientListServlet extends HttpServlet {
 
-    private PatientListAppService service;
+    private PatientListAppService patientService;
 
     @Override
     public void init() throws ServletException {
-        service = new PatientListAppServiceImpl(new MySQLPatientDao());
+        patientService = new PatientListAppServiceImpl(new MySQLPatientDao());
 
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        generatePatientList(service, req);
+        generatePatientList(patientService, req);
 
         req.getRequestDispatcher("/patientList").forward(req, resp);
 

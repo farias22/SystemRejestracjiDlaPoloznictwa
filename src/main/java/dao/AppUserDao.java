@@ -10,7 +10,7 @@ public interface AppUserDao {
 
     void deleteUser(AppUser user);
 
-    Optional<AppUser> getAppUserByEmail(String email);
+    Optional<AppUser> getAppUserByLogin(String login);
 
     Optional<AppUser> getAppUserById(Long id);
 

@@ -15,7 +15,7 @@ public class AppUser {
     private Long id;
     private String fistName;
     private String lastName;
-    private String email;
+    private String login;
     private String password;
     private boolean admin;
     private Date registeredSince;
@@ -45,12 +45,12 @@ public class AppUser {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -94,7 +94,7 @@ public class AppUser {
 
         private String fistName;
         private String lastName;
-        private String email;
+        private String login;
         private String password;
         private boolean admin;
 
@@ -112,8 +112,8 @@ public class AppUser {
             return this;
         }
 
-        public UserBuilder email(String email) {
-            this.email = email;
+        public UserBuilder login(String login) {
+            this.login = login;
             return this;
         }
 
@@ -132,7 +132,7 @@ public class AppUser {
             user.setRegisteredSince(new Date(System.currentTimeMillis()));
             user.setFistName(this.fistName);
             user.setLastName(this.lastName);
-            user.setEmail(this.email);
+            user.setLogin(this.login);
             user.setPassword(this.password);
             user.setAdmin(this.admin);
             return user;

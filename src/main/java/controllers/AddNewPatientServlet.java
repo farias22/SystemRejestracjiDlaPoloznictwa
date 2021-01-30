@@ -3,7 +3,6 @@ package controllers;
 
 import dao.impl.MySQLPatientDao;
 import models.Patient;
-import models.comparators.PatientComparator;
 import services.PatientListAppService;
 import services.impl.PatientListAppServiceImpl;
 import utils.ServletUtils;
@@ -27,19 +26,19 @@ import static services.impl.PatientListAppServiceImpl.generatePatientList;
 public class AddNewPatientServlet extends HttpServlet {
 
 
-    private PatientListAppService service;
+    private PatientListAppService patientService;
 
 
     @Override
     public void init() throws ServletException {
-        service = new PatientListAppServiceImpl(new MySQLPatientDao());
+        patientService = new PatientListAppServiceImpl(new MySQLPatientDao());
 
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<String> availableDateList = service.getAvailableDateList(0L);
+        List<String> availableDateList = patientService.getAvailableDateList(0L);
         req.setAttribute(ServletUtils.AVAILABLE_DATE_LIST, availableDateList);
 
 
@@ -79,10 +78,10 @@ public class AddNewPatientServlet extends HttpServlet {
 
         Date hospitalizationDate = null;
         if (scheludedRegistration) {
-            hospitalizationDate = service.hospitalizationDateCounterForScheduledRegistration(lastPeriodDate, pragnancyAge, 0L);
+            hospitalizationDate = patientService.hospitalizationDateCounterForScheduledRegistration(lastPeriodDate, pragnancyAge, 0L);
         } else {
 
-            hospitalizationDate = service.hospitalizationDateSetterForNotScheduledRegistration(req);
+            hospitalizationDate = patientService.hospitalizationDateSetterForNotScheduledRegistration(req);
         }
 
 
@@ -103,9 +102,10 @@ public class AddNewPatientServlet extends HttpServlet {
                 .isActive(true)
                 .build();
 
-        service.save(patient);
+        patientService.save(patient);
 
-        generatePatientList(service, req);
+
+        generatePatientList(patientService, req);
 
         req.getRequestDispatcher("/patientList.jsp").forward(req, resp);
     }

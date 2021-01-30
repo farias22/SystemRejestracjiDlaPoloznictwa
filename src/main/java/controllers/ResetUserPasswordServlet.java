@@ -20,11 +20,11 @@ import static services.impl.PatientListAppServiceImpl.getCurrentSearchedAppUsers
 @WebServlet(name = "ResetUserPasswordServlet", value = "/resetPassword")
 public class ResetUserPasswordServlet extends HttpServlet {
 
-    private UsersAppService service;
+    private UsersAppService usersService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        service = new UsersAppServiceImpl(new MySQLUserDao());
+        usersService = new UsersAppServiceImpl(new MySQLUserDao());
     }
 
 
@@ -32,9 +32,9 @@ public class ResetUserPasswordServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String parameter = req.getParameter(ServletUtils.USER_ID);
-        AppUser appUser = service.getAppUserById(Long.valueOf(parameter));
-        service.resetUserPassword(appUser);
-        getCurrentSearchedAppUsersList(req,service);
+        AppUser appUser = usersService.getAppUserById(Long.valueOf(parameter));
+        usersService.resetUserPassword(appUser);
+        getCurrentSearchedAppUsersList(req, usersService);
 
         req.getRequestDispatcher("searchUser").forward(req, resp);
     }

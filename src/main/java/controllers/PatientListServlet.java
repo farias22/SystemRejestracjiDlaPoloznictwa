@@ -3,6 +3,7 @@ package controllers;
 
 import dao.impl.MySQLPatientDao;
 import dao.impl.MySQLUserDao;
+import error.ValidationError;
 import jxl.write.WriteException;
 import models.Patient;
 import models.comparators.PatientComparator;
@@ -20,11 +21,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static services.impl.PatientListAppServiceImpl.generatePatientList;
 
 
 @WebServlet(name = "PatientListServlet", value = "/patientList")
@@ -58,6 +59,15 @@ public class PatientListServlet extends HttpServlet {
 
 
         if (req.getParameter("generateXls") != null) {
+
+            if (checkboxList.size() == 0) {
+                ArrayList<ValidationError> errors = new ArrayList<>();
+                ValidationError emptyList = new ValidationError(ServletUtils.EMPTY_XLS_LIST_HEADER, ServletUtils.EMPTY_XLS_LIST_MESSAGE);
+                errors.add(emptyList);
+                req.setAttribute(ServletUtils.EMPTY_XLS_LIST_ERROR, errors);
+                req.getRequestDispatcher("/patientList.jsp").forward(req, resp);
+                return;
+            }
 
             List<Patient> patientListByID = patientService.getpatientListByID(checkboxList);
             Workbook workbook;

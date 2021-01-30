@@ -1,11 +1,8 @@
 package controllers;
 
-import dao.impl.MySQLPatientDao;
 import dao.impl.MySQLUserDao;
 import models.AppUser;
-import services.PatientListAppService;
 import services.UsersAppService;
-import services.impl.PatientListAppServiceImpl;
 import services.impl.UsersAppServiceImpl;
 import utils.ServletUtils;
 
@@ -15,10 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static services.impl.PatientListAppServiceImpl.getCurrentSearchedAppUsersList;
 
@@ -26,11 +20,11 @@ import static services.impl.PatientListAppServiceImpl.getCurrentSearchedAppUsers
 @WebServlet(name = "DeleteUserServlet", value = "/deleteUser")
 public class DeleteUserServlet extends HttpServlet {
 
-    private UsersAppService service;
+    private UsersAppService usersService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        service = new UsersAppServiceImpl(new MySQLUserDao());
+        usersService = new UsersAppServiceImpl(new MySQLUserDao());
     }
 
 
@@ -38,9 +32,9 @@ public class DeleteUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String parameter = req.getParameter(ServletUtils.USER_ID);
-        AppUser appUser = service.getAppUserById(Long.valueOf(parameter));
-        service.deleteUser(appUser);
-        getCurrentSearchedAppUsersList(req,service);
+        AppUser appUser = usersService.getAppUserById(Long.valueOf(parameter));
+        usersService.deleteUser(appUser);
+        getCurrentSearchedAppUsersList(req, usersService);
 
 
         req.getRequestDispatcher("searchUser").forward(req, resp);

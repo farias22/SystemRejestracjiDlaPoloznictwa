@@ -7,21 +7,21 @@ import java.util.List;
 
 public interface UsersAppService {
 
-    boolean isEmailAndPasswordValid(String email, String password);
+    boolean isLoginAndPasswordValid(String login, String password);
 
-    boolean isEmailExsist(String email);
+    boolean isEmailExsist(String login);
 
     void addUser(AppUser appUser);
 
     void editUser(AppUser appUserOld, AppUser appUserNew);
 
-    String getUserNameFromEmail(String email);
+    String getUserNameFromEmail(String login);
 
-    boolean isUserIsAdmin(String email);
+    boolean isUserIsAdmin(String login);
 
-    boolean domainAvailable(String email);
+    boolean domainAvailable(String login);
 
-    AppUser getAppUserByEmail(String email);
+    AppUser getAppUserByLogin(String login);
 
     AppUser getAppUserById(Long id);
 

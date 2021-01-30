@@ -31,7 +31,7 @@
 <main style="width: 90%; align-content: center; margin: 0 auto">
 
     <div class="my-3 p-3 bg-white rounded box-shadow" style="width: 75%; margin-right: auto; margin-left: auto">
-        <h4 class="text-center mb-4 mt-1">Wyszukiwarka znajduje użytkownikow na podstawie Nazwiska lub e-maila</h4>
+        <h4 class="text-center mb-4 mt-1">Wyszukiwarka znajduje użytkownikow na podstawie Nazwiska lub loginu</h4>
         <hr>
         <form action="searchUser" method="POST">
             <div class="form-group">
@@ -63,7 +63,7 @@
             <td>Data wpisania do systemu</td>
             <td>Imię</td>
             <td>Nazwisko</td>
-            <td>e-mail</td>
+            <td>login</td>
             <td>Czy admin</td>
             <td>Działania</td>
         </tr>
@@ -74,7 +74,7 @@
             <td><fmt:formatDate value="${usersList.registeredSince}" pattern="yyyy-MM-dd"/></td>
             <td>${usersList.fistName}</td>
             <td>${usersList.lastName}</td>
-            <td>${usersList.email}</td>
+            <td>${usersList.login}</td>
             <td>
                 <c:if test="${usersList.admin}">TAK
                 </c:if>

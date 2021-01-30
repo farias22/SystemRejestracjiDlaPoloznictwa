@@ -5,9 +5,6 @@ import dao.impl.MySQLPatientDao;
 import dao.impl.MySQLUserDao;
 import error.ValidationError;
 import models.AppUser;
-import models.Patient;
-import models.comparators.PatientComparator;
-import reportsModule.PatientsReportsGenerator;
 import services.PatientListAppService;
 import services.UsersAppService;
 import services.impl.PatientListAppServiceImpl;
@@ -28,20 +25,20 @@ import static services.impl.PatientListAppServiceImpl.generatePatientList;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login", ""})
 public class LoginServlet extends HttpServlet {
 
-    private UsersAppService service;
+    private UsersAppService usersService;
     private PatientListAppService patientService;
 
     @Override
     public void init() throws ServletException {
-        service = new UsersAppServiceImpl(new MySQLUserDao());
+        usersService = new UsersAppServiceImpl(new MySQLUserDao());
 
         patientService = new PatientListAppServiceImpl(new MySQLPatientDao());
 
 //        AppUserDao dao = new MySQLUserDao();
 //        AppUser user = AppUser.UserBuilder.getBuilder()
-//                .fistName("admin")
-//                .lastName("admin")
-//                .email("admin")
+//                .fistName("Paweł")
+//                .lastName("Jabłonowski")
+//                .login("admin")
 //                .password("admin")
 //                .admin(true)
 //                .build();
@@ -52,12 +49,12 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String email = null;
+        String login = null;
         String password = null;
 
 
-        if (email != null && password != null) {
-            req.setAttribute(ServletUtils.USER_EMAIL, email);
+        if (login != null && password != null) {
+            req.setAttribute(ServletUtils.USER_LOGIN, login);
             req.setAttribute(ServletUtils.USER_PASSWORD, password);
             doPost(req, resp);
             return;
@@ -71,20 +68,20 @@ public class LoginServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
 
 
-        String email = req.getParameter(ServletUtils.USER_EMAIL);
+        String login = req.getParameter(ServletUtils.USER_LOGIN);
         String password = req.getParameter(ServletUtils.USER_PASSWORD);
 
 
-        if (email == null && password == null) {
-            email = (String) req.getAttribute(ServletUtils.USER_EMAIL);
+        if (login == null && password == null) {
+            login = (String) req.getAttribute(ServletUtils.USER_LOGIN);
         }
 
-        boolean credsInvalid = !service.isEmailAndPasswordValid(email, password);
+        boolean credsInvalid = !usersService.isLoginAndPasswordValid(login, password);
         if (credsInvalid) {
             ArrayList<ValidationError> errors = new ArrayList<>();
-            boolean isEmailExsist = !service.isEmailExsist(email);
+            boolean isEmailExsist = !usersService.isEmailExsist(login);
             if (isEmailExsist) {
-                ValidationError validationEmailError = new ValidationError(ServletUtils.EMAIL_ERROR_HEADER, ServletUtils.EMAIL_ERROR_MESSAGE);
+                ValidationError validationEmailError = new ValidationError(ServletUtils.LOGIN_ERROR_HEADER, ServletUtils.LOGIN_ERROR_MESSAGE);
                 errors.add(validationEmailError);
             }
             if (!isEmailExsist) {
@@ -97,14 +94,14 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        AppUser appUser = service.getAppUserByEmail(email);
+        AppUser appUser = usersService.getAppUserByLogin(login);
         req.getSession().setAttribute(ServletUtils.APP_USER, appUser);
 
 
-        String loggedUser = service.getUserNameFromEmail(email);
+        String loggedUser = usersService.getUserNameFromEmail(login);
         req.getSession().setAttribute(ServletUtils.USER_FULL_NAME, loggedUser);
 
-        boolean userIsAdmin = service.isUserIsAdmin(email);
+        boolean userIsAdmin = usersService.isUserIsAdmin(login);
         req.getSession().setAttribute(ServletUtils.IS_USER_IS_ADMIN, userIsAdmin);
 
         generatePatientList(patientService, req);
